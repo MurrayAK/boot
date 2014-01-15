@@ -107,7 +107,7 @@ SDL_Texture* renderText(const std::string &message, const std::string &fontFile,
         logSDLError(std::cout, "TTF_RenderText");
         return nullptr;
     }
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);th
     if (texture == nullptr) {
         logSDLError(std::cout, "CreateTexture");
     }
