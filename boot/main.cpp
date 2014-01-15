@@ -152,13 +152,13 @@ int main(int argc, char** argv)
         
     SDL_Event e; //Our event structure
     bool quit = false; //For tracking if we want to quit
-        vectorvec drawPoints; //Draw matrix
-        vectorint newvec(2); //for a new vector
-        vectorint mouseVec(2); //Current x,y of mouse pointer
+    vectorvec drawPoints; //Draw matrix
+    vectorint newvec(2); //for a new vector
+    vectorint mouseVec(2); //Current x,y of mouse pointer
 
-        while (!quit)
-        {
-        //Read any events that occured
+    while (!quit)
+    {
+		//Read any events that occured
         while (SDL_PollEvent(&e))
         {
             if (e.type == SDL_QUIT) quit = true;
@@ -205,11 +205,13 @@ int main(int argc, char** argv)
         std::vector< std::vector<int> >::iterator r;
         std::vector<int>::iterator c;
         std::vector<int> vector(2);
-        for (r = drawPoints.begin(); r != drawPoints.end(); r++) {
+        for (r = drawPoints.begin(); r != drawPoints.end(); r++) 
+		{
             vector.clear();
+
             for (c = r->begin(); c != r->end(); c++) vector.push_back(*c);
-            SDL_RenderDrawPoint(renderer, vector[0], vector[1]);
-            //std::cout << 'x' << vector[0] << ', y' << vector[1] << '\n';
+            
+			SDL_RenderDrawPoint(renderer, vector[0], vector[1]);
         }
 
         //Draw mouse target visualizer
