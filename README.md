@@ -1,4 +1,4 @@
-boot
+box2d test demo
 ====
 
-boot
+box2d test demo
