@@ -29,6 +29,9 @@ vectorvec pointMatrix; //Matrix for remember click point locations
 
 int drawMouseClickPoints()
 {
+	Uint8 oldR, oldG, oldB, oldA;
+	SDL_GetRenderDrawColor(renderer, &oldR, &oldG, &oldB, &oldA);
+
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
 	std::vector< std::vector<int> >::iterator r;
@@ -44,15 +47,22 @@ int drawMouseClickPoints()
 		SDL_RenderDrawPoint(renderer, vector[0], vector[1]);
 	}
 
+	SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
+
 	return 0;
 }
 
 int drawMouseAxisGuide(int x, int y)
 {
+	Uint8 oldR, oldG, oldB, oldA;
+	SDL_GetRenderDrawColor(renderer, &oldR, &oldG, &oldB, &oldA);
+
 	SDL_SetRenderDrawColor(renderer, 108, 158, 249, 255);
 	
 	SDL_RenderDrawLine(renderer, x, 0, x, SCREEN_HEIGHT);
 	SDL_RenderDrawLine(renderer, 0, y, SCREEN_WIDTH, y);
+
+	SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
 
 	return 0;
 }
@@ -145,8 +155,6 @@ int gameLoop()
 		 
 		drawMouseClickPoints();
 		drawMouseAxisGuide(events.motion.x, events.motion.y);
-
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); //Set draw color back to black
 
 		SDL_RenderPresent(renderer); //Update the screen
 	}
