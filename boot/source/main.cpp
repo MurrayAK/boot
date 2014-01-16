@@ -14,8 +14,8 @@
 typedef std::vector<int> vectorint;
 typedef std::vector< std::vector<int> > vectorvec;
 
-const char * APP_NAME = "codename \"boot\"";
-const char * APP_VERS = "0.0.0 dev";
+const char* APP_NAME = "codename \"boot\"";
+const char* APP_VERS = "0.0.0 dev";
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int SCREEN_FPS = 60;
