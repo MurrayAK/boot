@@ -25,6 +25,38 @@ SDL_Window *window;
 SDL_Renderer *renderer;
 SDL_Event events;
 
+vectorvec pointMatrix; //Matrix for remember click point locations
+
+int drawMouseClickPoints()
+{
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+    std::vector< std::vector<int> >::iterator r;
+    std::vector<int>::iterator c;
+    std::vector<int> vector(2);
+
+    for (r = pointMatrix.begin(); r != pointMatrix.end(); r++) 
+	{
+        vector.clear();
+
+        for (c = r->begin(); c != r->end(); c++) vector.push_back(*c);
+            
+		SDL_RenderDrawPoint(renderer, vector[0], vector[1]);
+    }
+
+	return 0;
+}
+
+int drawMouseAxisGuide(int x, int y)
+{
+	SDL_SetRenderDrawColor(renderer, 108, 158, 249, 255);
+	
+	SDL_RenderDrawLine(renderer, x, 0, x, SCREEN_HEIGHT);
+	SDL_RenderDrawLine(renderer, 0, y, SCREEN_WIDTH, y);
+
+	return 0;
+}
+
 int engineStart() 
 {
 	//Start up SDL and make sure it went ok
@@ -72,10 +104,8 @@ int engineStop()
 int gameLoop()
 {
 	bool quit = false;
-	vectorvec drawPoints; //Draw matrix
-    vectorint newvec(2); //for a new vector
-    vectorint mouseVec(2); //Current x,y of mouse pointer
-	
+    vectorint newvec(2); //New click point vector
+
     while (!quit)
     {
         while (SDL_PollEvent(&events))
@@ -99,46 +129,25 @@ int gameLoop()
                     case SDL_BUTTON_LEFT:
                         newvec[0] = events.button.x;
                         newvec[1] = events.button.y;
-                        drawPoints.push_back(newvec);
+                        pointMatrix.push_back(newvec);
                         break;
                     case SDL_BUTTON_RIGHT:
-                        drawPoints.clear();
+                        pointMatrix.clear();
                         break;
                     default:
                             break;
                 }
             }
-
-            //Mouse motion events
-            if (events.type == SDL_MOUSEMOTION) {
-                mouseVec[0] = events.motion.x;
-                mouseVec[1] = events.motion.y;
-            }
         }
 
         //Rendering
-        SDL_RenderClear(renderer);
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-                
-        //Draw Points
-        std::vector< std::vector<int> >::iterator r;
-        std::vector<int>::iterator c;
-        std::vector<int> vector(2);
-        for (r = drawPoints.begin(); r != drawPoints.end(); r++) 
-		{
-            vector.clear();
+        SDL_RenderClear(renderer); //Clear screen
+		 
+        drawMouseClickPoints();
+		drawMouseAxisGuide(events.motion.x, events.motion.y);
 
-            for (c = r->begin(); c != r->end(); c++) vector.push_back(*c);
-            
-			SDL_RenderDrawPoint(renderer, vector[0], vector[1]);
-        }
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); //Set draw color back to black
 
-        //Draw mouse target visualizer
-        SDL_SetRenderDrawColor(renderer, 108, 158, 249, 255);
-        SDL_RenderDrawLine(renderer, mouseVec[0], 0, mouseVec[0], SCREEN_HEIGHT);
-        SDL_RenderDrawLine(renderer, 0, mouseVec[1], SCREEN_WIDTH, mouseVec[1]);
-
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); //Set screen back to black
         SDL_RenderPresent(renderer); //Update the screen
     }
 
