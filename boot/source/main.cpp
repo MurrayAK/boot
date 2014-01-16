@@ -14,12 +14,18 @@
 typedef std::vector<int> vectorint;
 typedef std::vector< std::vector<int> > vectorvec;
 
+const char * APP_NAME = "codename \"boot\"";
+const char * APP_VERS = "0.0.0 dev";
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int SCREEN_FPS = 60;
 const int SCREEN_BPP = 32;
 
-int engineInit() 
+SDL_Window *window;
+SDL_Renderer *renderer;
+SDL_Event events;
+
+int engineStart() 
 {
 	//Start up SDL and make sure it went ok
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -39,36 +45,46 @@ int engineInit()
         return 1;
     }
 
+	//Setup our window and renderer
+    window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
+
     return 0;
 }
 
-int main(int argc, char** argv)
+int engineStop()
 {
-    engineInit();
+	//Cleanup
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
 
-    //Setup our window and renderer
-    SDL_Window *window = SDL_CreateWindow("boot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
+	//Engine shutdown
+    TTF_Quit();
+    IMG_Quit();
+    SDL_Quit();
 
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
-        
-    SDL_Event e; //Our event structure
-    bool quit = false; //For tracking if we want to quit
-    vectorvec drawPoints; //Draw matrix
+	return 0;
+}
+
+int gameLoop()
+{
+	bool quit = false;
+	vectorvec drawPoints; //Draw matrix
     vectorint newvec(2); //for a new vector
     vectorint mouseVec(2); //Current x,y of mouse pointer
 	
     while (!quit)
     {
-		//Read any events that occured
-        while (SDL_PollEvent(&e))
+        while (SDL_PollEvent(&events))
         {
-            if (e.type == SDL_QUIT) quit = true;
+            if (events.type == SDL_QUIT) quit = true;
 
             //Keyboard events
-            if (e.type == SDL_KEYDOWN) {
-                switch (e.key.keysym.sym) {
+            if (events.type == SDL_KEYDOWN) {
+                switch (events.key.keysym.sym) {
                     case SDLK_ESCAPE:
                         quit = true;
                         break;
@@ -78,11 +94,11 @@ int main(int argc, char** argv)
             }
 
             //Mouse button events
-            if (e.type == SDL_MOUSEBUTTONDOWN) {
-                switch (e.button.button) {
+            if (events.type == SDL_MOUSEBUTTONDOWN) {
+                switch (events.button.button) {
                     case SDL_BUTTON_LEFT:
-                        newvec[0] = e.button.x;
-                        newvec[1] = e.button.y;
+                        newvec[0] = events.button.x;
+                        newvec[1] = events.button.y;
                         drawPoints.push_back(newvec);
                         break;
                     case SDL_BUTTON_RIGHT:
@@ -94,9 +110,9 @@ int main(int argc, char** argv)
             }
 
             //Mouse motion events
-            if (e.type == SDL_MOUSEMOTION) {
-                mouseVec[0] = e.motion.x;
-                mouseVec[1] = e.motion.y;
+            if (events.type == SDL_MOUSEMOTION) {
+                mouseVec[0] = events.motion.x;
+                mouseVec[1] = events.motion.y;
             }
         }
 
@@ -126,13 +142,17 @@ int main(int argc, char** argv)
         SDL_RenderPresent(renderer); //Update the screen
     }
 
-    //Destroy the various items
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
 
-    TTF_Quit();
-    IMG_Quit();
-    SDL_Quit();
+	return 0;
+}
+
+int main(int argc, char** argv)
+{
+    engineStart();
+
+	gameLoop();
+
+	engineStop();
         
     return 0;
 }
