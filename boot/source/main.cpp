@@ -8,7 +8,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include <headers/log.h>
+#include <headers/debug.h>
 #include <headers/render.h>
 
 typedef std::vector<int> vectorint;
@@ -21,13 +21,7 @@ const int SCREEN_HEIGHT = 720;
 const int SCREEN_FPS = 60;
 const int SCREEN_BPP = 32;
 
-SDL_Window *window;
-SDL_Renderer *renderer;
-SDL_Event events;
-
-vectorvec pointMatrix; //Matrix for remember click point locations
-
-int drawMouseClickPoints()
+int drawMouseClickPoints(SDL_Renderer *renderer, vectorvec pointMatrix)
 {
 	Uint8 oldR, oldG, oldB, oldA;
 	SDL_GetRenderDrawColor(renderer, &oldR, &oldG, &oldB, &oldA);
@@ -52,7 +46,7 @@ int drawMouseClickPoints()
 	return 0;
 }
 
-int drawMouseAxisGuide(int x, int y)
+int drawMouseAxisGuide(SDL_Renderer *renderer, int x, int y)
 {
 	Uint8 oldR, oldG, oldB, oldA;
 	SDL_GetRenderDrawColor(renderer, &oldR, &oldG, &oldB, &oldA);
@@ -87,17 +81,10 @@ int engineStart()
 		return 1;
 	}
 
-	//Setup our window and renderer
-	window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
-
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
-
 	return 0;
 }
 
-int engineStop()
+int engineStop(SDL_Window *window, SDL_Renderer *renderer)
 {
 	//Cleanup
 	SDL_DestroyRenderer(renderer);
@@ -111,9 +98,11 @@ int engineStop()
 	return 0;
 }
 
-int gameLoop()
+int gameLoop(SDL_Renderer *renderer)
 {
 	bool quit = false;
+	SDL_Event events;
+	vectorvec pointMatrix; //Matrix for remember click point locations
 	vectorint newvec(2); //New click point vector
 
 	while (!quit)
@@ -153,12 +142,11 @@ int gameLoop()
 		//Rendering
 		SDL_RenderClear(renderer); //Clear screen
 		 
-		drawMouseClickPoints();
-		drawMouseAxisGuide(events.motion.x, events.motion.y);
+		drawMouseClickPoints(renderer, pointMatrix);
+		drawMouseAxisGuide(renderer, events.motion.x, events.motion.y);
 
 		SDL_RenderPresent(renderer); //Update the screen
 	}
-
 
 	return 0;
 }
@@ -167,9 +155,15 @@ int main(int argc, char** argv)
 {
 	engineStart();
 
-	gameLoop();
+	SDL_Window *window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
 
-	engineStop();
+	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
+
+	gameLoop(renderer);
+
+	engineStop(window, renderer);
 		
 	return 0;
 }

@@ -20,10 +20,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\headers\log.h">
+    <ClInclude Include="source\headers\render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\headers\render.h">
+    <ClInclude Include="source\headers\debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

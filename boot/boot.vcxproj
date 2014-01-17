@@ -87,7 +87,7 @@
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\headers\log.h" />
+    <ClInclude Include="source\headers\debug.h" />
     <ClInclude Include="source\headers\render.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
