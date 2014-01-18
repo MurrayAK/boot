@@ -4,6 +4,10 @@ CSettings::CSettings() {
 
 }
 
+CSettings::~CSettings() {
+
+}
+
 int CSettings::loadIni(std::string f) {
 
 	//loop through sections and through items

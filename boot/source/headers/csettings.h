@@ -8,6 +8,7 @@ class CSettings
 {
 private:
 	CSettings();
+	~CSettings();
 	/*mem table object*/
 
 public:

@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <string>
-#include <cstring>
 #include <vector>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -21,8 +20,8 @@ const char* APP_VERS = "0.0.0 dev";
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
-int engineInit() 
-{
+int engineInit() {
+
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		logSDLError(std::cout, "SDL_Init");
@@ -46,8 +45,8 @@ int engineInit()
 	return 0;
 }
 
-int engineShutdown(SDL_Window *window, SDL_Renderer *renderer)
-{
+int engineShutdown(SDL_Window *window, SDL_Renderer *renderer) {
+
 	//Cleanup
 	//TODO: wipe hash tables
 	SDL_DestroyRenderer(renderer);
@@ -61,15 +60,15 @@ int engineShutdown(SDL_Window *window, SDL_Renderer *renderer)
 	return 0;
 }
 
-int processEvents(SDL_Event events, bool *quit)
-{
-	//Keyboard events
-	if (events.type == SDL_QUIT) *quit = true;
+int processEvents(SDL_Event events, bool *pQuit) {
 
+	if (events.type == SDL_QUIT) *pQuit = true;
+
+	//Keyboard events
 	if (events.type == SDL_KEYDOWN) {
 		switch (events.key.keysym.sym) {
 			case SDLK_ESCAPE:
-				*quit = true;
+				*pQuit = true;
 				break;
 			default:
 				break;
@@ -84,22 +83,23 @@ int processEvents(SDL_Event events, bool *quit)
 			case SDL_BUTTON_RIGHT:
 				break;
 			default:
-					break;
+				break;
 		}
 	}
 
 	return 0;
 }
 
-int renderGameState(SDL_Renderer *renderer)
-{
+int renderGameState(SDL_Renderer *renderer) {
+
 	return 0;
 }
 
-int gameLoop(SDL_Renderer *renderer)
-{
-	bool quit = false;
+int gameLoop(SDL_Renderer *renderer) {
+
 	SDL_Event events;
+
+	bool quit = false;
 
 	while (!quit)
 	{
@@ -116,8 +116,8 @@ int gameLoop(SDL_Renderer *renderer)
 	return 0;
 }
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
+
 	engineInit();
 
 	SDL_Window *window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);

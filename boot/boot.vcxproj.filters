@@ -32,8 +32,5 @@
     <ClInclude Include="source\headers\csettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\headers\hashmap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
