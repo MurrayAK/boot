@@ -1,3 +1,6 @@
+#ifndef DEBUG_H
+#define DEBUG_H
+
 /**
 * Log an SDL error with some error message to the output stream of our choice
 * @param os The output stream to write the message too
@@ -6,3 +9,5 @@
 void logSDLError(std::ostream &os, const std::string &msg) {
     os << msg << " error: " << SDL_GetError() << std::endl;
 }
+
+#endif

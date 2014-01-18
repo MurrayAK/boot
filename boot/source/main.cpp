@@ -4,64 +4,24 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <vector>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <headers/debug.h>
+#include <headers/csettings.h>
 #include <headers/render.h>
 
 typedef std::vector<int> vectorint;
 typedef std::vector< std::vector<int> > vectorvec;
 
-const char* APP_NAME = "codename \"boot\"";
+const char* APP_NAME = "Project \"boot\"";
 const char* APP_VERS = "0.0.0 dev";
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
-const int SCREEN_FPS = 60;
-const int SCREEN_BPP = 32;
 
-int drawMouseClickPoints(SDL_Renderer *renderer, vectorvec pointMatrix)
-{
-	Uint8 oldR, oldG, oldB, oldA;
-	SDL_GetRenderDrawColor(renderer, &oldR, &oldG, &oldB, &oldA);
-
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-	std::vector< std::vector<int> >::iterator r;
-	std::vector<int>::iterator c;
-	std::vector<int> vector(2);
-
-	for (r = pointMatrix.begin(); r != pointMatrix.end(); r++) 
-	{
-		vector.clear();
-
-		for (c = r->begin(); c != r->end(); c++) vector.push_back(*c);
-			
-		SDL_RenderDrawPoint(renderer, vector[0], vector[1]);
-	}
-
-	SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
-
-	return 0;
-}
-
-int drawMouseAxisGuide(SDL_Renderer *renderer, int x, int y)
-{
-	Uint8 oldR, oldG, oldB, oldA;
-	SDL_GetRenderDrawColor(renderer, &oldR, &oldG, &oldB, &oldA);
-
-	SDL_SetRenderDrawColor(renderer, 108, 158, 249, 255);
-	
-	SDL_RenderDrawLine(renderer, x, 0, x, SCREEN_HEIGHT);
-	SDL_RenderDrawLine(renderer, 0, y, SCREEN_WIDTH, y);
-
-	SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
-
-	return 0;
-}
-
-int engineStart() 
+int engineInit() 
 {
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -81,12 +41,15 @@ int engineStart()
 		return 1;
 	}
 
+	//TODO: load up ini settings into hash table
+
 	return 0;
 }
 
-int engineStop(SDL_Window *window, SDL_Renderer *renderer)
+int engineShutdown(SDL_Window *window, SDL_Renderer *renderer)
 {
 	//Cleanup
+	//TODO: wipe hash tables
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 
@@ -98,53 +61,55 @@ int engineStop(SDL_Window *window, SDL_Renderer *renderer)
 	return 0;
 }
 
+int processEvents(SDL_Event events, bool *quit)
+{
+	//Keyboard events
+	if (events.type == SDL_QUIT) *quit = true;
+
+	if (events.type == SDL_KEYDOWN) {
+		switch (events.key.keysym.sym) {
+			case SDLK_ESCAPE:
+				*quit = true;
+				break;
+			default:
+				break;
+		}
+	}
+
+	//Mouse button events
+	if (events.type == SDL_MOUSEBUTTONDOWN) {
+		switch (events.button.button) {
+			case SDL_BUTTON_LEFT:
+				break;
+			case SDL_BUTTON_RIGHT:
+				break;
+			default:
+					break;
+		}
+	}
+
+	return 0;
+}
+
+int renderGameState(SDL_Renderer *renderer)
+{
+	return 0;
+}
+
 int gameLoop(SDL_Renderer *renderer)
 {
 	bool quit = false;
 	SDL_Event events;
-	vectorvec pointMatrix; //Matrix for remember click point locations
-	vectorint newvec(2); //New click point vector
 
 	while (!quit)
 	{
-		while (SDL_PollEvent(&events))
-		{
-			if (events.type == SDL_QUIT) quit = true;
-
-			//Keyboard events
-			if (events.type == SDL_KEYDOWN) {
-				switch (events.key.keysym.sym) {
-					case SDLK_ESCAPE:
-						quit = true;
-						break;
-					default:
-						break;
-				}
-			}
-
-			//Mouse button events
-			if (events.type == SDL_MOUSEBUTTONDOWN) {
-				switch (events.button.button) {
-					case SDL_BUTTON_LEFT:
-						newvec[0] = events.button.x;
-						newvec[1] = events.button.y;
-						pointMatrix.push_back(newvec);
-						break;
-					case SDL_BUTTON_RIGHT:
-						pointMatrix.clear();
-						break;
-					default:
-							break;
-				}
-			}
-		}
+		//Event handling
+		while (SDL_PollEvent(&events)) 
+			processEvents(events, &quit);
 
 		//Rendering
 		SDL_RenderClear(renderer); //Clear screen
-		 
-		drawMouseClickPoints(renderer, pointMatrix);
-		drawMouseAxisGuide(renderer, events.motion.x, events.motion.y);
-
+		renderGameState(renderer); //Render the game state
 		SDL_RenderPresent(renderer); //Update the screen
 	}
 
@@ -153,7 +118,7 @@ int gameLoop(SDL_Renderer *renderer)
 
 int main(int argc, char** argv)
 {
-	engineStart();
+	engineInit();
 
 	SDL_Window *window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
@@ -163,7 +128,7 @@ int main(int argc, char** argv)
 
 	gameLoop(renderer);
 
-	engineStop(window, renderer);
+	engineShutdown(window, renderer);
 		
 	return 0;
 }

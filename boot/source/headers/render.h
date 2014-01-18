@@ -1,3 +1,6 @@
+#ifndef RENDER_H
+#define RENDER_H
+
 /**
 * Loads an image into a texture on the rendering device
 * @param file The image file to load
@@ -88,3 +91,5 @@ SDL_Texture* renderText(const std::string &message, const std::string &fontFile,
     TTF_CloseFont(font);
     return texture;
 }
+
+#endif
