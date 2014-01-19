@@ -84,15 +84,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\cuibutton.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\csettings.cpp" />
+    <ClCompile Include="source\ui\cuibutton.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\headers\cuibutton.h" />
-    <ClInclude Include="source\headers\debug.h" />
-    <ClInclude Include="source\headers\render.h" />
-    <ClInclude Include="source\headers\csettings.h" />
+    <ClInclude Include="source\csettings.h" />
+    <ClInclude Include="source\debug.h" />
+    <ClInclude Include="source\render.h" />
+    <ClInclude Include="source\ui\cuibutton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
