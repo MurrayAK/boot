@@ -1,7 +1,7 @@
 #include <headers/cuibutton.h>
 
-CUIButton::CUIButton(SDL_Renderer *renderer, int w, int h, int x, int y) {
-
+CUIButton::CUIButton( SDL_Renderer *renderer, int x, int y, int w, int h ) 
+{
 	bRenderer = renderer;
 	bX = x;
 	bY = y;
@@ -13,16 +13,18 @@ CUIButton::~CUIButton() {
 	
 }
 
-int CUIButton::Draw() {
-
+int CUIButton::Draw() 
+{
 	SDL_Rect button = {bW, bH, bX, bY};
-	
-	SDL_SetRenderDrawColor(bRenderer, 255, 255, 255, 255);
+	Uint8 oldR, oldG, oldB, oldA;
+
+	SDL_GetRenderDrawColor(bRenderer, &oldR, &oldG, &oldB, &oldA);
+	SDL_SetRenderDrawColor(bRenderer, bColorFill.r, bColorFill.g, bColorFill.b, bColorFill.a);
 
 	SDL_RenderDrawRect(bRenderer, &button);
 	SDL_RenderFillRect(bRenderer, &button);
 
-	SDL_SetRenderDrawColor(bRenderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(bRenderer, oldR, oldG, oldB, oldA);
 
 	return 0;
 }

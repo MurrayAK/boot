@@ -23,8 +23,8 @@ const char* APP_VERS = "0.0.0 dev";
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
-int engineInit() {
-
+int engineInit() 
+{
 	// Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		logSDLError(std::cout, "SDL_Init");
@@ -48,8 +48,8 @@ int engineInit() {
 	return 0;
 }
 
-int engineShutdown(SDL_Window *window, SDL_Renderer *renderer) {
-
+int engineShutdown(SDL_Window *window, SDL_Renderer *renderer) 
+{
 	// Cleanup
 	
 	// TODO: wipe hash tables
@@ -65,8 +65,8 @@ int engineShutdown(SDL_Window *window, SDL_Renderer *renderer) {
 	return 0;
 }
 
-int processEvents(SDL_Event events, bool *pQuit) {
-
+int processEvents(SDL_Event events, bool *pQuit) 
+{
 	if (events.type == SDL_QUIT) *pQuit = true;
 
 	// Keyboard events
@@ -97,17 +97,17 @@ int processEvents(SDL_Event events, bool *pQuit) {
 	return 0;
 }
 
-int renderGameState(SDL_Renderer *renderer) {
+int renderGameState(SDL_Renderer *renderer) 
+{
+	//CUIButton btn(renderer, 220, 35, 100, 100);
 
-	CUIButton btn(renderer, 100, 100, 220, 35);
-
-	btn.Draw();
+	//btn.Draw();
 
 	return 0;
 }
 
-int gameLoop(SDL_Renderer *renderer) {
-
+int gameLoop(SDL_Renderer *renderer) 
+{
 	SDL_Event events;
 
 	bool quit = false;
@@ -127,8 +127,8 @@ int gameLoop(SDL_Renderer *renderer) {
 	return 0;
 }
 
-int main(int argc, char** argv) {
-
+int main(int argc, char** argv) 
+{
 	engineInit();
 
 	SDL_Window *window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);

@@ -8,14 +8,13 @@ class CUIButton
 {
 
 private:
-	int bX;
-	int bY;
-	int bW;
-	int bH;
 	SDL_Renderer *bRenderer;
+	int bX, bY, bW, bH;
 
 public:
-	CUIButton(SDL_Renderer *renderer, int w, int h, int x, int y);
+	SDL_Color bColorFill;
+
+	CUIButton( SDL_Renderer *renderer, int x, int y, int w, int h );
 	~CUIButton();
 
 	int Draw();
