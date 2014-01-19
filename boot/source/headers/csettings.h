@@ -6,6 +6,7 @@
 
 class CSettings
 {
+
 private:
 	CSettings();
 	~CSettings();

@@ -84,10 +84,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\cuibutton.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\csettings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\headers\cuibutton.h" />
     <ClInclude Include="source\headers\debug.h" />
     <ClInclude Include="source\headers\render.h" />
     <ClInclude Include="source\headers\csettings.h" />
