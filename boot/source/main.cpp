@@ -1,6 +1,8 @@
-// *****************************************************************************************
-// ** main.cpp
-// *****************************************************************************************
+///////////////////////////////////////////////////////////////////////
+//	
+//	main.cpp
+//	
+///////////////////////////////////////////////////////////////////////
 
 #include <iostream>
 #include <string>
@@ -22,33 +24,35 @@ const int SCREEN_HEIGHT = 720;
 
 int engineInit() {
 
-	//Start up SDL and make sure it went ok
+	// Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		logSDLError(std::cout, "SDL_Init");
 		return 1;
 	}
 
-	//Start up SDL-IMAGE and make sure it went ok
+	// Start up SDL-IMAGE and make sure it went ok
 	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG) {
 		logSDLError(std::cout, "IMG_Init");
 		return 1;
 	}
 
-	//Start up SDL-TTF and make sure it went ok
+	// Start up SDL-TTF and make sure it went ok
 	if (TTF_Init() != 0) {
 		logSDLError(std::cout, "TTF_Init");
 		return 1;
 	}
 
-	//TODO: load up ini settings into hash table
+	// TODO: load up ini settings into hash table
 
 	return 0;
 }
 
 int engineShutdown(SDL_Window *window, SDL_Renderer *renderer) {
 
-	//Cleanup
-	//TODO: wipe hash tables
+	// Cleanup
+	
+	// TODO: wipe hash tables
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 
@@ -64,8 +68,9 @@ int processEvents(SDL_Event events, bool *pQuit) {
 
 	if (events.type == SDL_QUIT) *pQuit = true;
 
-	//Keyboard events
-	if (events.type == SDL_KEYDOWN) {
+	// Keyboard events
+	if (events.type == SDL_KEYDOWN) 
+	{
 		switch (events.key.keysym.sym) {
 			case SDLK_ESCAPE:
 				*pQuit = true;
@@ -75,8 +80,9 @@ int processEvents(SDL_Event events, bool *pQuit) {
 		}
 	}
 
-	//Mouse button events
-	if (events.type == SDL_MOUSEBUTTONDOWN) {
+	// Mouse button events
+	if (events.type == SDL_MOUSEBUTTONDOWN) 
+	{
 		switch (events.button.button) {
 			case SDL_BUTTON_LEFT:
 				break;
@@ -103,14 +109,14 @@ int gameLoop(SDL_Renderer *renderer) {
 
 	while (!quit)
 	{
-		//Event handling
+		// Event handling
 		while (SDL_PollEvent(&events)) 
 			processEvents(events, &quit);
 
-		//Rendering
-		SDL_RenderClear(renderer); //Clear screen
-		renderGameState(renderer); //Render the game state
-		SDL_RenderPresent(renderer); //Update the screen
+		// Rendering
+		SDL_RenderClear(renderer); // Clear screen
+		renderGameState(renderer); // Render the game state
+		SDL_RenderPresent(renderer); // Update the screen
 	}
 
 	return 0;
