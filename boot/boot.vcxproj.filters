@@ -24,24 +24,27 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\csettings.cpp">
+    <ClCompile Include="source\settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\ui\cuibutton.cpp">
+    <ClCompile Include="source\ui\uibutton.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\csettings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\ui\cuibutton.h">
+    <ClInclude Include="source\hashmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ui\uibutton.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

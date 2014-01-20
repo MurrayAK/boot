@@ -10,10 +10,11 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include <debug.h>
-#include <render.h>
-#include <csettings.h>
-#include <ui/cuibutton.h>
+
+#include "settings.h"
+#include "debug.h"
+#include "render.h"
+#include "ui/uibutton.h"
 
 typedef std::vector<int> vectorint;
 typedef std::vector< std::vector<int> > vectorvec;
@@ -99,9 +100,9 @@ int processEvents(SDL_Event events, bool *pQuit)
 
 int renderGameState(SDL_Renderer *renderer) 
 {
-	CUIButton btn(renderer, 220, 35, 100, 100);
+	//UIButton btn(renderer, 220, 35, 100, 100);
 
-	btn.Draw();
+	//btn.Draw();
 
 	return 0;
 }
