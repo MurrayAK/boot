@@ -14,7 +14,7 @@
 #include "settings.h"
 #include "debug.h"
 #include "render.h"
-#include "ui/uibutton.h"
+#include "uibutton.h"
 
 typedef std::vector<int> vectorint;
 typedef std::vector< std::vector<int> > vectorvec;

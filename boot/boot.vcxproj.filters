@@ -13,12 +13,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\UI">
-      <UniqueIdentifier>{4b05b8cc-8d71-4eec-9d81-5a9aeb316759}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\UI">
-      <UniqueIdentifier>{a6bc6c3c-d037-4377-87b1-e5388278b838}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -27,8 +21,8 @@
     <ClCompile Include="source\settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\ui\uibutton.cpp">
-      <Filter>Source Files\UI</Filter>
+    <ClCompile Include="source\uibutton.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,8 +38,8 @@
     <ClInclude Include="source\settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\ui\uibutton.h">
-      <Filter>Header Files\UI</Filter>
+    <ClInclude Include="source\uibutton.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
