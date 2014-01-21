@@ -22,12 +22,12 @@ public:
 	~HashTable();
 	int Hash(std::string item);
 	void AddItem(std::string item, std::string value);
+	void RemoveItem(std::string item);
+	void FindValue(std::string item);
 	int NumberOfItemsInIndex(int index);
 	void PrintTable();
 	void PrintItemsInIndex(int index);
-	void FindValue(std::string item);
-	void RemoveItem(std::string item);
-
+	
 };
 
 #endif
