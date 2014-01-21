@@ -105,18 +105,6 @@ void HashTable::RemoveItem(std::string item)
 			std::cout << item << " was removed from the Hash Table\n";
 		}
 	}
-
-	switch (index)
-	{
-		case 1:
-			break;
-		
-		case 2:
-			break;
-
-		default:
-			break;
-	}
 }
 
 void HashTable::FindValue(std::string item)
