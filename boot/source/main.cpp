@@ -15,6 +15,7 @@
 #include "debug.h"
 #include "render.h"
 #include "uibutton.h"
+#include "hashtable.h"
 
 typedef std::vector<int> vectorint;
 typedef std::vector< std::vector<int> > vectorvec;
@@ -101,7 +102,6 @@ int processEvents(SDL_Event events, bool *pQuit)
 int renderGameState(SDL_Renderer *renderer) 
 {
 	//UIButton btn(renderer, 220, 35, 100, 100);
-
 	//btn.Draw();
 
 	return 0;
@@ -137,6 +137,48 @@ int main(int argc, char** argv)
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
+
+	// ////////////////////////////////////////////
+
+	//HashTable ht;
+	//std::string item = "";
+
+	//ht.AddItem("resX1", "1920");
+	//ht.AddItem("resY1", "1080");
+	//ht.AddItem("resX2", "1920");
+	//ht.AddItem("resY2", "1080");
+
+	//ht.PrintTable();
+	//ht.PrintItemsInIndex(8);
+
+	//while (item != "exit")
+	//{
+	//	std::cout << "Search for ";
+	//	std::cin >> item;
+
+	//	if (item != "exit") 
+	//	{
+	//		ht.FindValue(item);
+	//	}
+	//}
+
+	//ht.PrintTable();
+	//ht.PrintItemsInIndex(3);
+
+	//while (item != "exit")
+	//{
+	//	std::cout << "Remove ";
+	//	std::cin >> item;
+
+	//	if (item != "exit") 
+	//	{
+	//		ht.RemoveItem(item);
+	//	}
+	//}
+
+	//ht.PrintItemsInIndex(3);
+
+	// ////////////////////////////////////////////
 
 	gameLoop(renderer);
 

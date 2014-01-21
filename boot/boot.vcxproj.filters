@@ -24,6 +24,9 @@
     <ClCompile Include="source\uibutton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\hashtable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\debug.h">
@@ -32,13 +35,13 @@
     <ClInclude Include="source\render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\hashmap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\uibutton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\hashtable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
