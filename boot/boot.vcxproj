@@ -84,13 +84,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\hashtable.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\settings.cpp" />
     <ClCompile Include="source\uibutton.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\hashtable.h" />
     <ClInclude Include="source\settings.h" />
     <ClInclude Include="source\debug.h" />
     <ClInclude Include="source\render.h" />

@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -15,7 +14,6 @@
 #include "debug.h"
 #include "render.h"
 #include "uibutton.h"
-#include "hashtable.h"
 
 typedef std::vector<int> vectorint;
 typedef std::vector< std::vector<int> > vectorvec;
@@ -120,7 +118,7 @@ int gameLoop(SDL_Renderer *renderer)
 			processEvents(events, &quit);
 
 		// Rendering
-		SDL_RenderClear(renderer); // Clear screen
+		SDL_RenderClear(renderer); // Clear screenthats
 		renderGameState(renderer); // Render the game state
 		SDL_RenderPresent(renderer); // Update the screen
 	}
@@ -128,7 +126,7 @@ int gameLoop(SDL_Renderer *renderer)
 	return 0;
 }
 
-int main(int argc, char** argv) 
+int main(int argc, char **argv) 
 {
 	engineInit();
 
@@ -139,6 +137,8 @@ int main(int argc, char** argv)
 	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
 
 	// ////////////////////////////////////////////
+
+	
 
 	//HashTable ht;
 	//std::string item = "";
