@@ -2,8 +2,8 @@
 #define SETTINGS_H
 
 #include <string>
-#include <iostream>
 #include <map>
+#include <iostream>
 
 typedef std::map< const std::string, std::string > stringmap;
 
