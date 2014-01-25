@@ -140,16 +140,18 @@ int main(int argc, char **argv)
 
 	// ////////////////////////////////////////////
 	
-	stringmap EngineSettings = GameSettings["Engine"];
+	GameSettings.LoadIni("D:/test.ini");
 
-	EngineSettings["resW"] = "1920";
-	EngineSettings["resH"] = "1080";
+	stringmap EngineSettings = GameSettings["[Engine]"];
 
-	//std::cout << "Engine Settings" << std::endl;
-	//std::cout << "=============================" << std::endl;
-	std::cout << GameSettings["Engine"]["resW"] << "x" << EngineSettings["resH"] << std::endl;
-	//std::cout << "-----------------------------" << std::endl;
-	//std::cout << std::endl;
+	//std::cout << GameSettings.database.size() << std::endl;
+
+	//EngineSettings["resW"] = "1920";
+	//EngineSettings["resH"] = "1080";
+
+	//EngineSettings.
+
+	std::cout << EngineSettings["ResW"] << "x" << EngineSettings["ResH"] << std::endl;
 
 	// ////////////////////////////////////////////
 
