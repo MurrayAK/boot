@@ -11,7 +11,6 @@ class Settings {
 
 private:
 	std::map< std::string, stringmap > database;
-	//stringmap table;
 	std::string tableName;
 
 public:
@@ -19,9 +18,6 @@ public:
 	~Settings();
 	
 	stringmap &operator[](std::string tableName);
-
-	std::string getValue(std::string item);
-	bool setValue(std::string item, std::string value);
 	
 	int loadini(std::string filename);
 	int saveini(std::string filename);

@@ -15,34 +15,6 @@ stringmap &Settings::operator[](std::string tableName)
 	return this->database[this->tableName];
 }
 
-std::string Settings::getValue(std::string item) 
-{
-	if (item == "") return "";
-	if (this->tableName == "") return "";
-
-	stringmap table = this->database[this->tableName];
-	stringmap::iterator i = table.find(item);
-	
-	if (i != table.end()) 
-		return table.at(item);
-	
-	return "";
-}
-
-bool Settings::setValue(std::string item, std::string value)
-{
-	if (this->tableName == "") return false;
-
-	if (item != "" && value != "")
-	{ 
-		this->database[this->tableName][item] = value;
-
-		return true;
-	}
-	
-	return false;
-}
-
 int Settings::loadini(std::string filename) {
 
 	//loop through sections and through items

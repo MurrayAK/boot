@@ -140,14 +140,14 @@ int main(int argc, char **argv)
 
 	// ////////////////////////////////////////////
 	
-	//stringmap EngineSettings = GameSettings["Engine"];
+	stringmap EngineSettings = GameSettings["Engine"];
 
-	//EngineSettings["resW"] = "1920";
-	//EngineSettings["resH"] = "1080";
+	EngineSettings["resW"] = "1920";
+	EngineSettings["resH"] = "1080";
 
 	//std::cout << "Engine Settings" << std::endl;
 	//std::cout << "=============================" << std::endl;
-	//std::cout << GameSettings["Engine"]["resW"] << "x" << EngineSettings["resH"] << std::endl;
+	std::cout << GameSettings["Engine"]["resW"] << "x" << EngineSettings["resH"] << std::endl;
 	//std::cout << "-----------------------------" << std::endl;
 	//std::cout << std::endl;
 
