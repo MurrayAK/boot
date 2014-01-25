@@ -7,7 +7,6 @@
 #include <regex>
 #include <fstream>
 #include <iostream>
-#include <direct.h>
 
 typedef std::map< const std::string, std::string > stringmap;
 
