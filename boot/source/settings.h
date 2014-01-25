@@ -18,8 +18,8 @@ public:
 	
 	stringmap &operator[](std::string tableName);
 	
-	int loadini(std::string filename);
-	int saveini(std::string filename);
+	int LoadIni(std::string filename);
+	int SaveIni(std::string filename);
 
 };
 

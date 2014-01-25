@@ -1,21 +1,15 @@
 #include "settings.h"
 
-Settings::Settings() 
-{  
+Settings::Settings() {  }
 
-}
-
-Settings::~Settings() 
-{  
-
-}
+Settings::~Settings() {  }
 
 stringmap &Settings::operator[](std::string table)
 {
 	return this->database[table];
 }
 
-int Settings::loadini(std::string filename) {
+int Settings::LoadIni(std::string filename) {
 
 	//loop through sections and through items
 	//check user.ini, if exists grab item
@@ -25,7 +19,7 @@ int Settings::loadini(std::string filename) {
 	return 0;
 }
 
-int Settings::saveini(std::string filename) {
+int Settings::SaveIni(std::string filename) {
 
 	//loop through each section and through items in memory
 	//write section > item > value to file
