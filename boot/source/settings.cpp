@@ -10,9 +10,9 @@ Settings::~Settings()
 
 }
 
-stringmap &Settings::operator[](std::string tableName)
+stringmap &Settings::operator[](std::string table)
 {
-	return this->database[this->tableName];
+	return this->database[table];
 }
 
 int Settings::loadini(std::string filename) {
