@@ -3,23 +3,29 @@
 
 #include <string>
 #include <iostream>
-#include <unordered_map>
+#include <map>
+
+typedef std::map< const std::string, std::string > stringmap;
 
 class Settings {
 
 private:
-	Settings();
-	~Settings();
-	/*mem table object*/
+	std::map< std::string, stringmap > database;
+	stringmap table;
+	std::string tableName;
 
 public:
-	int loadIni(std::string f);
-	int saveIni(std::string f);
-	std::string getValue(std::string i);
-	std::string setValue(std::string i, std::string v);
-
-protected:
+	Settings();	
+	~Settings();
 	
+	stringmap &operator[](std::string tableName);
+
+	std::string getValue(std::string item);
+	bool setValue(std::string item, std::string value);
+	
+	int loadini(std::string filename);
+	int saveini(std::string filename);
+
 };
 
 #endif

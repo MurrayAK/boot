@@ -15,13 +15,15 @@
 #include "render.h"
 #include "uibutton.h"
 
-typedef std::vector<int> vectorint;
-typedef std::vector< std::vector<int> > vectorvec;
-
 const char* APP_NAME = "Project \"boot\"";
 const char* APP_VERS = "0.0.0 dev";
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
+
+Settings GameSettings;
+
+//typedef std::vector<int> vectorint;
+//typedef std::vector< std::vector<int> > vectorvec;
 
 int engineInit() 
 {
@@ -137,46 +139,17 @@ int main(int argc, char **argv)
 	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
 
 	// ////////////////////////////////////////////
-
 	
+	//stringmap EngineSettings = GameSettings["Engine"];
 
-	//HashTable ht;
-	//std::string item = "";
+	//EngineSettings["resW"] = "1920";
+	//EngineSettings["resH"] = "1080";
 
-	//ht.AddItem("resX1", "1920");
-	//ht.AddItem("resY1", "1080");
-	//ht.AddItem("resX2", "1920");
-	//ht.AddItem("resY2", "1080");
-
-	//ht.PrintTable();
-	//ht.PrintItemsInIndex(8);
-
-	//while (item != "exit")
-	//{
-	//	std::cout << "Search for ";
-	//	std::cin >> item;
-
-	//	if (item != "exit") 
-	//	{
-	//		ht.FindValue(item);
-	//	}
-	//}
-
-	//ht.PrintTable();
-	//ht.PrintItemsInIndex(3);
-
-	//while (item != "exit")
-	//{
-	//	std::cout << "Remove ";
-	//	std::cin >> item;
-
-	//	if (item != "exit") 
-	//	{
-	//		ht.RemoveItem(item);
-	//	}
-	//}
-
-	//ht.PrintItemsInIndex(3);
+	//std::cout << "Engine Settings" << std::endl;
+	//std::cout << "=============================" << std::endl;
+	//std::cout << GameSettings["Engine"]["resW"] << "x" << EngineSettings["resH"] << std::endl;
+	//std::cout << "-----------------------------" << std::endl;
+	//std::cout << std::endl;
 
 	// ////////////////////////////////////////////
 
