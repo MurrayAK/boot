@@ -16,7 +16,7 @@ public:
 	Settings();	
 	~Settings();
 	
-	stringmap &operator[](std::string tableName);
+	stringmap &operator[](std::string table);
 	
 	int LoadIni(std::string filename);
 	int SaveIni(std::string filename);
