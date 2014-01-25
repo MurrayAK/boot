@@ -11,7 +11,7 @@ class Settings {
 
 private:
 	std::map< std::string, stringmap > database;
-	stringmap table;
+	//stringmap table;
 	std::string tableName;
 
 public:
