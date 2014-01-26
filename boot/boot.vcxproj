@@ -10,6 +10,17 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="debug.h" />
+    <ClInclude Include="inisettings.h" />
+    <ClInclude Include="render.h" />
+    <ClInclude Include="uibutton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="inisettings.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="uibutton.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{739EF9E8-D349-41C9-BC26-F80614A73DF8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -83,17 +94,6 @@
       <AdditionalLibraryDirectories>D:\Development\Languages\C++\SDL2-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\settings.cpp" />
-    <ClCompile Include="source\uibutton.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="source\settings.h" />
-    <ClInclude Include="source\debug.h" />
-    <ClInclude Include="source\render.h" />
-    <ClInclude Include="source\uibutton.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
