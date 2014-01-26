@@ -141,10 +141,7 @@ int main(int argc, char **argv)
 	// ////////////////////////////////////////////
 		
 	StringMap EngineSettings = Settings["Engine"];
-
-	//EngineSettings["ResW"] = "1920";
-	//EngineSettings["ResH"] = "1080";
-
+	
 	std::cout << EngineSettings["ResW"] << "x" << EngineSettings["ResH"] << std::endl;
 
 	// ////////////////////////////////////////////

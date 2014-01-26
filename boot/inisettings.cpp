@@ -5,7 +5,7 @@ IniSettings::IniSettings(std::string filename) { LoadIni(filename); }
 
 IniSettings::~IniSettings() {  }
 
-StringMap &IniSettings::operator[](std::string table) { return IniSections[table]; }
+StringMap &IniSettings::operator[](std::string section) { return IniSections[section]; }
 
 // opens file with name filename
 // function tests operation and outputs filestream
@@ -15,11 +15,11 @@ std::ifstream openFile(std::string filename)
 	std::ifstream instream;
 	instream.open(filename, std::ifstream::in);
 
-	if (instream.fail()) 
-		std::cerr << "File Error: " << strerror(errno) << std::endl;
+	//if (instream.fail()) 
+	//	std::cerr << "File Error: " << strerror(errno) << std::endl;
 	
-	if (instream.is_open()) 
-		std::cout << "File "+ filename +" is open" << std::endl;
+	//if (instream.is_open()) 
+	//	std::cout << "File "+ filename +" is open" << std::endl;
 
 	return instream;
 }
@@ -65,16 +65,8 @@ int IniSettings::LoadIni(std::string filename)
 {
 	std::ifstream instream = openFile(filename);
 	std::string line, section;
-	std::vector<std::string> auxVec;
+	std::vector<std::string> item;
 	StringMap table;
-
-	// //////////////////////////////////////////////	
-	//table.clear();
-	//table["ResW"] = "1920";
-	//table["ResH"] = "1080";
-	//IniSections["[Engine]"] = table;
-	//return 0;
-	// //////////////////////////////////////////////
 	
 	while (std::getline(instream, line))
 	{
@@ -84,19 +76,16 @@ int IniSettings::LoadIni(std::string filename)
 				section = line.substr(1,(line.length() - 2));
 				table.clear();
 				IniSections[section] = table;
-				std::cout << "Section: " << section << std::endl;
 				break;
 
 			case INI_ITEM:
-				auxVec = IniFileSplitLine(line);
+				item = IniFileSplitLine(line);
 				table = IniSections[section];
-				table[auxVec[0]] = auxVec[1];
+				table[item[0]] = item[1];
 				IniSections[section] = table;
-				std::cout << auxVec[0] << '=' << auxVec[1] << '\n';
 				break;
  
 			default:
-				std::cout << "finished section?\n";
 				break;
 		}
 	}

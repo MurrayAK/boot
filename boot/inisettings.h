@@ -25,7 +25,7 @@ public
 	IniSettings(std::string filename);	
 	~IniSettings();
 	
-	StringMap &operator[](std::string table);
+	StringMap &operator[](std::string section);
 	
 	int LoadIni(std::string filename);
 	int LoadIni(std::string filename, std::string section);
