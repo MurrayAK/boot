@@ -15,7 +15,7 @@ class IniSettings {
 private:
 	enum IniLineType { INI_LINE, INI_SECTION, INI_ITEM };
 	
-	std::map< std::string, StringMap > database;
+	std::map< std::string, StringMap > IniSections;
 
 	IniLineType IniSettings::IniFileCheckLine(std::string line);
 	std::vector<std::string> IniSettings::IniFileSplitLine(std::string line);

@@ -5,7 +5,7 @@ IniSettings::IniSettings(std::string filename) { LoadIni(filename); }
 
 IniSettings::~IniSettings() {  }
 
-StringMap &IniSettings::operator[](std::string table) { return database[table]; }
+StringMap &IniSettings::operator[](std::string table) { return IniSections[table]; }
 
 // opens file with name filename
 // function tests operation and outputs filestream
@@ -64,7 +64,7 @@ std::vector<std::string> IniSettings::IniFileSplitLine(std::string line)
 int IniSettings::LoadIni(std::string filename) 
 {
 	std::ifstream instream = openFile(filename);
-	std::string line, section, item, value;
+	std::string line, section;
 	std::vector<std::string> auxVec;
 	StringMap table;
 
@@ -72,7 +72,7 @@ int IniSettings::LoadIni(std::string filename)
 	//table.clear();
 	//table["ResW"] = "1920";
 	//table["ResH"] = "1080";
-	//database["[Engine]"] = table;
+	//IniSections["[Engine]"] = table;
 	//return 0;
 	// //////////////////////////////////////////////
 	
@@ -83,16 +83,15 @@ int IniSettings::LoadIni(std::string filename)
 			case INI_SECTION:
 				section = line.substr(1,(line.length() - 2));
 				table.clear();
-				database[section] = table;
+				IniSections[section] = table;
 				std::cout << "Section: " << section << std::endl;
 				break;
 
 			case INI_ITEM:
 				auxVec = IniFileSplitLine(line);
-
-				table = database[section];
+				table = IniSections[section];
 				table[auxVec[0]] = auxVec[1];
-
+				IniSections[section] = table;
 				std::cout << auxVec[0] << '=' << auxVec[1] << '\n';
 				break;
  
