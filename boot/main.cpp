@@ -131,20 +131,18 @@ int gameLoop(SDL_Renderer *renderer)
 int main(int argc, char **argv) 
 {
 	engineInit();
+	
+	StringMap EngineSettings = Settings["Engine"];
+	int ResW, ResH;
 
-	SDL_Window *window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	ResW = std::stoi(EngineSettings["ResW"]);
+	ResH = std::stoi(EngineSettings["ResH"]);
+
+	SDL_Window *window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ResW, ResH, SDL_WINDOW_SHOWN);
 	if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
-
-	// ////////////////////////////////////////////
-		
-	StringMap EngineSettings = Settings["Engine"];
-	
-	std::cout << EngineSettings["ResW"] << "x" << EngineSettings["ResH"] << std::endl;
-
-	// ////////////////////////////////////////////
 
 	gameLoop(renderer);
 
