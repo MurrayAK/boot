@@ -13,7 +13,7 @@ typedef std::map< const std::string, std::string > StringMap;
 class SettingsIni {
 
 private:
-	enum IniLineType { INI_LINE, INI_SECTION, INI_ITEM };
+	enum IniLineType { INI_NOMATCH, INI_SECTION, INI_ITEM };
 	
 	std::map< std::string, StringMap > IniSections;
 

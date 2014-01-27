@@ -38,7 +38,7 @@ SettingsIni::IniLineType SettingsIni::IniFileCheckLine(std::string line)
 	if (std::regex_match(line, b)) 
 		return INI_ITEM;
 
-	return INI_LINE;
+	return INI_NOMATCH;
 }
 
 // gets ini filename
