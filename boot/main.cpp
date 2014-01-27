@@ -17,13 +17,8 @@
 
 const char* APP_NAME = "Project \"boot\"";
 const char* APP_VERS = "0.0.0 dev";
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
 
 SettingsIni Settings("config\\settings.ini");
-
-//typedef std::vector<int> vectorint;
-//typedef std::vector< std::vector<int> > vectorvec;
 
 int engineInit() 
 {

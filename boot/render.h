@@ -7,9 +7,12 @@
 * @param ren The renderer to load the texture onto
 * @return the loaded texture, or nullptr if something went wrong.
 */
-SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren) {
+SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren) 
+{
     SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
+
     if (texture == nullptr) logSDLError(std::cout, "LoadTexture");
+
     return texture;
 }
 
@@ -22,8 +25,10 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren) {
 * @param clip The sub-section of the texture to draw (clipping rect)
 *                default of nullptr draws the entire texture
 */
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, SDL_Rect dst,
-    SDL_Rect *clip = nullptr)
+void renderTexture(SDL_Texture *tex, 
+				   SDL_Renderer *ren, 
+				   SDL_Rect dst,
+ 				   SDL_Rect *clip = nullptr)
 {
     SDL_RenderCopy(ren, tex, clip, &dst);
 }
@@ -40,12 +45,15 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, SDL_Rect dst,
 * @param clip The sub-section of the texture to draw (clipping rect)
 *                default of nullptr draws the entire texture
 */
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y,
-    SDL_Rect *clip = nullptr)
+void renderTexture(SDL_Texture *tex, 
+				   SDL_Renderer *ren, 
+				   int x, int y,
+				   SDL_Rect *clip = nullptr)
 {
     SDL_Rect dst;
     dst.x = x;
     dst.y = y;
+
     if (clip != nullptr) {
         dst.w = clip->w;
         dst.h = clip->h;
@@ -65,8 +73,10 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y,
 * @param renderer The renderer to load the texture in
 * @return An SDL_Texture containing the rendered message, or nullptr if something went wrong
 */
-SDL_Texture* renderText(const std::string &message, const std::string &fontFile,
-    SDL_Color color, int fontSize, SDL_Renderer *renderer)
+SDL_Texture* renderText(const std::string &message, 
+						const std::string &fontFile,
+						SDL_Color color, int fontSize, 
+						SDL_Renderer *renderer)
 {
     //Open the font
     TTF_Font *font = TTF_OpenFont(fontFile.c_str(), fontSize);
