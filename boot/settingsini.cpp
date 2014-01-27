@@ -1,11 +1,11 @@
-#include "IniSettings.h"
+#include "SettingsIni.h"
 
-IniSettings::IniSettings() {  }
-IniSettings::IniSettings(std::string filename) { LoadIni(filename); }
+SettingsIni::SettingsIni() {  }
+SettingsIni::SettingsIni(std::string filename) { LoadIni(filename); }
 
-IniSettings::~IniSettings() {  }
+SettingsIni::~SettingsIni() {  }
 
-StringMap &IniSettings::operator[](std::string section) { return IniSections[section]; }
+StringMap &SettingsIni::operator[](std::string section) { return IniSections[section]; }
 
 // opens file with name filename
 // function tests operation and outputs filestream
@@ -27,7 +27,7 @@ std::ifstream openFile(std::string filename)
 // indentifies if line refers to a section or key value pair or newline
 // function receives line and outputs 1 or 2 or 0 respectively
 // 
-IniSettings::IniLineType IniSettings::IniFileCheckLine(std::string line) 
+SettingsIni::IniLineType SettingsIni::IniFileCheckLine(std::string line) 
 {
 	std::regex a ("^\\[[a-zA-Z]+\\.?[a-zA-Z]+\\]+");
 	std::regex b (".*=.*");
@@ -44,7 +44,7 @@ IniSettings::IniLineType IniSettings::IniFileCheckLine(std::string line)
 // gets ini filename
 // function receives filename and outputs file contents to hashtable
 //
-std::vector<std::string> IniSettings::IniFileSplitLine(std::string line) 
+std::vector<std::string> SettingsIni::IniFileSplitLine(std::string line) 
 {
 	char *s = new char[line.length() + 1];
 	std::strcpy(s, line.c_str());
@@ -61,7 +61,7 @@ std::vector<std::string> IniSettings::IniFileSplitLine(std::string line)
 	return auxVec;
 }
 
-int IniSettings::LoadIni(std::string filename) 
+int SettingsIni::LoadIni(std::string filename) 
 {
 	std::ifstream instream = openFile(filename);
 	std::string line, section;
@@ -98,7 +98,7 @@ int IniSettings::LoadIni(std::string filename)
 // gets section from ini file with filename
 // function receives filename and section to look in file for and outputs hashtable(section)
 //
-int IniSettings::LoadIni(std::string filename, std::string section) 
+int SettingsIni::LoadIni(std::string filename, std::string section) 
 {
 	std::ifstream instream = openFile(filename);
 	std::string line;
@@ -111,7 +111,7 @@ int IniSettings::LoadIni(std::string filename, std::string section)
 	return 0;
 }
 
-int IniSettings::SaveIni(std::string filename) {
+int SettingsIni::SaveIni(std::string filename) {
 
 	// loop through each section and through items in memory
 	// write section > item > value to file

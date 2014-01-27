@@ -1,5 +1,5 @@
-#ifndef IniSettings_H
-#define IniSettings_H
+#ifndef SettingsIni_H
+#define SettingsIni_H
 
 #include <string>
 #include <map>
@@ -10,20 +10,20 @@
 
 typedef std::map< const std::string, std::string > StringMap;
 
-class IniSettings {
+class SettingsIni {
 
 private:
 	enum IniLineType { INI_LINE, INI_SECTION, INI_ITEM };
 	
 	std::map< std::string, StringMap > IniSections;
 
-	IniLineType IniSettings::IniFileCheckLine(std::string line);
-	std::vector<std::string> IniSettings::IniFileSplitLine(std::string line);
+	IniLineType SettingsIni::IniFileCheckLine(std::string line);
+	std::vector<std::string> SettingsIni::IniFileSplitLine(std::string line);
 
 public
-	:IniSettings();	
-	IniSettings(std::string filename);	
-	~IniSettings();
+	:SettingsIni();	
+	SettingsIni(std::string filename);	
+	~SettingsIni();
 	
 	StringMap &operator[](std::string section);
 	

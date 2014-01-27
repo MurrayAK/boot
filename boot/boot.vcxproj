@@ -12,12 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h" />
-    <ClInclude Include="inisettings.h" />
+    <ClInclude Include="settingsini.h" />
     <ClInclude Include="render.h" />
     <ClInclude Include="uibutton.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="inisettings.cpp" />
+    <ClCompile Include="settingsini.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="uibutton.cpp" />
   </ItemGroup>
@@ -64,7 +64,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\PC\boot\boot\source;D:\Development\Languages\C++\SDL2-2.0.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Development\Languages\C++\SDL2-2.0.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(SolutionDir)Debug\$(ProjectName)\</AssemblerListingLocation>
       <ObjectFileName>$(SolutionDir)Debug\$(ProjectName)\</ObjectFileName>
       <XMLDocumentationFileName>$(SolutionDir)Debug\$(ProjectName)\</XMLDocumentationFileName>

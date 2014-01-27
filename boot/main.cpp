@@ -10,7 +10,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#include "inisettings.h"
+#include "settingsini.h"
 #include "debug.h"
 #include "render.h"
 #include "uibutton.h"
@@ -20,7 +20,7 @@ const char* APP_VERS = "0.0.0 dev";
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
-IniSettings Settings("config\\settings.ini");
+SettingsIni Settings("config\\settings.ini");
 
 //typedef std::vector<int> vectorint;
 //typedef std::vector< std::vector<int> > vectorvec;
@@ -120,7 +120,7 @@ int gameLoop(SDL_Renderer *renderer)
 			processEvents(events, &quit);
 
 		// Rendering
-		SDL_RenderClear(renderer); // Clear screenthats
+		SDL_RenderClear(renderer); // Clear screen
 		renderGameState(renderer); // Render the game state
 		SDL_RenderPresent(renderer); // Update the screen
 	}
