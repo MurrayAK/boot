@@ -143,6 +143,7 @@ ClientBin/
 *.pfx
 *.publishsettings
 node_modules/
+dlls/
 
 # RIA/Silverlight projects
 Generated_Code/

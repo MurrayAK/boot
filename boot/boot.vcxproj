@@ -65,13 +65,32 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\Projects\PC\boot\boot\source;D:\Development\Languages\C++\SDL2-2.0.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(SolutionDir)Debug\$(ProjectName)\</AssemblerListingLocation>
+      <ObjectFileName>$(SolutionDir)Debug\$(ProjectName)\</ObjectFileName>
+      <XMLDocumentationFileName>$(SolutionDir)Debug\$(ProjectName)\</XMLDocumentationFileName>
+      <ProgramDataBaseFileName>$(SolutionDir)Debug\$(ProjectName)\vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <BrowseInformationFile>$(SolutionDir)Debug\$(ProjectName)\</BrowseInformationFile>
+      <PrecompiledHeaderOutputFile>$(SolutionDir)Debug\$(ProjectName)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\Development\Languages\C++\SDL2-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ManifestFile>$(SolutionDir)Debug\$(ProjectName)\$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
     </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)Debug\$(ProjectName)\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <Manifest>
+      <OutputManifestFile>$(SolutionDir)Debug\$(ProjectName)\$(TargetName)$(TargetExt).embed.manifest</OutputManifestFile>
+    </Manifest>
+    <ManifestResourceCompile>
+      <ResourceOutputFileName>$(SolutionDir)Debug\$(ProjectName)\$(TargetName)$(TargetExt).embed.manifest.res</ResourceOutputFileName>
+    </ManifestResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)dlls\*.dll" "$(OutDir)" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
