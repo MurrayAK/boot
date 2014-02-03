@@ -24,7 +24,7 @@
     <ClInclude Include="uibutton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="settingsini.h">
+    <ClInclude Include="settingsmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClCompile Include="uibutton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="settingsini.cpp">
+    <ClCompile Include="settingsmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

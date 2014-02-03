@@ -12,12 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h" />
-    <ClInclude Include="settingsini.h" />
+    <ClInclude Include="settingsmap.h" />
     <ClInclude Include="render.h" />
     <ClInclude Include="uibutton.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="settingsini.cpp" />
+    <ClCompile Include="settingsmap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="uibutton.cpp" />
   </ItemGroup>

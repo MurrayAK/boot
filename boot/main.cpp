@@ -10,15 +10,12 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#include "settingsini.h"
-#include "debug.h"
+#include "settingsmap.h"
 #include "render.h"
 #include "uibutton.h"
+#include "debug.h"
 
-const char* APP_NAME = "Project \"boot\"";
-const char* APP_VERS = "0.0.0 dev";
-
-SettingsIni Settings("config\\settings.ini");
+SettingsMap Settings("config\\settings.ini");
 
 int engineInit() 
 {
@@ -39,8 +36,6 @@ int engineInit()
 		logSDLError(std::cout, "TTF_Init");
 		return 1;
 	}
-
-	// TODO: load up ini settings into hash table
 
 	return 0;
 }
@@ -127,11 +122,12 @@ int main(int argc, char **argv)
 {
 	engineInit();
 	
-	StringMap EngineSettings = Settings["Engine"];
-	int ResW, ResH;
-
-	ResW = std::stoi(EngineSettings["ResW"]);
-	ResH = std::stoi(EngineSettings["ResH"]);
+	Settings.SetValue("APP_NAME", "Project \"BOOT\"");
+	Settings.SetValue("APP_VERSION", "0.0.0 dev");
+	
+	const char* APP_NAME = Settings.GetValue("APP_NAME").c_str();
+	int ResW = std::stoi(Settings.GetValue("ResW", "Engine"));
+	int ResH = std::stoi(Settings.GetValue("ResH", "Engine"));
 
 	SDL_Window *window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ResW, ResH, SDL_WINDOW_SHOWN);
 	if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
