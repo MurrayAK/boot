@@ -47,14 +47,12 @@ std::string SettingsMap::GetValue(std::string item)
 */
 std::string SettingsMap::GetValue(std::string item, std::string group)
 {
-	StringMap g;
+	StringMap g = groups[group];
 	std::string v = "";
 
-	if (!groups[group].empty())
-		g = groups[group];
-
-	v = g[item];
-
+	if (groups[group][item] != "")
+		v = groups[group][item];
+	
 	return v;
 }
 

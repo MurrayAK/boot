@@ -1,5 +1,5 @@
-SETTINGS CLASS/SYSTEM
+CLASS: SettingsMap.h, SettingsMap.cpp
+==================================================
 
-store all settings in one giant memory object
-- allow settings to be marked as private and public
-- public settings are written to disk
+SaveIni() needs to support writing to specific sections to a specific file
+Add support for XML files?

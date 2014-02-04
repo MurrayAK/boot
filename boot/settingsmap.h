@@ -15,8 +15,8 @@ class SettingsMap {
 private:
 	enum IniLineType { INI_NOMATCH, INI_SECTION, INI_ITEM };
 	
-	std::map< std::string, StringMap > groups;
 	std::map< std::string, std::string > items;
+	std::map< std::string, StringMap > groups;
 
 	IniLineType SettingsMap::IniFileCheckLine(std::string line);
 	std::vector<std::string> SettingsMap::IniFileSplitLine(std::string line);
