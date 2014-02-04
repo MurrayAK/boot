@@ -10,10 +10,10 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
+#include "debug.h"
 #include "settingsmap.h"
 #include "render.h"
 #include "uibutton.h"
-#include "debug.h"
 
 SettingsMap Settings("config\\settings.ini");
 
