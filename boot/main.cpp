@@ -125,7 +125,11 @@ int main(int argc, char **argv)
 	Settings.SetValue("APP_NAME", "Project \"BOOT\"");
 	Settings.SetValue("APP_VERSION", "0.0.0 dev");
 	
-	const char* APP_NAME = Settings.GetValue("APP_NAME").c_str();
+	std::string str = Settings.GetValue("APP_NAME");
+	char* cstr = new char [str.length()+1];
+	std::strcpy (cstr, str.c_str());
+	const char* APP_NAME = cstr;
+
 	int ResW = std::stoi(Settings.GetValue("ResW", "Engine"));
 	int ResH = std::stoi(Settings.GetValue("ResH", "Engine"));
 

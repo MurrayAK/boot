@@ -20,7 +20,7 @@ SettingsMap::~SettingsMap()
 /**
 * Operator Overloads [], =
 */
-StringMap &SettingsMap::operator[](std::string group) { return groups[group]; }
+StringMap &SettingsMap::operator[](std::string group) { return groups[group].table; }
 
 //StringMap &SettingsMap::operator=(const SettingsMap& group) {}
 
@@ -35,7 +35,7 @@ std::string SettingsMap::GetValue(std::string item)
 
 	if (items[item] != "") 
 		v = items[item];
-
+	
 	return v;
 }
 
@@ -47,11 +47,13 @@ std::string SettingsMap::GetValue(std::string item)
 */
 std::string SettingsMap::GetValue(std::string item, std::string group)
 {
-	StringMap g = groups[group];
+	StringMap g;
 	std::string v = "";
 
-	if (groups[group][item] != "")
-		v = groups[group][item];
+	g = groups[group].table;
+
+	if (g[item] != "")
+		v = g[item];
 	
 	return v;
 }
@@ -65,7 +67,7 @@ std::string SettingsMap::GetValue(std::string item, std::string group)
 int SettingsMap::SetValue(std::string item, std::string value)
 {
 	items[item] = value;
-
+	
 	return 0;
 }
 
@@ -78,8 +80,8 @@ int SettingsMap::SetValue(std::string item, std::string value)
 */
 int SettingsMap::SetValue(std::string item, std::string value, std::string group)
 {
-	groups[group][item] = value;
-
+	groups[group].table[item] = value;
+	
 	return 0;
 }
 
@@ -125,7 +127,7 @@ int SettingsMap::LoadIni(std::string filename)
 	std::ifstream instream;
 	std::string line, section;
 	std::vector<std::string> item;
-	StringMap table;
+	group g;
 	
 	instream.open(filename, std::ifstream::in);
 	
@@ -135,15 +137,16 @@ int SettingsMap::LoadIni(std::string filename)
 		{
 			case INI_SECTION:
 				section = line.substr(1,(line.length() - 2));
-				table.clear();
-				groups[section] = table;
+				g.table.clear();
+				g.filename = filename;
+				groups[section] = g;
 				break;
 
 			case INI_ITEM:
 				item = IniFileSplitLine(line);
-				table = groups[section];
-				table[item[0]] = item[1];
-				groups[section] = table;
+				g.table = groups[section].table;
+				g.table[item[0]] = item[1];
+				groups[section].table = g.table;
 				break;
  
 			default:
@@ -156,10 +159,16 @@ int SettingsMap::LoadIni(std::string filename)
 	return 0;
 }
 
-int SettingsMap::SaveIni(std::string filename) {
+int SettingsMap::SaveIni() {
 
 	// loop through each group (section) in groups (sections)
 	// write section > item > value to file
+
+	std::map< std::string, group >::iterator it;
+	for (it = groups.begin(); it != groups.end(); it++)
+	{
+		std::cout << it->second.filename << std::endl;
+	}
 
 	return 0;
 }
