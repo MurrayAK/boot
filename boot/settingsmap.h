@@ -8,20 +8,22 @@
 #include <fstream>
 #include <iostream>
 
-typedef std::map< const std::string, std::string > StringMap;
-
 class SettingsMap {
 
 private:
 	enum IniLineType { INI_NOMATCH, INI_SECTION, INI_ITEM };
-	
+
+	typedef std::map< const std::string, std::string > StringMap;
+
 	struct group {
 		StringMap table;
 		std::string filename;
 	};
 
-	std::map< std::string, std::string > items;
-	std::map< std::string, group > groups;
+	typedef std::map< const std::string, group > GroupMap;
+
+	StringMap items;
+	GroupMap groups;
 
 	IniLineType SettingsMap::IniFileCheckLine(std::string line);
 	std::vector<std::string> SettingsMap::IniFileSplitLine(std::string line);
@@ -42,7 +44,9 @@ public
 	int SetValue(std::string item, std::string value, std::string group);
 
 	int LoadIni(std::string filename);
+
 	int SaveIni();
+	int SaveIni(GroupMap groups);
 
 };
 

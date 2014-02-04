@@ -20,7 +20,7 @@ SettingsMap::~SettingsMap()
 /**
 * Operator Overloads [], =
 */
-StringMap &SettingsMap::operator[](std::string group) { return groups[group].table; }
+//StringMap &SettingsMap::operator[](std::string group) { return groups[group].table; }
 
 //StringMap &SettingsMap::operator=(const SettingsMap& group) {}
 
@@ -159,16 +159,35 @@ int SettingsMap::LoadIni(std::string filename)
 	return 0;
 }
 
-int SettingsMap::SaveIni() {
-
-	// loop through each group (section) in groups (sections)
-	// write section > item > value to file
-
+int SettingsMap::SaveIni() 
+{
 	std::map< std::string, group >::iterator it;
+	std::string section, filename;
+	StringMap table;
+	StringMap::iterator itx;
+
 	for (it = groups.begin(); it != groups.end(); it++)
 	{
-		std::cout << it->second.filename << std::endl;
+		section = "[" + it->first + "]";
+		table = it->second.table;
+		filename = it->second.filename;
+
+		std::cout << section <<  " in " << filename << " (" << table.size() << " items)" << std::endl;
+
+		for (itx = table.begin(); itx != table.end(); itx++)
+		{
+			std::cout << itx->first << "=" << itx->second << std::endl;
+		}
+
+		std::cout << std::endl;
 	}
+
+	return 0;
+}
+
+int SettingsMap::SaveIni(GroupMap groups) 
+{
+	
 
 	return 0;
 }
