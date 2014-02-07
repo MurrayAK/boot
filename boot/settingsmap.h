@@ -11,42 +11,35 @@
 class SettingsMap {
 
 private:
-	enum IniLineType { INI_NOMATCH, INI_SECTION, INI_ITEM };
-
-	typedef std::map< const std::string, std::string > StringMap;
-
-	struct group {
-		StringMap table;
+	struct value {
+		std::string data;
 		std::string filename;
 	};
 
-	typedef std::map< const std::string, group > GroupMap;
+	std::map< const std::string, value > settings;
+	std::map< const std::string, int > namespaces;
+	
+	int SettingsMap::GetNamespaceID(std::string ns);
+	std::string SettingsMap::GetNamespace(int id);
+	std::vector<std::string> SettingsMap::Tokenize(std::string str, const char* delimiter);
 
-	StringMap items;
-	GroupMap groups;
+	enum IniLineType { INI_NOMATCH, INI_SECTION, INI_ITEM };
 
 	IniLineType SettingsMap::IniFileCheckLine(std::string line);
-	std::vector<std::string> SettingsMap::IniFileSplitLine(std::string line);
 
 public
 	:SettingsMap();	
-	SettingsMap(std::string filename);
 
 	~SettingsMap();
 	
-	StringMap &operator[](std::string group);
-	//StringMap &operator=(const SettingsMap& group);
-	
 	std::string GetValue(std::string item);
-	std::string GetValue(std::string item, std::string group);
 
 	int SetValue(std::string item, std::string value);
-	int SetValue(std::string item, std::string value, std::string group);
 
 	int LoadIni(std::string filename);
 
 	int SaveIni();
-	int SaveIni(GroupMap groups);
+	//int SaveIni(GroupMap groups);
 
 };
 
