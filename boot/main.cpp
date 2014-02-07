@@ -15,7 +15,7 @@
 #include "render.h"
 #include "uibutton.h"
 
-SettingsMap Settings("config\\settings.ini");
+SettingsMap Settings;
 
 int engineInit() 
 {
@@ -122,6 +122,8 @@ int main(int argc, char **argv)
 {
 	engineInit();
 	
+	Settings.LoadIni("config/settings.ini");
+
 	Settings.SetValue("APP_NAME", "Project \"BOOT\"");
 	Settings.SetValue("APP_VERSION", "0.0.0 dev");
 	
