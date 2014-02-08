@@ -185,7 +185,7 @@ int SettingsMap::LoadIni(std::string filename)
 				item = std::to_string( GetNamespaceID(section) )
 					   +":"+ 
 					   itemvec[0];
-				std::cout << itemvec[1];
+				
 				settings[item].data = itemvec[1];
 				settings[item].filename = filename;
 				break;
