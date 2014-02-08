@@ -28,7 +28,7 @@ std::string SettingsMap::GetValue(std::string str)
 
 	if (settings[item].data != "") 
 		value = settings[item].data;
-	
+
 	return value;
 }
 
@@ -42,20 +42,18 @@ int SettingsMap::SetValue(std::string str, std::string value)
 {
 	std::vector< std::string > itemParts;
 	std::string item = "";
-	int nsid = 0;
 	
 	itemParts = SplitItemString(str);
-
+		
 	if (namespaces.count( itemParts[0] ) == 0)
 		namespaces[ itemParts[0] ] = (namespaces.size() + 1);
 
 	item = std::to_string( GetNamespaceID( itemParts[0] ) )
 		   +":"+ 
 		   itemParts[1];
-
-	std::cout << item << std::endl;
 	
 	settings[item].data = value;
+	settings[item].filename = "";
 
 	return 0;
 }
@@ -141,6 +139,7 @@ SettingsMap::IniLineType SettingsMap::IniFileCheckLine(std::string line)
 {
 	std::regex a ("^\\[[a-zA-Z]+\\.?[a-zA-Z]+\\]+");
 	std::regex b (".*=.*");
+	//std::regex c ("^\;");
 
 	// TO DO: SKIP LINES THAT BEGIN WITH ;
 	//        THEY ARE COMMENTS NOT SECTIONS OR ITEMS
@@ -150,6 +149,9 @@ SettingsMap::IniLineType SettingsMap::IniFileCheckLine(std::string line)
 
 	if (std::regex_match(line, b)) 
 		return INI_ITEM;
+
+	//if (std::regex_match(line, c)) 
+	//	return INI_COMMENT;
 
 	return INI_NOMATCH;
 }
@@ -163,9 +165,8 @@ SettingsMap::IniLineType SettingsMap::IniFileCheckLine(std::string line)
 int SettingsMap::LoadIni(std::string filename) 
 {
 	std::ifstream instream;
-	std::string line, section;
-	std::vector<std::string> item;
-	//group g;
+	std::string line, section, item;
+	std::vector<std::string> itemvec;
 	
 	instream.open(filename, std::ifstream::in);
 	
@@ -175,16 +176,21 @@ int SettingsMap::LoadIni(std::string filename)
 		{
 			case INI_SECTION:
 				section = line.substr(1,(line.length() - 2));
-				//g.table.clear();
-				//g.filename = filename;
-				//groups[section] = g;
+				
+				if (namespaces.count(section) == 0)
+					namespaces[section] = (namespaces.size() + 1);
+
 				break;
 
 			case INI_ITEM:
-				item = Tokenize(line, "=");
-				//g.table = groups[section].table;
-				//g.table[item[0]] = item[1];
-				//groups[section].table = g.table;
+				itemvec = Tokenize(line, "=");
+								
+				item = std::to_string( GetNamespaceID(section) )
+					   +":"+ 
+					   itemvec[0];
+				std::cout << itemvec[1];
+				settings[item].data = itemvec[1];
+				settings[item].filename = filename;
 				break;
  
 			default:

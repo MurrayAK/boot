@@ -124,19 +124,16 @@ int main(int argc, char **argv)
 {
 	engineInit();
 	
-	//Settings.LoadIni("config/settings.ini");
-
 	Settings.SetValue("App.Title", "Project \"BOOT\"");
 	Settings.SetValue("App.Version", "0.0.0 dev");
+	
+	Settings.LoadIni("config/settings.ini");
 	
 	std::string str = Settings.GetValue("App.Title");
 	char *cstr = new char [str.length()+1];
 	std::strcpy (cstr, str.c_str());
 	const char *APP_NAME = cstr;
-
-	Settings.SetValue("Engine.Screen.Width", "1600"); // Test values, these should be read from the loaded ini, not set here
-	Settings.SetValue("Engine.Screen.Height", "900"); // Test values, these should be read from the loaded ini, not set here
-		
+			
 	int ResW = std::stoi(Settings.GetValue("Engine.Screen.Width"));
 	int ResH = std::stoi(Settings.GetValue("Engine.Screen.Height"));
 

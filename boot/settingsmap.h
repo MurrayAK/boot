@@ -11,7 +11,7 @@
 class SettingsMap {
 
 private:
-	enum IniLineType { INI_NOMATCH, INI_SECTION, INI_ITEM };
+	enum IniLineType { INI_NOMATCH, INI_SECTION, INI_ITEM, INI_COMMENT };
 	
 	std::map< const std::string, int > namespaces;
 	
