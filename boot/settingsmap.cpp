@@ -19,31 +19,20 @@ SettingsMap::~SettingsMap() { /*FREE MEMORY?*/ }
 */
 std::string SettingsMap::GetValue(std::string str)
 {
-	std::string item, value, ns = "";
-	std::vector<std::string> strParts;
-
-	strParts = Tokenize(str, ".");
+	std::vector< std::string > itemParts;
+	std::string item, value = "";
 	
-	if (strParts.size() > 1) {
-		for (std::vector<std::string>::iterator x = strParts.begin(); x < strParts.end() - 1; x++)
-		{
-			if (ns != "") ns = ns +".";
-			ns = ns + *x;
-		}
-	} else
-		ns = strParts[0];
-
-	//std::cout << ns << std::endl;
-
-	ns = GetNamespaceID(ns);
-
-	item = ns +":"+ strParts.back();
-
-	//std::cout << strParts.back() << std::endl;
-
-	if (settings[str].data != "") 
-		value = settings[str].data;
+	itemParts = SplitItemString(str);
 	
+	item = std::to_string( GetNamespaceID( itemParts[0] ) )
+		   +":"+ 
+		   itemParts[1];
+
+	if (settings[item].data != "") 
+		value = settings[item].data;
+	
+	//std::cout << item << std::endl;
+
 	return value;
 }
 
@@ -55,65 +44,76 @@ std::string SettingsMap::GetValue(std::string str)
 */
 int SettingsMap::SetValue(std::string str, std::string value)
 {
-	std::string item, ns = "";
-	std::vector<std::string> strParts;
-	strParts = Tokenize(str, ".");
+	std::vector< std::string > itemParts;
+	std::string item = "";
+	int nsid = 0;
 	
-	if (strParts.size() > 1) {
-		for (std::vector<std::string>::iterator x = strParts.begin(); x < strParts.end() - 1; x++)
-		{
-			if (ns != "") ns = ns +".";
-			ns = ns + *x;
-		}
-	} else
-		ns = strParts[0];
-	
-	item = ns +":"+ strParts.back();
-	
-	settings[str].data = value;
+	itemParts = SplitItemString(str);
 
-	if (GetNamespaceID(ns) == -1) { 
-		namespaces[ns] = namespaces.size();
-	}
+	if (namespaces.count( itemParts[0] ) == 0)
+		namespaces[ itemParts[0] ] = (namespaces.size() + 1);
+
+	item = std::to_string( GetNamespaceID( itemParts[0] ) )
+		   +":"+ 
+		   itemParts[1];
+
+	std::cout << item << std::endl;
+	
+	settings[item].data = value;
 
 	return 0;
 }
 
 int SettingsMap::GetNamespaceID(std::string ns)
 {
-	int id = -1;
+	int id = 0;
 
-	if (namespaces[ns])
+	if (std::to_string(namespaces[ns]) != "")
 		id = namespaces[ns];
 	
 	return id;
 }
 
-std::string SettingsMap::GetNamespace(int id)
+std::vector< std::string > SettingsMap::SplitItemString(std::string str)
 {
-	std::string ns = "";
-
-	//if (namespaces[id])
-	//	ns = namespaces[ns];
+	std::string ns, item = "";
+	std::vector< std::string > split;
+	std::vector< std::string > strParts = Tokenize(str, ".");
 	
-	return ns;
+	if (strParts.size() == 1)
+		ns = strParts[0];
+	else 
+	{
+		std::vector<std::string>::iterator x;
+
+		for (x = strParts.begin(); x < strParts.end() - 1; x++)
+		{
+			if (ns != "") ns = ns +".";
+			ns = ns + *x;
+		}
+	}
+
+	split.push_back(ns);
+	split.push_back( strParts.back() );
+
+	return split;
 }
 
-std::vector<std::string> SettingsMap::Tokenize(std::string str, const char* delimiter) 
+std::vector<std::string> SettingsMap::Tokenize(std::string str, const char *delimiter)
 {
 	char *s = new char[str.length() + 1];
 	std::strcpy(s, str.c_str());
-	std::vector<std::string> auxVec;
+	std::vector<std::string> vec;
 	char *p = std::strtok(s, delimiter);
 
 	while (p != 0) {
-		auxVec.push_back(p);
+		vec.push_back(p);
 		p = strtok(NULL, delimiter);
 	}
 
 	delete[] s;
 	
-	return auxVec;
+	return vec;
 }
 
 // indentifies if line refers to a section or key value pair or newline

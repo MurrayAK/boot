@@ -20,7 +20,7 @@ private:
 	std::map< const std::string, int > namespaces;
 	
 	int SettingsMap::GetNamespaceID(std::string ns);
-	std::string SettingsMap::GetNamespace(int id);
+	std::vector< std::string > SplitItemString(std::string str);
 	std::vector<std::string> SettingsMap::Tokenize(std::string str, const char* delimiter);
 
 	enum IniLineType { INI_NOMATCH, INI_SECTION, INI_ITEM };

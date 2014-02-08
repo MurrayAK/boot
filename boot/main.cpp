@@ -57,8 +57,10 @@ int engineShutdown(SDL_Window *window, SDL_Renderer *renderer)
 	return 0;
 }
 
-int processEvents(SDL_Event events, bool *pQuit) 
+int processEvents(SDL_Event *pEvents, bool *pQuit) 
 {
+	SDL_Event events = *pEvents;
+
 	if (events.type == SDL_QUIT) *pQuit = true;
 
 	// Keyboard events
@@ -107,7 +109,7 @@ int gameLoop(SDL_Renderer *renderer)
 	{
 		// Event handling
 		while (SDL_PollEvent(&events)) 
-			processEvents(events, &quit);
+			processEvents(&events, &quit);
 
 		// Rendering
 		SDL_RenderClear(renderer); // Clear screen
@@ -124,10 +126,10 @@ int main(int argc, char **argv)
 	
 	//Settings.LoadIni("config/settings.ini");
 
-	Settings.SetValue("APP_NAME", "Project \"BOOT\"");
-	Settings.SetValue("APP_VERSION", "0.0.0 dev");
+	Settings.SetValue("App.Title", "Project \"BOOT\"");
+	Settings.SetValue("App.Version", "0.0.0 dev");
 	
-	std::string str = Settings.GetValue("APP_NAME");
+	std::string str = Settings.GetValue("App.Title");
 	char *cstr = new char [str.length()+1];
 	std::strcpy (cstr, str.c_str());
 	const char *APP_NAME = cstr;
@@ -139,7 +141,7 @@ int main(int argc, char **argv)
 	int ResH = std::stoi(Settings.GetValue("Engine.Screen.Height"));
 
 	// Save Ini test
-	//Settings.SaveIni();
+	Settings.SaveIni();
 
 	SDL_Window *window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ResW, ResH, SDL_WINDOW_SHOWN);
 	if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
