@@ -134,8 +134,8 @@ int main(int argc, char **argv)
 	std::strcpy (cstr, str.c_str());
 	const char *APP_NAME = cstr;
 
-	Settings.SetValue("Engine.Screen.Width", "1600");
-	Settings.SetValue("Engine.Screen.Height", "900");
+	Settings.SetValue("Engine.Screen.Width", "1600"); // Test values, these should be read from the loaded ini, not set here
+	Settings.SetValue("Engine.Screen.Height", "900"); // Test values, these should be read from the loaded ini, not set here
 		
 	int ResW = std::stoi(Settings.GetValue("Engine.Screen.Width"));
 	int ResH = std::stoi(Settings.GetValue("Engine.Screen.Height"));
