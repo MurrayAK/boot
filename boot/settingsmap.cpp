@@ -2,8 +2,6 @@
 
 /**
 * Constructors
-* @param filename: loads in settings from a file
-* TODO: add support for additional filetypes, such as XML
 */
 SettingsMap::SettingsMap() {  }
 
@@ -14,7 +12,7 @@ SettingsMap::~SettingsMap() { /*FREE MEMORY?*/ }
 
 /**
 * GetValue
-* returns the value of the requested item from "items" 
+* returns the value of the requested item from memory
 * @param item: item value to return
 */
 std::string SettingsMap::GetValue(std::string str)
@@ -31,15 +29,13 @@ std::string SettingsMap::GetValue(std::string str)
 	if (settings[item].data != "") 
 		value = settings[item].data;
 	
-	//std::cout << item << std::endl;
-
 	return value;
 }
 
 /**
 * SetValue
-* sets the value for item in "items"
-* @param item: item to set
+* sets the value for an item in memory
+* @param str: namespace.item to set
 * @param value: value to set item too
 */
 int SettingsMap::SetValue(std::string str, std::string value)
@@ -64,6 +60,11 @@ int SettingsMap::SetValue(std::string str, std::string value)
 	return 0;
 }
 
+/**
+* GetNamespaceID
+* returns the id of the namespace-string provided from 'namespaces' table
+* @param ns: namespace to get id for
+*/
 int SettingsMap::GetNamespaceID(std::string ns)
 {
 	int id = 0;
@@ -74,6 +75,12 @@ int SettingsMap::GetNamespaceID(std::string ns)
 	return id;
 }
 
+/**
+* SplitItemString
+* splits a string into 'namespace and 'item' parts
+* if string has no . (dots) in it, it returns the item name as namespace
+* @param str: string to split
+*/
 std::vector< std::string > SettingsMap::SplitItemString(std::string str)
 {
 	std::string ns, item = "";
@@ -99,6 +106,12 @@ std::vector< std::string > SettingsMap::SplitItemString(std::string str)
 	return split;
 }
 
+/**
+* Tokenize
+* splits a string into parts baed on the provided delimiter and returns the vector
+* @param str: string to split
+* @param delimiter: the char that seperates the parts
+*/
 std::vector<std::string> SettingsMap::Tokenize(std::string str, const char *delimiter)
 {
 	char *s = new char[str.length() + 1];
@@ -116,6 +129,11 @@ std::vector<std::string> SettingsMap::Tokenize(std::string str, const char *deli
 	return vec;
 }
 
+/**
+* IniFileCheckLine
+* returns the ini line type of the specified line string
+* @param line: the ini file line to check line type of
+*/
 // indentifies if line refers to a section or key value pair or newline
 // function receives line and outputs 1 or 2 or 0 respectively
 // 
@@ -136,6 +154,12 @@ SettingsMap::IniLineType SettingsMap::IniFileCheckLine(std::string line)
 	return INI_NOMATCH;
 }
 
+/**
+* LoadIni
+* scans every line in the specified ini file and
+* loads in all the items into the correct namespaces
+* @param filename: the file path/name to load
+*/
 int SettingsMap::LoadIni(std::string filename) 
 {
 	std::ifstream instream;
@@ -173,6 +197,10 @@ int SettingsMap::LoadIni(std::string filename)
 	return 0;
 }
 
+/**
+* SaveIni
+* ** TODO ** desired functionality undetermined at this time
+*/
 int SettingsMap::SaveIni() 
 {
 	//std::map< std::string, group >::iterator it;
