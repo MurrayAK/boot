@@ -132,9 +132,6 @@ std::vector<std::string> SettingsMap::Tokenize(std::string str, const char *deli
 * returns the ini line type of the specified line string
 * @param line: the ini file line to check line type of
 */
-// indentifies if line refers to a section or key value pair or newline
-// function receives line and outputs 1 or 2 or 0 respectively
-// 
 SettingsMap::IniLineType SettingsMap::IniFileCheckLine(std::string line)
 {
 	std::regex a ("^\\[[a-zA-Z]+\\.?[a-zA-Z]+\\]+");
