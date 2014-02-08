@@ -141,7 +141,7 @@ int main(int argc, char **argv)
 	int ResH = std::stoi(Settings.GetValue("Engine.Screen.Height"));
 
 	// Save Ini test
-	Settings.SaveIni();
+	//Settings.SaveIni();
 
 	SDL_Window *window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ResW, ResH, SDL_WINDOW_SHOWN);
 	if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
