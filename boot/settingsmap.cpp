@@ -134,23 +134,33 @@ std::vector<std::string> SettingsMap::Tokenize(std::string str, const char *deli
 */
 SettingsMap::IniLineType SettingsMap::IniFileCheckLine(std::string line)
 {
-	std::regex a ("^\\[[a-zA-Z]+\\.?[a-zA-Z]+\\]+");
-	std::regex b (".*=.*");
-	//std::regex c ("^\;");
+	std::regex a ("^\\[[a-zA-Z0-9]+(\\.?[a-zA-Z0-9]+){1,3}\\]+"); // ^\\[[a-zA-Z]+\\.?[a-zA-Z]+\\]+ //^\[(\.*[a-zA-Z0-9_]+)\]$  --- ^\[[^\n]*?\.*([a-zA-Z0-9]+)\]$
+	std::regex b ("[^\\n\\=]+\\={1,1}[^\\n\\=]+");
+	std::regex c ("^\\;");
 
 	// TO DO: SKIP LINES THAT BEGIN WITH ;
 	//        THEY ARE COMMENTS NOT SECTIONS OR ITEMS
 
-	if (std::regex_match(line, a)) 
-		return INI_SECTION;
+	if (std::regex_search(line, c)) 
+		return INI_COMMENT;
 
 	if (std::regex_match(line, b)) 
 		return INI_ITEM;
 
-	//if (std::regex_match(line, c)) 
-	//	return INI_COMMENT;
+	if (std::regex_match(line, a)) 
+		return INI_SECTION;
 
 	return INI_NOMATCH;
+}
+
+int ParseFile(std::string line)
+{
+	std::tr1::cmatch results;
+	std::regex a ("^\\[(\\.[a-zA-Z0-9]+)\\]+");
+	std::regex_search(line.c_str(),results,a);
+	std::cout<< results[0] <<"  "<< results[1]<<" result\n";
+	return 0;
+
 }
 
 /**
@@ -169,10 +179,13 @@ int SettingsMap::LoadIni(std::string filename)
 	
 	while (std::getline(instream, line))
 	{
+		ParseFile(line);
 		switch (IniFileCheckLine(line)) 
 		{
 			case INI_SECTION:
 				section = line.substr(1,(line.length() - 2));
+
+				//std::cout<<line +" ||| "+ section+'\n';
 				
 				if (namespaces.count(section) == 0)
 					namespaces[section] = (namespaces.size() + 1);
@@ -181,15 +194,24 @@ int SettingsMap::LoadIni(std::string filename)
 
 			case INI_ITEM:
 				itemvec = Tokenize(line, "=");
-								
+				
+
 				item = std::to_string( GetNamespaceID(section) )
 					   +":"+ 
 					   itemvec[0];
-				
+
+				/*std::cout<<line+'\n';
+				std::cout<<item+'\n';
+				std::cout<<itemvec[1]+'\n';
+				*/
 				settings[item].data = itemvec[1];
 				settings[item].filename = filename;
 				break;
- 
+			
+			case INI_COMMENT:
+				//std::cout<<line+" COMMENT "+'\n';
+				break;
+
 			default:
 				break;
 		}
