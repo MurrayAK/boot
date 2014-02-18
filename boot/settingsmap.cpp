@@ -89,7 +89,7 @@ std::vector< std::string > SettingsMap::SplitItemString(std::string str)
 		ns = strParts[0];
 	else 
 	{
-		std::vector<std::string>::iterator x;
+		std::vector< std::string >::iterator x;
 
 		for (x = strParts.begin(); x < strParts.end() - 1; x++)
 		{
@@ -133,18 +133,16 @@ std::vector<std::string> SettingsMap::Tokenize(std::string str, const char *deli
 * @param line: the ini file line to check line type of
 */
 SettingsMap::IniLineType SettingsMap::IniFileCheckLine(std::string line)
-{
-	std::regex a ("^\\[[a-zA-Z0-9]+(\\.?[a-zA-Z0-9]+){1,3}\\]+"); // ^\\[[a-zA-Z]+\\.?[a-zA-Z]+\\]+ //^\[(\.*[a-zA-Z0-9_]+)\]$  --- ^\[[^\n]*?\.*([a-zA-Z0-9]+)\]$
-	std::regex b ("[^\\n\\=]+\\={1,1}[^\\n\\=]+");
-	std::regex c ("^\\;");
+{	
+	std::regex r;
 	
-	if (std::regex_search(line, c)) 
+	if ( std::regex_search(line, r = "^\\;") ) 
 		return INI_COMMENT;
 
-	if (std::regex_match(line, b)) 
+	else if ( std::regex_match(line, r = "[^\\n\\=]+\\={1,1}[^\\n\\=]+") )
 		return INI_ITEM;
 
-	if (std::regex_match(line, a)) 
+	else if ( std::regex_match(line, r = "^\\[[a-zA-Z0-9]+(\\.?[a-zA-Z0-9]+){1,3}\\]+") ) 
 		return INI_SECTION;
 
 	return INI_NOMATCH;
@@ -153,9 +151,10 @@ SettingsMap::IniLineType SettingsMap::IniFileCheckLine(std::string line)
 int ParseFile(std::string line)
 {
 	std::tr1::cmatch results;
-	std::regex a ("^\\[(\\.[a-zA-Z0-9]+)\\]+");
-	std::regex_search(line.c_str(),results,a);
-	std::cout<< results[0] <<"  "<< results[1]<<" result\n";
+	std::regex r;
+
+	std::regex_search(line.c_str(), results, r = "^\\[(\\.[a-zA-Z0-9]+)\\]+");
+	//std::cout<< results[0] <<"  "<< results[1]<<" result\n";
 
 	return 0;
 }
@@ -176,7 +175,7 @@ int SettingsMap::LoadIni(std::string filename)
 	
 	while (std::getline(instream, line))
 	{
-		ParseFile(line);
+		//ParseFile(line);
 		switch (IniFileCheckLine(line)) 
 		{
 			case INI_SECTION:

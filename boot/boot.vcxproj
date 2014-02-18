@@ -10,10 +10,22 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="debug.h" />
+    <ClInclude Include="settingsmap.h" />
+    <ClInclude Include="render.h" />
+    <ClInclude Include="uibutton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="settingsmap.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="uibutton.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8AF70911-7B33-43B1-9F4F-7F50B2FE887A}</ProjectGuid>
+    <ProjectGuid>{739EF9E8-D349-41C9-BC26-F80614A73DF8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SettingsEditor</RootNamespace>
+    <RootNamespace>boot</RootNamespace>
+    <ProjectName>boot</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,6 +53,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\pedro\Documents\Visual Studio 2010\Projects\GITHUB\SDL_resources\SDL2_ttf-2.0.12\include;C:\Users\pedro\Documents\Visual Studio 2010\Projects\GITHUB\SDL_resources\SDL2_image-2.0.0\include;C:\Users\pedro\Documents\Visual Studio 2010\Projects\GITHUB\SDL_resources\SDL2-2.0.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\pedro\Documents\Visual Studio 2010\Projects\GITHUB\SDL_resources\SDL2_image-2.0.0\lib\x86;C:\Users\pedro\Documents\Visual Studio 2010\Projects\GITHUB\SDL_resources\SDL2_ttf-2.0.12\lib\x86;C:\Users\pedro\Documents\Visual Studio 2010\Projects\GITHUB\SDL_resources\SDL2-2.0.1\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -51,13 +65,36 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Development\Languages\C++\SDL2-2.0.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(SolutionDir)Debug\$(ProjectName)\</AssemblerListingLocation>
+      <ObjectFileName>$(SolutionDir)Debug\$(ProjectName)\</ObjectFileName>
+      <XMLDocumentationFileName>$(SolutionDir)Debug\$(ProjectName)\</XMLDocumentationFileName>
+      <ProgramDataBaseFileName>$(SolutionDir)Debug\$(ProjectName)\vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <BrowseInformationFile>$(SolutionDir)Debug\$(ProjectName)\</BrowseInformationFile>
+      <PrecompiledHeaderOutputFile>$(SolutionDir)Debug\$(ProjectName)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\Development\Languages\C++\SDL2-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ManifestFile>$(SolutionDir)Debug\$(ProjectName)\$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
+      <Profile>true</Profile>
     </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)Debug\$(ProjectName)\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <Manifest>
+      <OutputManifestFile>$(SolutionDir)Debug\$(ProjectName)\$(TargetName)$(TargetExt).embed.manifest</OutputManifestFile>
+    </Manifest>
+    <ManifestResourceCompile>
+      <ResourceOutputFileName>$(SolutionDir)Debug\$(ProjectName)\$(TargetName)$(TargetExt).embed.manifest.res</ResourceOutputFileName>
+    </ManifestResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)dlls\*.dll" "$(OutDir)" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -69,16 +106,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Development\Languages\C++\SDL2-2.0.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Development\Languages\C++\SDL2-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

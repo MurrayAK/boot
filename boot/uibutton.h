@@ -8,10 +8,10 @@ class UIButton
 {
 
 private:
-	SDL_Renderer *bRenderer;
-	int bX, bY, bW, bH;
+	SDL_Renderer *renderer;
 
 public:
+	int x, y, w, h;
 	SDL_Color bColorFill;
 
 	UIButton( SDL_Renderer *renderer, int x, int y, int w, int h );

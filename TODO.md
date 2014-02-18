@@ -19,7 +19,7 @@ optimize:   Reading and setting values could possibly be faster, if implemented
 
 
 ===========================================================================================	
-  ENGINE > UI DRAWING SYSTEM
+  ENGINE > GUI DRAWING SYSTEM
 
   Write a UI system that we can use to draw windows, buttons, checkboxes, sliders, etc
   and save/load them whenever we need them.
