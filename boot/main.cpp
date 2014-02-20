@@ -67,19 +67,51 @@ int MainMenu_Click(int mx, int my)
 	std::vector< std::vector<int> > actor(4);
 	std::vector< int > vertex;
 
+	bool x = false;
+	bool y = false;
+	int vtxpc;
+
 	std::vector< std::vector< std::vector<int> > >::iterator a;
 	for (a = buttonActors.begin(); a != buttonActors.end(); a++)
 	{
 		actor = *a;
-
+		
+		vtxpc = 0;
+		
 		std::vector< std::vector<int> >::iterator b;
 		for (b = actor.begin(); b != actor.end(); b++)
 		{
-			vertex = *b; 
+			vertex = *b;
 
-			//if (mx <= vertex[0] && my <= vertex[1]) continue;
+			x = false;
+			y = false;
+
+			//test X
+			if (vertex[0] >= 0)
+				if (mx >= vertex[0]) x = true;
+			else
+				if (-std::abs(mx) <= vertex[0]) x = true;
+
+			//test Y
+			if (vertex[1] >= 0)
+				if (my >= vertex[1]) y = true;
+			else
+				if (-std::abs(my) <= vertex[1]) y = true;
+
+			if (x && y)
+				vtxpc++;
+			
+			std::cout << "mx" << mx << " vx" << vertex[0] << " | " 
+				      << "my" << my << " vy" << vertex[1] << " > " << x << std::endl;
+		}
+		
+		if (vtxpc == actor.size())
+		{
+			std::cout << "button clicked!" << " " << vtxpc << " / " << actor.size() << std::endl;
+			break;
 		}
 
+		std::cout << std::endl;
 	}
 
 	return 0;
@@ -94,7 +126,7 @@ int MainMenu_Draw()
 
 	UIButton btn(renderer, 110, 85, 235, 43);
 	
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i <= 9; i++)
 	{
 		btn.Draw();
 
