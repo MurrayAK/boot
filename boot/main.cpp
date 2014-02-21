@@ -71,6 +71,8 @@ int MainMenu_Click(int mx, int my)
 	bool y = false;
 	int vtxpc;
 
+	int actor_num=0;
+
 	std::vector< std::vector< std::vector<int> > >::iterator a;
 	for (a = buttonActors.begin(); a != buttonActors.end(); a++)
 	{
@@ -88,15 +90,15 @@ int MainMenu_Click(int mx, int my)
 
 			//test X
 			if (vertex[0] >= 0)
-				if (mx >= vertex[0]) x = true;
+			{if (mx >= vertex[0]) x = true;}
 			else
-				if (-std::abs(mx) <= vertex[0]) x = true;
+				if (-std::abs(mx) > vertex[0]) x = true;
 
 			//test Y
 			if (vertex[1] >= 0)
-				if (my >= vertex[1]) y = true;
+			{if (my >= vertex[1]) y = true;}
 			else
-				if (-std::abs(my) <= vertex[1]) y = true;
+				if (-std::abs(my) > vertex[1]) y = true;
 
 			if (x && y)
 				vtxpc++;
@@ -104,10 +106,10 @@ int MainMenu_Click(int mx, int my)
 			std::cout << "mx" << mx << " vx" << vertex[0] << " | " 
 				      << "my" << my << " vy" << vertex[1] << " > " << x << std::endl;
 		}
-		
+		actor_num++;
 		if (vtxpc == actor.size())
 		{
-			std::cout << "button clicked!" << " " << vtxpc << " / " << actor.size() << std::endl;
+			std::cout << "button clicked! on actor " << actor_num << " " << vtxpc << " / " << actor.size() << std::endl;
 			break;
 		}
 
