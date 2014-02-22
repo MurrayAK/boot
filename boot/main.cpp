@@ -65,10 +65,10 @@ int engineShutdown()
 int MainMenu_Click(int mx, int my)
 {
 	std::vector< std::vector<int> > actor(4);
-	std::vector< int > vertex;
+	std::vector< int > vtx;
 
-	bool x = false;
-	bool y = false;
+	bool vtxX = false;
+	bool vtxY = false;
 	int vtxpc;
 
 	std::vector< std::vector< std::vector<int> > >::iterator a;
@@ -81,28 +81,28 @@ int MainMenu_Click(int mx, int my)
 		std::vector< std::vector<int> >::iterator b;
 		for (b = actor.begin(); b != actor.end(); b++)
 		{
-			vertex = *b;
+			vtx = *b;
 
-			x = false;
-			y = false;
+			vtxX = false;
+			vtxY = false;
 
 			//test X
-			if (vertex[0] >= 0)
-				if (mx >= vertex[0]) x = true;
+			if (vtx[0] >= 0)
+				if (mx >= vtx[0]) vtxX = true;
 			else
-				if (-std::abs(mx) <= vertex[0]) x = true;
+				if (-std::abs(mx) <= vtx[0]) vtxX = true;
 
 			//test Y
-			if (vertex[1] >= 0)
-				if (my >= vertex[1]) y = true;
+			if (vtx[1] >= 0)
+				if (my >= vtx[1]) vtxY = true;
 			else
-				if (-std::abs(my) <= vertex[1]) y = true;
+				if (-std::abs(my) <= vtx[1]) vtxY = true;
 
-			if (x && y)
+			if (vtxX && vtxY)
 				vtxpc++;
 			
-			std::cout << "mx" << mx << " vx" << vertex[0] << " | " 
-				      << "my" << my << " vy" << vertex[1] << " > " << x << std::endl;
+			std::cout << "mx" << mx << " vx" << vtx[0] << " | " 
+				      << "my" << my << " vy" << vtx[1] << " > " << vtxX << std::endl;
 		}
 		
 		if (vtxpc == actor.size())
@@ -148,6 +148,8 @@ int MainMenu_Draw()
 		vec[1] = -((btn.y + btn.h) - 1);
 		buttonActor.push_back( vec );
 		
+		buttonActors.push_back( buttonActor );
+		
 		std::vector< std::vector<int> >::iterator a;
 		for (a = buttonActor.begin(); a != buttonActor.end(); a++)
 		{
@@ -162,8 +164,6 @@ int MainMenu_Draw()
 			
 			SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
 		}
-
-		buttonActors.push_back( buttonActor );
 
 		btn.y += (btn.h + 15);
 	}
