@@ -20,7 +20,8 @@ SDL_Renderer *renderer;
 
 SettingsMap Settings;
 
-std::vector< std::vector< std::vector<int> > > buttonActors;
+//std::vector< std::vector< std::vector<int> > > buttonActors;
+std::map< std::string, std::vector< std::vector<int> > > buttonActors;
 
 int engineInit() 
 {
@@ -70,13 +71,11 @@ int MainMenu_Click(int mx, int my)
 	bool vtxX = false;
 	bool vtxY = false;
 	int vtxpc;
-
-	int actor_num=0;
-
-	std::vector< std::vector< std::vector<int> > >::iterator a;
+	
+	std::map< std::string, std::vector< std::vector<int> > >::iterator a;
 	for (a = buttonActors.begin(); a != buttonActors.end(); a++)
 	{
-		actor = *a;
+		actor = a->second;
 		
 		vtxpc = 0;
 		
@@ -87,33 +86,39 @@ int MainMenu_Click(int mx, int my)
 
 			vtxX = false;
 			vtxY = false;
+			
+			if (vtx[0] < 0) 
+				mx = -std::abs(mx);
+			
+			if (vtx[1] < 0) 
+				my = -std::abs(my);
+			std::cout << vtx[0] << " " << mx << std::endl;
+			// test X
+			if (vtx[0] >= 0 && mx >= vtx[0]) 
+				vtxX = true;
+			else if (mx <= vtx[0])
+				vtxX = true;
 
-			//test X
-			if (vtx[0] >= 0)
-				if (mx >= vtx[0]) vtxX = true;
-			else
-				if (-std::abs(mx) <= vtx[0]) vtxX = true;
-
-			//test Y
-			if (vtx[1] >= 0)
-				if (my >= vtx[1]) vtxY = true;
-			else
-				if (-std::abs(my) <= vtx[1]) vtxY = true;
+			// test Y
+			if (vtx[1] >= 0 && my >= vtx[1]) 
+				vtxY = true;
+			else if (my <= vtx[1]) 
+				vtxY = true;
 
 			if (vtxX && vtxY)
 				vtxpc++;
 			
-			std::cout << "mx" << mx << " vx" << vtx[0] << " | " 
-				      << "my" << my << " vy" << vtx[1] << " > " << vtxX << std::endl;
-		}
-		actor_num++;
-		if (vtxpc == actor.size())
-		{
-			std::cout << "button clicked! on actor " << actor_num << " " << vtxpc << " / " << actor.size() << std::endl;
-			break;
+			std::cout << "mx(" << mx << ") vx(" << vtx[0] << ") | " 
+				      << "my(" << my << ") vy(" << vtx[1] << ") >>> " << vtxX << std::endl;
 		}
 
 		std::cout << std::endl;
+
+		if (vtxpc == actor.size())
+		{
+			std::cout << "button clicked! >> actor " << a->first << " " << vtxpc << "/" << actor.size() << std::endl << std::endl;
+			break;
+		}
 	}
 
 	return 0;
@@ -150,8 +155,10 @@ int MainMenu_Draw()
 		vec[1] = -((btn.y + btn.h) - 1);
 		buttonActor.push_back( vec );
 		
-		buttonActors.push_back( buttonActor );
+		buttonActors["MainMenu" + std::to_string(i)] = buttonActor;
 		
+		// ////////////////////////////////////////////////////////////////////////////////////////
+
 		std::vector< std::vector<int> >::iterator a;
 		for (a = buttonActor.begin(); a != buttonActor.end(); a++)
 		{
@@ -166,6 +173,8 @@ int MainMenu_Draw()
 			
 			SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
 		}
+
+		// ////////////////////////////////////////////////////////////////////////////////////////
 
 		btn.y += (btn.h + 15);
 	}

@@ -148,17 +148,6 @@ SettingsMap::IniLineType SettingsMap::IniFileCheckLine(std::string line)
 	return INI_NOMATCH;
 }
 
-int ParseFile(std::string line)
-{
-	std::tr1::cmatch results;
-	std::regex r;
-
-	std::regex_search(line.c_str(), results, r = "^\\[(\\.[a-zA-Z0-9]+)\\]+");
-	//std::cout<< results[0] <<"  "<< results[1]<<" result\n";
-
-	return 0;
-}
-
 /**
 * LoadIni
 * scans every line in the specified ini file and
@@ -175,7 +164,6 @@ int SettingsMap::LoadIni(std::string filename)
 	
 	while (std::getline(instream, line))
 	{
-		//ParseFile(line);
 		switch (IniFileCheckLine(line)) 
 		{
 			case INI_SECTION:
@@ -212,7 +200,7 @@ int SettingsMap::LoadIni(std::string filename)
 
 /**
 * SaveIni
-* ** TODO ** desired functionality undetermined at this time
+* TODO: Desired functionality undetermined at this time.
 */
 int SettingsMap::SaveIni() 
 {
