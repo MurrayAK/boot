@@ -92,7 +92,7 @@ int MainMenu_Click(int mx, int my)
 			
 			if (vtx[1] < 0) 
 				my = -std::abs(my);
-			std::cout << vtx[0] << " " << mx << std::endl;
+			//std::cout << vtx[0] << " " << mx << std::endl;
 			// test X
 			if (vtx[0] >= 0 && mx >= vtx[0]) 
 				vtxX = true;
@@ -109,7 +109,7 @@ int MainMenu_Click(int mx, int my)
 				vtxpc++;
 			
 			std::cout << "mx(" << mx << ") vx(" << vtx[0] << ") | " 
-				      << "my(" << my << ") vy(" << vtx[1] << ") >>> " << vtxX << std::endl;
+				      << "my(" << my << ") vy(" << vtx[1] << ") >>> " << vtxX <<' ' <<vtxY<<  std::endl;
 		}
 
 		std::cout << std::endl;
