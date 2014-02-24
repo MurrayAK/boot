@@ -63,8 +63,9 @@ int engineShutdown()
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int MainMenu_Click(int mx, int my)
+std::vector< int>* MainMenu_Click(int mx, int my)
 {
+	std::cout << mx << std::endl;
 	std::vector< std::vector<int> > actor(4);
 	std::vector< int > vtx;
 
@@ -84,25 +85,31 @@ int MainMenu_Click(int mx, int my)
 		{
 			vtx = *b;
 
+			//std::cout << "mx(" << mx << ") vx(" << vtx[0] << ") | " 
+				//      << "my(" << my << ") vy(" << vtx[1] << ") >>> " << vtxX <<' ' <<vtxY<<  std::endl;
+
 			vtxX = false;
 			vtxY = false;
+
+			mx=std::abs(mx);
+			my=std::abs(my);
 			
 			if (vtx[0] < 0) 
-				mx = -std::abs(mx);
+				mx = -1*mx;
 			
 			if (vtx[1] < 0) 
-				my = -std::abs(my);
+				my = -1*my;
 			//std::cout << vtx[0] << " " << mx << std::endl;
 			// test X
 			if (vtx[0] >= 0 && mx >= vtx[0]) 
 				vtxX = true;
-			else if (mx <= vtx[0])
+			else if (mx >= vtx[0])
 				vtxX = true;
 
 			// test Y
 			if (vtx[1] >= 0 && my >= vtx[1]) 
 				vtxY = true;
-			else if (my <= vtx[1]) 
+			else if (my >= vtx[1]) 
 				vtxY = true;
 
 			if (vtxX && vtxY)
@@ -116,12 +123,13 @@ int MainMenu_Click(int mx, int my)
 
 		if (vtxpc == actor.size())
 		{
+			return &vtx;
 			std::cout << "button clicked! >> actor " << a->first << " " << vtxpc << "/" << actor.size() << std::endl << std::endl;
 			break;
 		}
 	}
 
-	return 0;
+	return NULL ;
 }
 
 int MainMenu_Draw()
@@ -131,7 +139,7 @@ int MainMenu_Draw()
 
 	buttonActors.clear();
 
-	UIButton btn(renderer, 110, 85, 235, 43);
+	UIButton btn(renderer, 110, 85, 235, 43,0);
 	
 	for (int i = 0; i <= 9; i++)
 	{
@@ -187,7 +195,7 @@ int MainMenu_Draw()
 int processEvents(SDL_Event *pEvents, bool *pQuit) 
 {
 	SDL_Event events = *pEvents;
-
+	std::vector <int>* button_clicked;
 	if (events.type == SDL_QUIT) *pQuit = true;
 
 	// Keyboard events
@@ -210,7 +218,8 @@ int processEvents(SDL_Event *pEvents, bool *pQuit)
 		switch (events.button.button) 
 		{
 			case SDL_BUTTON_LEFT:
-				MainMenu_Click(events.button.x, events.button.y);
+				button_clicked=MainMenu_Click(events.button.x, events.button.y);
+
 				break;
 
 			case SDL_BUTTON_RIGHT:

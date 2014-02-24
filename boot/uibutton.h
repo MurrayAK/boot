@@ -13,8 +13,9 @@ private:
 public:
 	int x, y, w, h;
 	SDL_Color bColorFill;
+	short state; //0 for standy, 1 for hover, 2 toggle
 
-	UIButton( SDL_Renderer *renderer, int x, int y, int w, int h );
+	UIButton( SDL_Renderer *renderer, int x, int y, int w, int h,short state );
 	~UIButton();
 
 	int Draw();

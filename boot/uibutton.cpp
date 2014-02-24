@@ -1,10 +1,11 @@
 #include "uibutton.h"
 
-UIButton::UIButton( SDL_Renderer *renderer, int x, int y, int w, int h ) 
+UIButton::UIButton( SDL_Renderer *renderer, int x, int y, int w, int h, short state ) 
 {
 	this->renderer = renderer;
 	this->x = x; this->y = y;
 	this->w = w; this->h = h;
+	this->state = state;
 }
 
 UIButton::~UIButton() {  }
