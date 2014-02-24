@@ -20,8 +20,7 @@ SDL_Renderer *renderer;
 
 SettingsMap Settings;
 
-//std::vector< std::vector< std::vector<int> > > buttonActors;
-std::map< std::string, std::vector< std::vector<int> > > buttonActors;
+std::map< std::string, UIButton > MainMenuButtons;
 
 int engineInit() 
 {
@@ -63,53 +62,86 @@ int engineShutdown()
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+int MainMenu_Init(int x, int y)
+{	
+	UIButton btn;
+	std::vector<int> vec(2);
+	
+	btn.renderer = renderer;
+	btn.w = 235;
+	btn.h = 43;
+	btn.state = 0;
+
+	for (int i = 0; i <= 9; i++)
+	{
+		btn.x = x;
+		btn.y = y;
+
+		btn.actorVertices.clear();
+
+		vec[0] = btn.x;
+		vec[1] = btn.y;
+		btn.actorVertices.push_back( vec );
+
+		vec[0] = -((btn.x + btn.w) - 1);
+		vec[1] = btn.y;
+		btn.actorVertices.push_back( vec );
+
+		vec[0] = -((btn.x + btn.w) - 1);
+		vec[1] = -((btn.y + btn.h) - 1);
+		btn.actorVertices.push_back( vec );
+
+		vec[0] = btn.x;
+		vec[1] = -((btn.y + btn.h) - 1);
+		btn.actorVertices.push_back( vec );
+		
+		MainMenuButtons["BTN_ID_" + std::to_string(i)] = btn;
+
+		y += (btn.h + 15);
+	}
+
+	return 0;
+}
+
 std::vector< int>* MainMenu_Click(int mx, int my)
 {
-	std::cout << mx << std::endl;
-	std::vector< std::vector<int> > actor(4);
+	std::vector< std::vector<int> > actorVtcs(4);
 	std::vector< int > vtx;
 
 	bool vtxX = false;
 	bool vtxY = false;
 	int vtxpc;
-	
-	std::map< std::string, std::vector< std::vector<int> > >::iterator a;
-	for (a = buttonActors.begin(); a != buttonActors.end(); a++)
+
+	std::map< std::string, UIButton >::iterator a;
+	for (a = MainMenuButtons.begin(); a != MainMenuButtons.end(); a++)
 	{
-		actor = a->second;
+		actorVtcs = a->second.actorVertices;
 		
 		vtxpc = 0;
 		
 		std::vector< std::vector<int> >::iterator b;
-		for (b = actor.begin(); b != actor.end(); b++)
+		for (b = actorVtcs.begin(); b != actorVtcs.end(); b++)
 		{
 			vtx = *b;
-
-			//std::cout << "mx(" << mx << ") vx(" << vtx[0] << ") | " 
-				//      << "my(" << my << ") vy(" << vtx[1] << ") >>> " << vtxX <<' ' <<vtxY<<  std::endl;
 
 			vtxX = false;
 			vtxY = false;
 
-			mx=std::abs(mx);
-			my=std::abs(my);
+			mx = std::abs(mx);
+			my = std::abs(my);
 			
 			if (vtx[0] < 0) 
-				mx = -1*mx;
+				mx = -1 * mx;
 			
 			if (vtx[1] < 0) 
-				my = -1*my;
-			//std::cout << vtx[0] << " " << mx << std::endl;
+				my = -1 * my;
+			
 			// test X
-			if (vtx[0] >= 0 && mx >= vtx[0]) 
-				vtxX = true;
-			else if (mx >= vtx[0])
+			if (mx >= vtx[0])
 				vtxX = true;
 
 			// test Y
-			if (vtx[1] >= 0 && my >= vtx[1]) 
-				vtxY = true;
-			else if (my >= vtx[1]) 
+			if (my >= vtx[1]) 
 				vtxY = true;
 
 			if (vtxX && vtxY)
@@ -121,70 +153,26 @@ std::vector< int>* MainMenu_Click(int mx, int my)
 
 		std::cout << std::endl;
 
-		if (vtxpc == actor.size())
+		if (vtxpc == actorVtcs.size())
 		{
-			return &vtx;
-			std::cout << "button clicked! >> actor " << a->first << " " << vtxpc << "/" << actor.size() << std::endl << std::endl;
+			//return &vtx;
+			std::cout << "button clicked! >> actor " << a->first << " " << vtxpc << "/" << actorVtcs.size() << std::endl << std::endl;
 			break;
 		}
 	}
 
-	return NULL ;
+	return NULL;
 }
 
 int MainMenu_Draw()
 {
-	std::vector<int> vec(2);
-	std::vector< std::vector<int> > buttonActor(4);
-
-	buttonActors.clear();
-
-	UIButton btn(renderer, 110, 85, 235, 43,0);
+	UIButton btn;
 	
-	for (int i = 0; i <= 9; i++)
+	std::map< std::string, UIButton >::iterator i;
+	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
 	{
+		btn = i->second;
 		btn.Draw();
-
-		buttonActor.clear();
-
-		vec[0] = btn.x;
-		vec[1] = btn.y;
-		buttonActor.push_back( vec );
-
-		vec[0] = -((btn.x + btn.w) - 1);
-		vec[1] = btn.y;
-		buttonActor.push_back( vec );
-
-		vec[0] = -((btn.x + btn.w) - 1);
-		vec[1] = -((btn.y + btn.h) - 1);
-		buttonActor.push_back( vec );
-
-		vec[0] = btn.x;
-		vec[1] = -((btn.y + btn.h) - 1);
-		buttonActor.push_back( vec );
-		
-		buttonActors["MainMenu" + std::to_string(i)] = buttonActor;
-		
-		// ////////////////////////////////////////////////////////////////////////////////////////
-
-		std::vector< std::vector<int> >::iterator a;
-		for (a = buttonActor.begin(); a != buttonActor.end(); a++)
-		{
-			vec = *a;
-
-			Uint8 oldR, oldG, oldB, oldA;
-			SDL_GetRenderDrawColor(renderer, &oldR, &oldG, &oldB, &oldA);
-			SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-			
-			//std::cout << "DrawPoint " << vec[0] << "," << vec[1] << std::endl;
-			//SDL_RenderDrawPoint(renderer, std::abs(vec[0]), std::abs(vec[1]));
-			
-			SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
-		}
-
-		// ////////////////////////////////////////////////////////////////////////////////////////
-
-		btn.y += (btn.h + 15);
 	}
 
 	return 0;
@@ -192,10 +180,11 @@ int MainMenu_Draw()
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int processEvents(SDL_Event *pEvents, bool *pQuit) 
+int processEvents(SDL_Event *pEvents, bool *pQuit)
 {
 	SDL_Event events = *pEvents;
 	std::vector <int>* button_clicked;
+
 	if (events.type == SDL_QUIT) *pQuit = true;
 
 	// Keyboard events
@@ -218,8 +207,7 @@ int processEvents(SDL_Event *pEvents, bool *pQuit)
 		switch (events.button.button) 
 		{
 			case SDL_BUTTON_LEFT:
-				button_clicked=MainMenu_Click(events.button.x, events.button.y);
-
+				button_clicked = MainMenu_Click(events.button.x, events.button.y);
 				break;
 
 			case SDL_BUTTON_RIGHT:
@@ -248,9 +236,12 @@ int gameLoop()
 
 	while (!quit)
 	{
-		// Event handling
+		// Event handling - Input
 		while (SDL_PollEvent(&events)) 
 			processEvents(&events, &quit);
+
+		// Update data
+		// 
 
 		// Rendering
 		SDL_RenderClear(renderer); // Clear screen
@@ -283,6 +274,8 @@ int main(int argc, char **argv)
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
+
+	MainMenu_Init(110, 85);
 
 	gameLoop();
 
