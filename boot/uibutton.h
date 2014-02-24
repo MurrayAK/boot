@@ -14,7 +14,7 @@ public:
 	int x, y, w, h;
 	SDL_Renderer *renderer;
 	SDL_Color bColorFill;
-	short state; //0 for standy, 1 for hover, 2 toggle
+	short state;
 	std::vector< std::vector<int> > actorVertices;
 
 	UIButton();

@@ -148,17 +148,22 @@ std::vector< int>* MainMenu_Click(int mx, int my)
 			if (vtxX && vtxY)
 				vtxpc++;
 			
-			std::cout << "mx(" << mx << ") vx(" << vtx[0] << ") | " 
-				      << "my(" << my << ") vy(" << vtx[1] << ") >>> " << vtxX <<' ' <<vtxY<<  std::endl;
+			//std::cout << "mx(" << mx << ") vx(" << vtx[0] << ") | " 
+			//	      << "my(" << my << ") vy(" << vtx[1] << ") >>> " << vtxX <<' ' <<vtxY<<  std::endl;
 		}
 
-		std::cout << std::endl;
+		//std::cout << std::endl;
 
 		if (vtxpc == actorVtcs.size())
 		{
 			//return &vtx;
-			std::cout << "button clicked! >> actor " << a->first << " " << vtxpc << "/" << actorVtcs.size() << std::endl << std::endl;
-			MainMenuButtons[a->first].state=1;
+			//std::cout << "button clicked! >> actor " << a->first << " " << vtxpc << "/" << actorVtcs.size() << std::endl << std::endl;
+
+			if (MainMenuButtons[a->first].state == 0)
+				MainMenuButtons[a->first].state = 2;
+			else
+				MainMenuButtons[a->first].state = 0;
+			
 			break;
 		}
 	}
