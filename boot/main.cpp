@@ -107,7 +107,8 @@ std::vector< int>* MainMenu_Click(int mx, int my)
 {
 	std::vector< std::vector<int> > actorVtcs(4);
 	std::vector< int > vtx;
-
+	
+	UIButton btn;
 	bool vtxX = false;
 	bool vtxY = false;
 	int vtxpc;
@@ -157,6 +158,7 @@ std::vector< int>* MainMenu_Click(int mx, int my)
 		{
 			//return &vtx;
 			std::cout << "button clicked! >> actor " << a->first << " " << vtxpc << "/" << actorVtcs.size() << std::endl << std::endl;
+			MainMenuButtons[a->first].state=1;
 			break;
 		}
 	}
@@ -172,6 +174,7 @@ int MainMenu_Draw()
 	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
 	{
 		btn = i->second;
+		std::cout<< btn.state << std::endl;
 		btn.Draw();
 	}
 
