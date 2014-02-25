@@ -1,12 +1,16 @@
 #include "uibutton.h"
 
 UIButton::UIButton() {}
+
 UIButton::~UIButton() {}
 
 int UIButton::Draw() 
 {
-	SDL_Rect button = { this->x, this->y, this->w, this->h };
-	SDL_Rect shadow = { this->x + 3, this->y + 3, this->w, this->h };
+	SDL_Rect button = { this->x, this->y, 
+						this->w, this->h };
+
+	SDL_Rect shadow = { this->x + 3, this->y + 3, 
+						this->w, this->h };
 
 	Uint8 oldR, oldG, oldB, oldA;
 	
@@ -24,20 +28,26 @@ int UIButton::Draw()
 	SDL_RenderFillRect(this->renderer, &shadow);
 
 	// Draw button
-	if (this->state == 0) { // Normal
-		bColorFill.r = 84;
-		bColorFill.g = 129;
-		bColorFill.b = 245;
+	if (this->hover == false) 
+	{
+		if (this->pushed == false)
+		{
+			bColorFill.r = 84;
+			bColorFill.g = 129;
+			bColorFill.b = 245;
+		}
+		else 
+		{
+			bColorFill.r = 66;
+			bColorFill.g = 105;
+			bColorFill.b = 193;
+		}
 	}
-	else if (this->state == 1) { // Hover
-		//bColorFill.r = 153;
-		//bColorFill.g = 153;
-		//bColorFill.b = 244;
-	}
-	else if (this->state == 2) { // Toggle
-		bColorFill.r = 66;
-		bColorFill.g = 105;
-		bColorFill.b = 193;
+	else 
+	{
+		bColorFill.r = 153;
+		bColorFill.g = 153;
+		bColorFill.b = 244;
 	}
 
 	SDL_SetRenderDrawColor(this->renderer, bColorFill.r, bColorFill.g, bColorFill.b, bColorFill.a);

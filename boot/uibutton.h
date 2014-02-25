@@ -14,8 +14,9 @@ public:
 	int x, y, w, h;
 	SDL_Renderer *renderer;
 	SDL_Color bColorFill;
-	short state;
 	std::vector< std::vector<int> > actorVertices;
+	bool pushed;
+	bool hover;
 
 	UIButton();
 	~UIButton();

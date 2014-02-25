@@ -62,6 +62,126 @@ int engineShutdown()
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+bool VectorInVertices(std::vector<int> vec, std::vector< std::vector<int> > vtcs)
+{
+	std::vector<int> vtx;
+	bool vtxX = false;
+	bool vtxY = false;
+	int vtxpc = 0;
+
+	std::vector< std::vector<int> >::iterator i;
+	for (i = vtcs.begin(); i != vtcs.end(); i++)
+	{
+		vtx = *i;
+
+		vtxX = false;
+		vtxY = false;
+
+		vec[0] = std::abs(vec[0]);
+		vec[1] = std::abs(vec[1]);
+			
+		if (vtx[0] < 0) 
+			vec[0] = -1 * vec[0];
+			
+		if (vtx[1] < 0) 
+			vec[1] = -1 * vec[1];
+			
+		// test X
+		if (vec[0] >= vtx[0])
+			vtxX = true;
+
+		// test Y
+		if (vec[1] >= vtx[1]) 
+			vtxY = true;
+
+		if (vtxX && vtxY)
+			vtxpc++;
+
+		//std::cout << "vecx(" << vec[0] << ") vtxx(" << vtx[0] << ") | " 
+		//	      << "vecy(" << vec[1] << ") vtxy(" << vtx[1] << ") >>> " << vtxX << " " << vtxY << std::endl;
+	}
+
+	//std::cout << std::endl;
+
+	if (vtxpc == vtcs.size())
+		return true;
+
+	return false;
+}
+
+int MainMenu_Button_MouseClick(int mx, int my)
+{
+	UIButton btn;
+
+	std::vector<int> vec(2);
+	std::vector< std::vector<int> > vtcs(4);
+
+	vec[0] = mx;
+	vec[1] = my;
+
+	std::map< std::string, UIButton >::iterator i;
+	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
+	{
+		vtcs = i->second.actorVertices;
+
+		if (VectorInVertices(vec, vtcs))
+		{
+			//std::cout << "button clicked! >> actor " << i->first << std::endl << std::endl;
+
+			if (MainMenuButtons[i->first].pushed == false)
+				MainMenuButtons[i->first].pushed = true;
+			else
+				MainMenuButtons[i->first].pushed = false;
+
+			break;
+		}
+	}
+
+	return 0;
+}
+
+int MainMenu_Button_MouseHover(int mx, int my)
+{
+	UIButton btn;
+
+	std::vector<int> vec(2);
+	std::vector< std::vector<int> > vtcs(4);
+
+	vec[0] = mx;
+	vec[1] = my;
+
+	std::map< std::string, UIButton >::iterator i;
+	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
+	{
+		vtcs = i->second.actorVertices;
+		
+		if (VectorInVertices(vec, vtcs))
+		{
+			MainMenuButtons[i->first].hover = true;
+			std::cout << "start hover!" << std::endl;
+		} else {
+			MainMenuButtons[i->first].hover = false;
+			std::cout << "end hover!" << std::endl;
+		}
+	}
+
+	return 0;
+}
+
+int MainMenu_Draw()
+{
+	UIButton btn;
+	
+	std::map< std::string, UIButton >::iterator i;
+	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
+	{
+		btn = i->second;
+		btn.Draw();
+	}
+
+	return 0;
+}
+
 int MainMenu_Init(int x, int y)
 {	
 	UIButton btn;
@@ -70,7 +190,8 @@ int MainMenu_Init(int x, int y)
 	btn.renderer = renderer;
 	btn.w = 235;
 	btn.h = 43;
-	btn.state = 0;
+	btn.pushed = false;
+	btn.hover = false;
 
 	for (int i = 0; i <= 9; i++)
 	{
@@ -98,89 +219,6 @@ int MainMenu_Init(int x, int y)
 		MainMenuButtons["BTN_ID_" + std::to_string(i)] = btn;
 
 		y += (btn.h + 15);
-	}
-
-	return 0;
-}
-
-std::vector< int>* MainMenu_Click(int mx, int my)
-{
-	std::vector< std::vector<int> > actorVtcs(4);
-	std::vector< int > vtx;
-	
-	UIButton btn;
-	bool vtxX = false;
-	bool vtxY = false;
-	int vtxpc;
-
-	std::map< std::string, UIButton >::iterator a;
-	for (a = MainMenuButtons.begin(); a != MainMenuButtons.end(); a++)
-	{
-		actorVtcs = a->second.actorVertices;
-		
-		vtxpc = 0;
-		
-		std::vector< std::vector<int> >::iterator b;
-		for (b = actorVtcs.begin(); b != actorVtcs.end(); b++)
-		{
-			vtx = *b;
-
-			vtxX = false;
-			vtxY = false;
-
-			mx = std::abs(mx);
-			my = std::abs(my);
-			
-			if (vtx[0] < 0) 
-				mx = -1 * mx;
-			
-			if (vtx[1] < 0) 
-				my = -1 * my;
-			
-			// test X
-			if (mx >= vtx[0])
-				vtxX = true;
-
-			// test Y
-			if (my >= vtx[1]) 
-				vtxY = true;
-
-			if (vtxX && vtxY)
-				vtxpc++;
-			
-			//std::cout << "mx(" << mx << ") vx(" << vtx[0] << ") | " 
-			//	      << "my(" << my << ") vy(" << vtx[1] << ") >>> " << vtxX <<' ' <<vtxY<<  std::endl;
-		}
-
-		//std::cout << std::endl;
-
-		if (vtxpc == actorVtcs.size())
-		{
-			//return &vtx;
-			//std::cout << "button clicked! >> actor " << a->first << " " << vtxpc << "/" << actorVtcs.size() << std::endl << std::endl;
-
-			if (MainMenuButtons[a->first].state == 0)
-				MainMenuButtons[a->first].state = 2;
-			else
-				MainMenuButtons[a->first].state = 0;
-			
-			break;
-		}
-	}
-
-	return NULL;
-}
-
-int MainMenu_Draw()
-{
-	UIButton btn;
-	
-	std::map< std::string, UIButton >::iterator i;
-	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
-	{
-		btn = i->second;
-		std::cout<< btn.state << std::endl;
-		btn.Draw();
 	}
 
 	return 0;
@@ -215,7 +253,7 @@ int processEvents(SDL_Event *pEvents, bool *pQuit)
 		switch (events.button.button) 
 		{
 			case SDL_BUTTON_LEFT:
-				button_clicked = MainMenu_Click(events.button.x, events.button.y);
+				MainMenu_Button_MouseClick(events.button.x, events.button.y);
 				break;
 
 			case SDL_BUTTON_RIGHT:
@@ -225,6 +263,9 @@ int processEvents(SDL_Event *pEvents, bool *pQuit)
 				break;
 		}
 	}
+
+	if (events.type == SDL_MOUSEMOTION)
+		//MainMenu_Button_MouseHover(events.button.x, events.button.y);
 
 	return 0;
 }
