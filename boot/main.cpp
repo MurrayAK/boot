@@ -15,6 +15,11 @@
 #include "render.h"
 #include "uibutton.h"
 
+enum MouseEvent {
+	MOUSE_CLICK_LEFT,
+	MOUSE_MOTION
+};
+
 SDL_Window *window;
 SDL_Renderer *renderer;
 
@@ -96,12 +101,14 @@ bool VectorInVertices(std::vector<int> vec, std::vector< std::vector<int> > vtcs
 
 		if (vtxX && vtxY)
 			vtxpc++;
+		else
+			return false;
 
 		//std::cout << "vecx(" << vec[0] << ") vtxx(" << vtx[0] << ") | " 
 		//	      << "vecy(" << vec[1] << ") vtxy(" << vtx[1] << ") >>> " << vtxX << " " << vtxY << std::endl;
 	}
 
-	//std::cout << std::endl;
+	std::cout << std::endl;
 
 	if (vtxpc == vtcs.size())
 		return true;
@@ -109,41 +116,29 @@ bool VectorInVertices(std::vector<int> vec, std::vector< std::vector<int> > vtcs
 	return false;
 }
 
-int MainMenu_Button_MouseClick(int mx, int my)
+int MainMenu_ButtonEvent_MouseClickLeft(std::string button_id)
 {
-	UIButton btn;
-
-	std::vector<int> vec(2);
-	std::vector< std::vector<int> > vtcs(4);
-
-	vec[0] = mx;
-	vec[1] = my;
-
-	std::map< std::string, UIButton >::iterator i;
-	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
-	{
-		vtcs = i->second.actorVertices;
-
-		if (VectorInVertices(vec, vtcs))
-		{
-			//std::cout << "button clicked! >> actor " << i->first << std::endl << std::endl;
-
-			if (MainMenuButtons[i->first].pushed == false)
-				MainMenuButtons[i->first].pushed = true;
-			else
-				MainMenuButtons[i->first].pushed = false;
-
-			break;
-		}
-	}
+	if (MainMenuButtons[button_id].pushed == false)
+		MainMenuButtons[button_id].pushed = true;
+	else
+		MainMenuButtons[button_id].pushed = false;
 
 	return 0;
 }
 
-int MainMenu_Button_MouseHover(int mx, int my)
+int MainMenu_ButtonEvent_MouseHover(std::string button_id)
 {
-	UIButton btn;
+	MainMenuButtons[button_id].hover = true;
+	std::cout << "start hover!" << std::endl;
 
+	MainMenuButtons[button_id].hover = false;
+	std::cout << "end hover!" << std::endl;
+
+	return 0;
+}
+
+int MainMenu_ButtonEvent(int mx, int my, MouseEvent event)
+{
 	std::vector<int> vec(2);
 	std::vector< std::vector<int> > vtcs(4);
 
@@ -154,14 +149,22 @@ int MainMenu_Button_MouseHover(int mx, int my)
 	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
 	{
 		vtcs = i->second.actorVertices;
-		
+
 		if (VectorInVertices(vec, vtcs))
 		{
-			MainMenuButtons[i->first].hover = true;
-			std::cout << "start hover!" << std::endl;
-		} else {
-			MainMenuButtons[i->first].hover = false;
-			std::cout << "end hover!" << std::endl;
+			//std::cout << "button event! >> actor " << i->first << std::endl << std::endl;
+
+			switch (event)
+			{
+				case MOUSE_CLICK_LEFT:
+					MainMenu_ButtonEvent_MouseClickLeft(i->first);
+					break;
+
+				case MOUSE_MOTION:
+					MainMenu_ButtonEvent_MouseHover(i->first);
+					break;
+			}
+
 		}
 	}
 
@@ -229,7 +232,6 @@ int MainMenu_Init(int x, int y)
 int processEvents(SDL_Event *pEvents, bool *pQuit)
 {
 	SDL_Event events = *pEvents;
-	std::vector <int>* button_clicked;
 
 	if (events.type == SDL_QUIT) *pQuit = true;
 
@@ -253,7 +255,7 @@ int processEvents(SDL_Event *pEvents, bool *pQuit)
 		switch (events.button.button) 
 		{
 			case SDL_BUTTON_LEFT:
-				MainMenu_Button_MouseClick(events.button.x, events.button.y);
+				MainMenu_ButtonEvent(events.button.x, events.button.y, MOUSE_CLICK_LEFT);
 				break;
 
 			case SDL_BUTTON_RIGHT:
@@ -265,7 +267,7 @@ int processEvents(SDL_Event *pEvents, bool *pQuit)
 	}
 
 	if (events.type == SDL_MOUSEMOTION)
-		//MainMenu_Button_MouseHover(events.button.x, events.button.y);
+		MainMenu_ButtonEvent(events.button.x, events.button.y, MOUSE_MOTION);
 
 	return 0;
 }
