@@ -164,7 +164,6 @@ int MainMenu_ButtonEvent(int mx, int my, MouseEvent event)
 					MainMenu_ButtonEvent_MouseHover(i->first);
 					break;
 			}
-
 		}
 	}
 
