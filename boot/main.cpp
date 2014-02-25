@@ -126,17 +126,6 @@ int MainMenu_ButtonEvent_MouseClickLeft(std::string button_id)
 	return 0;
 }
 
-int MainMenu_ButtonEvent_MouseHover(std::string button_id)
-{
-	MainMenuButtons[button_id].hover = true;
-	std::cout << "start hover!" << std::endl;
-
-	MainMenuButtons[button_id].hover = false;
-	std::cout << "end hover!" << std::endl;
-
-	return 0;
-}
-
 int MainMenu_ButtonEvent(int mx, int my, MouseEvent event)
 {
 	std::vector<int> vec(2);
@@ -152,16 +141,27 @@ int MainMenu_ButtonEvent(int mx, int my, MouseEvent event)
 
 		if (VectorInVertices(vec, vtcs))
 		{
-			//std::cout << "button event! >> actor " << i->first << std::endl << std::endl;
-
+			//std::cout << "button event! >> i->first << std::endl << std::endl;
+			
 			switch (event)
 			{
 				case MOUSE_CLICK_LEFT:
-					MainMenu_ButtonEvent_MouseClickLeft(i->first);
+					MainMenu_ButtonEvent_MouseClickLeft( i->first );
 					break;
 
 				case MOUSE_MOTION:
-					MainMenu_ButtonEvent_MouseHover(i->first);
+					MainMenuButtons[i->first].hover = true;
+					break;
+			}
+
+			break;
+		}
+		else 
+		{
+			switch (event)
+			{
+				case MOUSE_MOTION:
+					MainMenuButtons[i->first].hover = false;
 					break;
 			}
 		}
