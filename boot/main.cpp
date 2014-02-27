@@ -11,14 +11,11 @@
 #include <SDL_ttf.h>
 
 #include "debug.h"
-#include "settingsmap.h"
+#include "settings_map.h"
 #include "render.h"
-#include "uibutton.h"
+#include "ui_button.h"
 
-enum MouseEvent {
-	MOUSE_CLICK_LEFT,
-	MOUSE_MOTION
-};
+enum MouseEvent { MOUSE_CLICK_LEFT, MOUSE_MOTION };
 
 SDL_Window *window;
 SDL_Renderer *renderer;

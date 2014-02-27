@@ -1,5 +1,5 @@
-#ifndef SETTINGSMAP_H
-#define SETTINGSMAP_H
+#ifndef SETTINGS_MAP_H
+#define SETTINGS_MAP_H
 
 #include <string>
 #include <map>

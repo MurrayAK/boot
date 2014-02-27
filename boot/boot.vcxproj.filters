@@ -21,10 +21,10 @@
     <ClInclude Include="render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="uibutton.h">
+    <ClInclude Include="ui_button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="settingsmap.h">
+    <ClInclude Include="settings_map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,10 +32,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="uibutton.cpp">
+    <ClCompile Include="ui_button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="settingsmap.cpp">
+    <ClCompile Include="settings_map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -12,14 +12,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h" />
-    <ClInclude Include="settingsmap.h" />
+    <ClInclude Include="settings_map.h" />
     <ClInclude Include="render.h" />
-    <ClInclude Include="uibutton.h" />
+    <ClInclude Include="ui_button.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="settingsmap.cpp" />
+    <ClCompile Include="settings_map.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="uibutton.cpp" />
+    <ClCompile Include="ui_button.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{739EF9E8-D349-41C9-BC26-F80614A73DF8}</ProjectGuid>
