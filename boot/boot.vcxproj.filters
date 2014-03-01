@@ -15,16 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ui_button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="settings_map.h">
+    <ClInclude Include="polygon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="setmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render_opengl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,7 +41,19 @@
     <ClCompile Include="ui_button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="settings_map.cpp">
+    <ClCompile Include="polygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main_menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="setmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="render_opengl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

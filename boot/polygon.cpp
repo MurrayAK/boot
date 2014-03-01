@@ -2,45 +2,42 @@
 
 Polygon::Polygon() {}
 
-Polygon::~Polygon() {}
-
-int Polygon::SetWH( int w, int h )
+Polygon::Polygon(DrawPoints vertices)
 {
-	this->w = w;
-	this->h = h;
-
-	return 0;
+	this->vertices = vertices;
 }
 
+Polygon::~Polygon() {}
+
 int Polygon::Draw() 
-{
-	SDL_Rect button = { this->x, this->y, 
-						this->w, this->h };
-	
+{	
 	Uint8 oldR, oldG, oldB, oldA;
 	
 	// Store current draw color
 	SDL_GetRenderDrawColor(this->renderer, &oldR, &oldG, &oldB, &oldA);
 	
-	// Draw button
-	bColorFill.r = 0;
-	bColorFill.g = 255;
-	bColorFill.b = 0;
+	// Draw polygon
+	SDL_SetRenderDrawColor(this->renderer, colorBorder.r, colorBorder.g, colorBorder.b, colorBorder.a);
+	
+	std::vector<int> svtx(2), dvtx(2);
 
-	SDL_SetRenderDrawColor(this->renderer, bColorFill.r, bColorFill.g, bColorFill.b, bColorFill.a);
+	dvtx = this->vertices.back();
+	dvtx[0] = std::abs( dvtx[0] );
+	dvtx[1] = std::abs( dvtx[1] );
 
-	std::vector<int> vtx(2);
-
-	std::vector< std::vector<int> >::iterator i;
-	for (i = this->vtcs.begin(); i != this->vtcs.end(); i++)
+	DrawPoints::iterator i;
+	for (i = this->vertices.begin(); i != this->vertices.end(); i++)
 	{
-		vtx = *i;
+		svtx = *i;
+		
+		svtx[0] = std::abs( svtx[0] );
+		svtx[1] = std::abs( svtx[1] );
 
-		SDL_RenderDrawLines(this->renderer, );
+		SDL_RenderDrawLine(this->renderer, svtx[0], svtx[1], dvtx[0], dvtx[1]);
+
+		dvtx[0] = svtx[0];
+		dvtx[1] = svtx[1];
 	}
-
-	//SDL_RenderDrawRect(this->renderer, &button);
-	//SDL_RenderFillRect(this->renderer, &button);
 
 	// Reset draw color to previous one before button draw
 	SDL_SetRenderDrawColor(this->renderer, oldR, oldG, oldB, oldA);

@@ -1,4 +1,4 @@
-#include "settings_map.h"
+#include "setmap.h"
 
 /**
 * Constructors

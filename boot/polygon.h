@@ -10,14 +10,15 @@ class Polygon
 private:
 
 public:
+	typedef std::vector< std::vector<int> > DrawPoints;
+
 	int x, y, w, h;
+	DrawPoints vertices;
 	SDL_Renderer *renderer;
-	SDL_Color bColorFill;
-	std::vector< std::vector<int> > vtcs;
-
-	int SetWH( int w, int h );
-
+	SDL_Color colorBorder, colorFill;
+	
 	Polygon();
+	Polygon(DrawPoints vertices);
 	~Polygon();
 
 	int Draw();
