@@ -123,40 +123,39 @@ int MainMenu_Init(int x, int y)
 {	
 	UIButton btn;
 	std::vector<int> vec(2);
-	
-	int w = 235;
-	int h = 43;
 
 	btn.renderer = renderer;
+	btn.w = 235;
+	btn.h = 43;
 	btn.pushed = false;
 	btn.hover = false;
-	btn.colorBorder.r = 255;
-	btn.colorBorder.g = 255;
-	btn.colorBorder.b = 255;
 
 	for (int i = 0; i <= 9; i++)
 	{
-		btn.vertices.clear();
+		btn.x = x;
+		btn.y = y;
 
-		vec[0] = x;
-		vec[1] = y;
-		btn.vertices.push_back( vec );
+		btn.actorVertices.clear();
 
-		vec[0] = -((x + w) - 1);
-		vec[1] = y;
-		btn.vertices.push_back( vec );
+		vec[0] = btn.x;
+		vec[1] = btn.y;
+		btn.actorVertices.push_back( vec );
 
-		vec[0] = -((x + w) - 1);
-		vec[1] = -((y + h) - 1);
-		btn.vertices.push_back( vec );
+		vec[0] = -((btn.x + btn.w) - 1);
+		vec[1] = btn.y;
+		btn.actorVertices.push_back( vec );
 
-		vec[0] = x;
-		vec[1] = -((y + h) - 1);
-		btn.vertices.push_back( vec );
-		
+		vec[0] = -((btn.x + btn.w) - 1);
+		vec[1] = -((btn.y + btn.h) - 1);
+		btn.actorVertices.push_back( vec );
+
+		vec[0] = btn.x;
+		vec[1] = -((btn.y + btn.h) - 1);
+		btn.actorVertices.push_back( vec );
+
 		MainMenuButtons["BTN_ID_" + std::to_string(i)] = btn;
 
-		y += (h + 15);
+		y += (btn.h + 15);
 	}
 
 	return 0;
