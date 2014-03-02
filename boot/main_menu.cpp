@@ -167,3 +167,30 @@ int MainMenu_Init( int x, int y )
 
 	return 0;
 }
+
+std::vector<int> Polygon_vertex_ops(int x, int y,int width,int height, int vertex_num){
+	std::vector<int> vertex_coord(2);
+	switch (vertex_num)
+		{
+	case 1:
+			vertex_coord[0]=x;
+			vertex_coord[1]=y;
+			break;
+		case 2:
+			vertex_coord[0]=-((x + width) - 1);
+			vertex_coord[1]=y;
+			break;
+		case 3:
+			vertex_coord[0]=-((x + width) - 1);
+			vertex_coord[1]=-((y + height) - 1);
+			break;
+		default:
+			vertex_coord[0]=x;
+			vertex_coord[1]=((y + height) - 1);
+			break;
+	}
+	//std::cout << vertex_coord[0] << " " << vertex_coord[1]<<std::endl;
+
+return vertex_coord;
+}
+
