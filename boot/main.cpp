@@ -86,6 +86,7 @@ int processEvents(SDL_Event *pEvents, bool *pQuit)
 	}
 
 	if (events.type == SDL_MOUSEMOTION)
+
 		MainMenu_ButtonEvent( events.button.x, 
 		                      events.button.y, 
 		                      MOUSE_MOTION );
