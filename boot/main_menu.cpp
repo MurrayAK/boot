@@ -2,14 +2,15 @@
 
 std::map< std::string, UIButton > MainMenuButtons;
 
-bool VectorInBox(std::vector<int> vec, std::vector< std::vector<int> > vtcs)
+bool VectorInBox( std::vector<int> vec, 
+				  std::vector< std::vector<int> > vtcs )
 {
-	std::vector<int> vtx;
+	std::vector< std::vector<int> >::iterator i;
+	std::vector<int> vtx(2);
 	bool vtxX = false;
 	bool vtxY = false;
 	int vtxpc = 0;
-
-	std::vector< std::vector<int> >::iterator i;
+	
 	for (i = vtcs.begin(); i != vtcs.end(); i++)
 	{
 		vtx = *i;
@@ -17,8 +18,8 @@ bool VectorInBox(std::vector<int> vec, std::vector< std::vector<int> > vtcs)
 		vtxX = false;
 		vtxY = false;
 
-		vec[0] = std::abs(vec[0]);
-		vec[1] = std::abs(vec[1]);
+		vec[0] = std::abs( vec[0] );
+		vec[1] = std::abs( vec[1] );
 			
 		if (vtx[0] < 0) 
 			vec[0] = -1 * vec[0];
@@ -51,33 +52,32 @@ bool VectorInBox(std::vector<int> vec, std::vector< std::vector<int> > vtcs)
 	return false;
 }
 
-int MainMenu_ButtonEvent_MouseClickLeft(std::string button_id)
+int MainMenu_ButtonEvent_MouseClickLeft( std::string button_id )
 {
-	if (MainMenuButtons[button_id].pushed == false)
-		MainMenuButtons[button_id].pushed = true;
+	if (MainMenuButtons[button_id].State.Pressed == false)
+		MainMenuButtons[button_id].State.Pressed = true;
 	else
-		MainMenuButtons[button_id].pushed = false;
+		MainMenuButtons[button_id].State.Pressed = false;
 	
 	return 0;
 }
 
-int MainMenu_ButtonEvent(int mx, int my, MouseEvent event)
+int MainMenu_ButtonEvent( int mx, int my, 
+						  MouseEvent event )
 {
+	std::map< std::string, UIButton >::iterator i;
+	std::vector< std::vector<int> > vtcs;
 	std::vector<int> vec(2);
-	std::vector< std::vector<int> > vtcs(4);
 
 	vec[0] = mx;
 	vec[1] = my;
-
-	std::map< std::string, UIButton >::iterator i;
+	
 	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
 	{
 		vtcs = i->second.actorVertices;
 
 		if (VectorInBox(vec, vtcs))
-		{
-			//std::cout << "button event! >> i->first << std::endl << std::endl;
-			
+		{			
 			switch (event)
 			{
 				case MOUSE_CLICK_LEFT:
@@ -85,7 +85,7 @@ int MainMenu_ButtonEvent(int mx, int my, MouseEvent event)
 					break;
 
 				case MOUSE_MOTION:
-					MainMenuButtons[i->first].hover = true;
+					MainMenuButtons[i->first].State.Hover = true;
 					break;
 			}
 
@@ -96,7 +96,7 @@ int MainMenu_ButtonEvent(int mx, int my, MouseEvent event)
 			switch (event)
 			{
 				case MOUSE_MOTION:
-					MainMenuButtons[i->first].hover = false;
+					MainMenuButtons[i->first].State.Hover = false;
 					break;
 			}
 		}
@@ -108,18 +108,23 @@ int MainMenu_ButtonEvent(int mx, int my, MouseEvent event)
 int MainMenu_Draw()
 {
 	UIButton btn;
-
 	std::map< std::string, UIButton >::iterator i;
+
 	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
 	{
 		btn = i->second;
-		btn.Draw();
+		if (btn.State.Hover) btn.Draw_Hover();
+		else { 
+			if (btn.State.Pressed)
+				btn.Draw_Pressed();
+			else
+				btn.Draw();
+		}
 	}
-
 	return 0;
 }
 
-int MainMenu_Init(int x, int y)
+int MainMenu_Init( int x, int y )
 {	
 	UIButton btn;
 	std::vector<int> vec(2);
@@ -127,31 +132,33 @@ int MainMenu_Init(int x, int y)
 	btn.renderer = renderer;
 	btn.w = 235;
 	btn.h = 43;
-	btn.pushed = false;
-	btn.hover = false;
-
+	btn.State.Pressed = false;
+	btn.State.Hover = false;
+	
 	for (int i = 0; i <= 9; i++)
 	{
 		btn.x = x;
 		btn.y = y;
 
-		btn.actorVertices.clear();
+		btn.vertices.clear();
 
 		vec[0] = btn.x;
 		vec[1] = btn.y;
-		btn.actorVertices.push_back( vec );
+		btn.vertices.push_back( vec );
 
 		vec[0] = -((btn.x + btn.w) - 1);
-		vec[1] = btn.y;
-		btn.actorVertices.push_back( vec );
+		vec[1] = btn.y + 5;
+		btn.vertices.push_back( vec );
 
 		vec[0] = -((btn.x + btn.w) - 1);
-		vec[1] = -((btn.y + btn.h) - 1);
-		btn.actorVertices.push_back( vec );
+		vec[1] = -((btn.y + btn.h) - 1) + 2;
+		btn.vertices.push_back( vec );
 
 		vec[0] = btn.x;
 		vec[1] = -((btn.y + btn.h) - 1);
-		btn.actorVertices.push_back( vec );
+		btn.vertices.push_back( vec );
+
+		btn.actorVertices = btn.vertices;
 
 		MainMenuButtons["BTN_ID_" + std::to_string(i)] = btn;
 

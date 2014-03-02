@@ -4,61 +4,92 @@ UIButton::UIButton() {}
 
 UIButton::~UIButton() {}
 
-int UIButton::Draw()
+int UIButton::Draw_Pressed()
 {
-	SDL_Rect button = { this->x, this->y,
-						this->w, this->h };
-
-	SDL_Rect shadow = { this->x + 3, this->y + 3,
-						this->w, this->h };
+	if (!State.Pressed) return 1;
 
 	Uint8 oldR, oldG, oldB, oldA;
 
 	// Store current draw color
-	SDL_GetRenderDrawColor(this->renderer, &oldR, &oldG, &oldB, &oldA);
+	SDL_GetRenderDrawColor( this->renderer, 
+		                    &oldR, &oldG, &oldB, &oldA );
 
-	// Draw shadow
-	bColorFill.r = 77;
-	bColorFill.g = 77;
-	bColorFill.b = 77;
+	// Draw pressed button
+	SDL_SetRenderDrawColor( this->renderer, 
+							Colors.Line.r = 0, 
+							Colors.Line.g = 255, 
+							Colors.Line.b = 0, 
+							Colors.Line.a = 255 );
 
-	SDL_SetRenderDrawColor(this->renderer, bColorFill.r, bColorFill.g, bColorFill.b, bColorFill.a);
+	std::vector< std::vector<int> >::iterator i;
+	std::vector<int> svtx(2), dvtx(2);
 
-	SDL_RenderDrawRect(this->renderer, &shadow);
-	SDL_RenderFillRect(this->renderer, &shadow);
+	dvtx = vertices.back();
+	dvtx[0] = std::abs( dvtx[0] );
+	dvtx[1] = std::abs( dvtx[1] );
 
-	// Draw button
-	if (this->hover == false)
+	for (i = vertices.begin(); i != vertices.end(); i++)
 	{
-		if (this->pushed == false)
-		{
-			bColorFill.r = 84;
-			bColorFill.g = 129;
-			bColorFill.b = 245;
-		}
-		else
-		{
-			bColorFill.r = 66;
-			bColorFill.g = 105;
-			bColorFill.b = 193;
-		}
+		svtx = *i;
+
+		svtx[0] = std::abs( svtx[0] );
+		svtx[1] = std::abs( svtx[1] );
+		
+		SDL_RenderDrawLine( renderer, 
+						    svtx[0], svtx[1], 
+							dvtx[0], dvtx[1] );
+
+		dvtx[0] = svtx[0];
+		dvtx[1] = svtx[1];
 	}
-	else
-	{
-		bColorFill.r = 153;
-		bColorFill.g = 153;
-		bColorFill.b = 244;
-	}
-
-	SDL_SetRenderDrawColor(this->renderer, bColorFill.r, bColorFill.g, bColorFill.b, bColorFill.a);
-
-	SDL_RenderDrawRect(this->renderer, &button);
-	SDL_RenderFillRect(this->renderer, &button);
-
+	
 	// Reset draw color to previous one before button draw
-	SDL_SetRenderDrawColor(this->renderer, oldR, oldG, oldB, oldA);
+	SDL_SetRenderDrawColor( this->renderer, oldR, oldG, oldB, oldA );
 
 	return 0;
 }
 
+int UIButton::Draw_Hover()
+{
+	if (!State.Hover) return 1;
 
+	Uint8 oldR, oldG, oldB, oldA;
+
+	// Store current draw color
+	SDL_GetRenderDrawColor( this->renderer, 
+		                    &oldR, &oldG, &oldB, &oldA );
+
+	// Draw hover button
+	SDL_SetRenderDrawColor( this->renderer, 
+							Colors.Line.r = 0, 
+							Colors.Line.g = 0, 
+							Colors.Line.b = 255, 
+							Colors.Line.a = 255 );
+
+	std::vector< std::vector<int> >::iterator i;
+	std::vector<int> svtx(2), dvtx(2);
+
+	dvtx = vertices.back();
+	dvtx[0] = std::abs( dvtx[0] );
+	dvtx[1] = std::abs( dvtx[1] );
+
+	for (i = vertices.begin(); i != vertices.end(); i++)
+	{
+		svtx = *i;
+
+		svtx[0] = std::abs( svtx[0] );
+		svtx[1] = std::abs( svtx[1] );
+		
+		SDL_RenderDrawLine( renderer, 
+						    svtx[0], svtx[1], 
+							dvtx[0], dvtx[1] );
+
+		dvtx[0] = svtx[0];
+		dvtx[1] = svtx[1];
+	}
+	
+	// Reset draw color to previous one before button draw
+	SDL_SetRenderDrawColor( this->renderer, oldR, oldG, oldB, oldA );
+
+	return 0;
+}

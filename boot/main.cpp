@@ -72,7 +72,9 @@ int processEvents(SDL_Event *pEvents, bool *pQuit)
 		switch (events.button.button) 
 		{
 			case SDL_BUTTON_LEFT:
-				MainMenu_ButtonEvent(events.button.x, events.button.y, MOUSE_CLICK_LEFT);
+				MainMenu_ButtonEvent( events.button.x, 
+					                  events.button.y, 
+					                  MOUSE_CLICK_LEFT );
 				break;
 
 			case SDL_BUTTON_RIGHT:
@@ -84,7 +86,9 @@ int processEvents(SDL_Event *pEvents, bool *pQuit)
 	}
 
 	if (events.type == SDL_MOUSEMOTION)
-		MainMenu_ButtonEvent(events.button.x, events.button.y, MOUSE_MOTION);
+		MainMenu_ButtonEvent( events.button.x, 
+		                      events.button.y, 
+		                      MOUSE_MOTION );
 
 	return 0;
 }
