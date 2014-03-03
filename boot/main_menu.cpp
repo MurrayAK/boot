@@ -3,6 +3,7 @@
 #include <iostream>
 std::map< std::string, UIButton > MainMenuButtons;
 Polygon Menu_Container_box;
+std::vector<int> ActorColecctiony;
 
 bool VectorInBox( std::vector<int> vec, 
 				  std::vector< std::vector<int> > vtcs )
@@ -42,8 +43,8 @@ bool VectorInBox( std::vector<int> vec,
 		else
 			return false;
 
-		std::cout << "vecx(" << vec[0] << ") vtxx(" << vtx[0] << ") | " 
-			      << "vecy(" << vec[1] << ") vtxy(" << vtx[1] << ") >>> " << vtxX << " " << vtxY << std::endl;
+		//std::cout << "vecx(" << vec[0] << ") vtxx(" << vtx[0] << ") | " 
+		//	      << "vecy(" << vec[1] << ") vtxy(" << vtx[1] << ") >>> " << vtxX << " " << vtxY << std::endl;
 	}
 
 	std::cout << std::endl;
@@ -51,6 +52,27 @@ bool VectorInBox( std::vector<int> vec,
 	if (vtxpc == vtcs.size())
 		return true;
 
+	return false;
+}
+
+bool Binary_search(std::vector<int> mousePosition,std::vector<int> UiButoonYPosition,int imin, int imax){
+	std::cout<<imax<<" "<<imin<<std::endl;
+	if (imax<imin)return false;
+	else{
+		int imid=imin+((imax-imin)/2);
+		std::cout<<imid<<" the middle point!!! "<<std::endl;
+		if (ActorColecctiony[imid]>mousePosition[1]){
+			return Binary_search(mousePosition,UiButoonYPosition,imin,imid-1);
+		}
+		else if(ActorColecctiony[imid]<mousePosition[1]){
+				if (VectorInBox(mousePosition,MainMenuButtons["BTN_ID_" + std::to_string(imid)].actorVertices)){return true;}
+				return Binary_search(mousePosition,UiButoonYPosition,imid+1,imax);
+
+		}
+		else{
+			if(VectorInBox(mousePosition,MainMenuButtons["BTN_ID_" + std::to_string(imid)].actorVertices)){return true;}
+			}
+	}
 	return false;
 }
 
@@ -64,56 +86,86 @@ int MainMenu_ButtonEvent_MouseClickLeft( std::string button_id )
 	return 0;
 }
 
-int MainMenu_ButtonEvent( int mx, int my, 
-						  MouseEvent event )
-{
-	std::map< std::string, UIButton >::iterator i;
-	std::vector< std::vector<int> > vtcs;
-	std::vector<int> vec(2);
+int MainMenu_ButtonEvent( int mx, int my,
+    MouseEvent event )
+    {
+    std::map< std::string, UIButton >::iterator i;
+    std::vector< std::vector<int> > vtcs;
+    std::vector<int> vec(2);
+     
+    vec[0] = mx;
+    vec[1] = my;
+    
+	//bool test=Binary_search(vec,ActorColecctiony,0,MainMenuButtons.size()-1);
 
-	vec[0] = mx;
-	vec[1] = my;
+    if (!VectorInBox(vec, Menu_Container_box.vertices)) return 1;
+     
+    std::cout << "test";
 
-	if(VectorInBox(vec,Menu_Container_box.vertices)){
-	
-	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
-	{
-		vtcs = i->second.actorVertices;
-
-		if (VectorInBox(vec, vtcs))
-		{			
-			switch (event)
-			{
-				case MOUSE_CLICK_LEFT:
-					MainMenu_ButtonEvent_MouseClickLeft( i->first );
-					break;
-
-				case MOUSE_MOTION:
-					MainMenuButtons[i->first].State.Hover = true;
-					break;
-			}
-
-			break;
+	if(Binary_search(vec,ActorColecctiony,0,MainMenuButtons.size()-1)){
+		std::cout<<" actor found"<<std::endl;
+		/*switch(event){
+			case MOUSE_CLICK_LEFT:
+				MainMenu_ButtonEvent_MouseClickLeft( i->first );
+				break;
+     
+			case MOUSE_MOTION:
+				MainMenuButtons[i->first].State.Hover = true;
+				break;
 		}
-		else 
-		{
-			switch (event)
-			{
-				case MOUSE_MOTION:
+	}
+	else{
+		//switch (event)
+				{
+					std::cout<<"event mouse motion"<<std::endl;
+					case MOUSE_MOTION:
 					MainMenuButtons[i->first].State.Hover = false;
 					break;
+		}*/
+	}
+	return 0;
+}
+
+     
+    /*for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
+		{
+		vtcs = i->second.actorVertices;
+     
+		if (VectorInBox(vec, vtcs))
+		{	
+			switch (event)
+				{
+				case MOUSE_CLICK_LEFT:
+				MainMenu_ButtonEvent_MouseClickLeft( i->first );
+				break;
+     
+				case MOUSE_MOTION:
+				MainMenuButtons[i->first].State.Hover = true;
+				break;
+				}
+     
+				break;
+				}
+				else
+				{
+				switch (event)
+				{
+					case MOUSE_MOTION:
+					MainMenuButtons[i->first].State.Hover = false;
+					break;
+				}
 			}
 		}
-	}
+     
+    return 0;
+    }*/
 
-	return 0;
-	}
-}
+
 
 int MainMenu_Draw()
 {
 	UIButton btn;
-
+	Menu_Container_box.Draw();
 	std::map< std::string, UIButton >::iterator i;
 
 	for (i = MainMenuButtons.begin(); i != MainMenuButtons.end(); i++)
@@ -163,8 +215,9 @@ int MainMenu_Init( int x, int y )
 	UIButton btn;
 	//std::vector<int> vec(2);
 	for(int v=1;v<=4;v++){
-		Menu_Container_box.vertices.push_back(Polygon_vertex_ops(54,54,330,9*65,v));
+		Menu_Container_box.vertices.push_back(Polygon_vertex_ops(54,54,330,9*80,v));
 	}
+	Menu_Container_box.renderer=renderer;
 	btn.renderer = renderer;
 	btn.w = 235;
 	btn.h = 43;
@@ -175,7 +228,7 @@ int MainMenu_Init( int x, int y )
 	{
 		btn.x = x;
 		btn.y = y;
-
+		ActorColecctiony.push_back(y);
 		btn.vertices.clear();
 		for(int a=1;a<=4;a++){
 			btn.vertices.push_back( Polygon_vertex_ops(btn.x,btn.y,btn.w,btn.h,a));
