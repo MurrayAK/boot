@@ -3,12 +3,13 @@
 #include <iostream>
 
 
-Polygon Menu_Container_box;
+//Polygon Menu_Container_box;
 
 
 //MainMenu structure
 struct MainMenu {
     int ContainerID;
+	Polygon Menu_Container_box;
     std::map< std::string, UIButton > Buttons;
     UIButton* LastHoverID;} 
 MainMenu;
@@ -113,7 +114,7 @@ int MainMenu_ButtonEvent( int mx, int my,MouseEvent event )
     
 	int actorNumber=Binary_search(vec,0,MainMenu.Buttons.size()-1);
 
-    if (!VectorInBox(vec, Menu_Container_box.vertices)) return 1;
+    if (!VectorInBox(vec, MainMenu.Menu_Container_box.vertices)) return 1;
      
   
 
@@ -137,6 +138,11 @@ int MainMenu_ButtonEvent( int mx, int my,MouseEvent event )
 				break;
 		}
 	}
+	else if(MainMenu.LastHoverID != NULL){
+		(*MainMenu.LastHoverID).State.Hover=false;
+	}
+		
+
 	
 	return 0;
 }
@@ -147,7 +153,7 @@ int MainMenu_ButtonEvent( int mx, int my,MouseEvent event )
 int MainMenu_Draw()
 {
 	UIButton btn;
-	Menu_Container_box.Draw();
+	MainMenu.Menu_Container_box.Draw();
 	std::map< std::string, UIButton >::iterator i;
 
 	for (i = MainMenu.Buttons.begin(); i != MainMenu.Buttons.end(); i++)
@@ -200,9 +206,9 @@ int MainMenu_Init( int x, int y )
 {	
 	UIButton btn;
 	MainMenu.ContainerID=1;
-	Menu_Container_box.renderer=renderer;
+	MainMenu.Menu_Container_box.renderer=renderer;
 	for(int v=1;v<=4;v++){
-		Menu_Container_box.vertices.push_back(Polygon_vertex_ops(54,54,330,9*80,v));
+		MainMenu.Menu_Container_box.vertices.push_back(Polygon_vertex_ops(54,54,330,9*80,v));
 	}
 	btn.renderer = renderer;
 	btn.w = 235;
