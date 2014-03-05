@@ -5,19 +5,26 @@
 
 Polygon Menu_Container_box;
 
+
+//MainMenu structure
 struct MainMenu {
     int ContainerID;
     std::map< std::string, UIButton > Buttons;
     UIButton* LastHoverID;} 
 MainMenu;
 
+
+//accepts mouse position vector and button actor vertices
+//return true if mouse is in actor false otherwise
+
+
 bool VectorInBox( std::vector<int> vec, 
 				  std::vector< std::vector<int> > vtcs )
 {
 	std::vector< std::vector<int> >::iterator i;
 	std::vector<int> vtx(2);
-	bool vtxX = false;
-	bool vtxY = false;
+	bool vtxX;
+	bool vtxY;
 	int vtxpc = 0;
 	
 	for (i = vtcs.begin(); i != vtcs.end(); i++)
@@ -56,6 +63,10 @@ bool VectorInBox( std::vector<int> vec,
 	return false;
 }
 
+//Used to search for which actor the mouse position belongs to
+//accepts mouse position vector, integer start to look vector index ,integer end look vector index
+//returns integer of found vector index, -1 if none is found
+
 int Binary_search(std::vector<int> mousePosition,int imin, int imax){
 	if ( imax < imin) return -1;
 	
@@ -75,6 +86,10 @@ int Binary_search(std::vector<int> mousePosition,int imin, int imax){
 	return -1;
 }
 
+//Mouseclick on button state change
+//accepts string with button key in map
+//returns 0
+
 int MainMenu_ButtonEvent_MouseClickLeft( std::string button_id )
 {
 	if (MainMenu.Buttons[button_id].State.Pressed == false)
@@ -84,6 +99,10 @@ int MainMenu_ButtonEvent_MouseClickLeft( std::string button_id )
 	
 	return 0;
 }
+
+//Handles mouse events on
+//accepts mouse position and event to handle
+//returns 0
 
 int MainMenu_ButtonEvent( int mx, int my,MouseEvent event )
     {
@@ -122,7 +141,8 @@ int MainMenu_ButtonEvent( int mx, int my,MouseEvent event )
 	return 0;
 }
 
-     
+//Draws buttons and containers
+//returns 0
 
 int MainMenu_Draw()
 {
@@ -143,6 +163,10 @@ int MainMenu_Draw()
 	}
 	return 0;
 }
+
+//calculates all vertices in polygon
+//accepts integers coordinates of first vextex(x,y),integer width,integer height, integer vertice number
+//returns int vect for each vertice of actor
 
 std::vector<int> Polygon_vertex_ops(int x, int y,int width,int height, int vertex_num){
 	std::vector<int> vertex_coord(2);
@@ -168,7 +192,9 @@ std::vector<int> Polygon_vertex_ops(int x, int y,int width,int height, int verte
 return vertex_coord;
 }
 
-
+//initiates MainMenu objects
+//accepts integers starting button x,y coordinates
+//returns 0
 
 int MainMenu_Init( int x, int y )
 {	
