@@ -34,7 +34,6 @@ int engineInit()
 int engineShutdown() 
 {
 	// Cleanup
-	
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 
@@ -46,50 +45,66 @@ int engineShutdown()
 	return 0;
 }
 
-int processEvents(SDL_Event *pEvents, bool *pQuit)
+
+
+int processEvents( SDL_Event* pEvents, 
+				   bool* pQuit )
 {
-	SDL_Event events = *pEvents;
+	SDL_Event& events = *pEvents;
+	bool& quit = *pQuit;
 
-	if (events.type == SDL_QUIT) *pQuit = true;
-
-	// Keyboard events
-	if (events.type == SDL_KEYDOWN) 
+	switch (events.type)
 	{
-		switch (events.key.keysym.sym) 
+		case SDL_QUIT:
+			quit = true;
+			break;
+		
+		case SDL_KEYDOWN:
 		{
-			case SDLK_ESCAPE:
-				*pQuit = true;
-				break;
+			switch (events.key.keysym.sym) 
+			{
+				case SDLK_ESCAPE:
+					quit = true;
+					break;
 
-			default:
-				break;
+				default:
+					break;
+			}
+
+			break;
 		}
-	}
 
-	// Mouse button events
-	if (events.type == SDL_MOUSEBUTTONDOWN) 
-	{
-		switch (events.button.button) 
+		case SDL_MOUSEBUTTONDOWN:
+		{ 
+			switch (events.button.button) 
+			{
+				case SDL_BUTTON_LEFT:
+					MainMenu_ButtonEventHandler_Mouse( events.button.x, 
+													   events.button.y, 
+													   MOUSE_CLICK_LEFT );
+					break;
+				
+				case SDL_BUTTON_RIGHT:
+					break;
+
+				default:
+					break;
+			}
+
+			break;
+		}
+
+		case SDL_MOUSEMOTION:
 		{
-			case SDL_BUTTON_LEFT:
-				MainMenu_ButtonEvent( events.button.x, 
-					                  events.button.y, 
-					                  MOUSE_CLICK_LEFT );
-				break;
-
-			case SDL_BUTTON_RIGHT:
-				break;
-
-			default:
-				break;
+			MainMenu_ButtonEventHandler_Mouse( events.button.x, 
+											   events.button.y, 
+											   MOUSE_MOTION );
+			break;
 		}
+
+		default:
+			break;
 	}
-
-	if (events.type == SDL_MOUSEMOTION)
-
-		MainMenu_ButtonEvent( events.button.x, 
-		                      events.button.y, 
-		                      MOUSE_MOTION );
 
 	return 0;
 }
@@ -125,7 +140,7 @@ int gameLoop()
 	return 0;
 }
 
-int main(int argc, char **argv) 
+int main(int argc, char** argv) 
 {
 	engineInit();
 
@@ -148,7 +163,7 @@ int main(int argc, char **argv)
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
 
-	MainMenu_Init(110, 85);
+	MainMenu_Init();
 
 	gameLoop();
 
