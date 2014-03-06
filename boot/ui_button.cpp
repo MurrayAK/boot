@@ -4,9 +4,9 @@ UIButton::UIButton() {}
 
 UIButton::~UIButton() {}
 
-int UIButton::Draw_Pressed()
+int UIButton::Draw_Pushed()
 {
-	if (!State.Pressed) return 1;
+	if (!State.Pushed) return 1;
 
 	Uint8 oldR, oldG, oldB, oldA;
 

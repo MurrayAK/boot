@@ -15,14 +15,14 @@ public:
 	std::vector< std::vector<int> > actorVertices;
 
 	struct State {
-		bool Pressed;
+		bool Pushed;
 		bool Hover;
 	} State;
 
 	UIButton();
 	~UIButton();
 	
-	int Draw_Pressed();
+	int Draw_Pushed();
 	int Draw_Hover();
 
 protected:

@@ -45,13 +45,11 @@ int engineShutdown()
 	return 0;
 }
 
-
-
-int processEvents( SDL_Event* pEvents, 
-				   bool* pQuit )
+int processEvents( SDL_Event* eventsPtr, 
+				   bool* quitPtr )
 {
-	SDL_Event& events = *pEvents;
-	bool& quit = *pQuit;
+	SDL_Event& events = *eventsPtr;
+	bool& quit = *quitPtr;
 
 	switch (events.type)
 	{

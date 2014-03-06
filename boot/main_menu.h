@@ -13,9 +13,10 @@
 enum MouseEvent { MOUSE_CLICK_LEFT, MOUSE_MOTION };
 
 int MainMenu_Init();
-int MainMenu_Draw();
+void MainMenu_Draw();
 
-int MainMenu_ButtonEventHandler_Mouse( int mx, int my, 
-									   MouseEvent event );
+int MainMenu_ButtonEventHandler_Mouse( const int& mx, 
+									   const int& my, 
+									   const MouseEvent& event );
 
 #endif
