@@ -1,7 +1,24 @@
-#include "main.h"
+#include "setmap.h"
+#include "render.h"
+#include "main_menu.h"
 
 int main( int argc, 
-		  char** argv ) 
+		  char **argv );
+
+int gameLoop();
+
+int processEvents( SDL_Event *eventsptr, 
+				   bool *quitptr );
+
+int renderGameState();
+
+int engineInit();
+int engineShutdown();
+
+SettingsMap Settings;
+
+int main( int argc, 
+		  char **argv ) 
 {
 	engineInit();
 
@@ -56,13 +73,6 @@ int gameLoop()
 		renderGameState(); // Render the game state
 		SDL_RenderPresent(renderer); // Update the screen
 	}
-
-	return 0;
-}
-
-int renderGameState() 
-{
-	MainMenu_Draw();
 
 	return 0;
 }
@@ -125,6 +135,13 @@ int processEvents( SDL_Event *eventsptr,
 		default:
 			break;
 	}
+
+	return 0;
+}
+
+int renderGameState() 
+{
+	MainMenu_Draw();
 
 	return 0;
 }
