@@ -10,9 +10,9 @@ void logSDLError( std::ostream &os,
 }
 
 SDL_Texture* loadTexture( const std::string &file, 
-						  SDL_Renderer *ren ) 
+						  SDL_Renderer *renderer ) 
 {
-    SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
+    SDL_Texture *texture = IMG_LoadTexture(renderer, file.c_str());
 
     if (texture == nullptr) logSDLError(std::cout, "LoadTexture");
 
@@ -20,15 +20,15 @@ SDL_Texture* loadTexture( const std::string &file,
 }
 
 void renderTexture( SDL_Texture *tex, 
-				    SDL_Renderer *ren, 
+				    SDL_Renderer *renderer, 
 				    SDL_Rect dst,
  				    SDL_Rect *clip = nullptr )
 {
-    SDL_RenderCopy( ren, tex, clip, &dst );
+    SDL_RenderCopy( renderer, tex, clip, &dst );
 }
 
 void renderTexture( SDL_Texture *tex, 
-				    SDL_Renderer *ren, 
+				    SDL_Renderer *renderer, 
 				    int x, int y,
 				    SDL_Rect *clip = nullptr )
 {
@@ -43,7 +43,7 @@ void renderTexture( SDL_Texture *tex,
     else
         SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
 
-    renderTexture(tex, ren, dst, clip);
+    renderTexture(tex, renderer, dst, clip);
 }
 
 SDL_Texture* renderText( const std::string &message, 

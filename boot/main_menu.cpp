@@ -76,10 +76,10 @@ UIButton* FindButton( std::vector<int> mpos,
 	int btnindex 
 		= (imin + ((imax - imin) / 2));
 
-	UIButton* btnptr 
+	UIButton *btnptr 
 		= &MainMenu.Buttons[ "BTN_ID_" + std::to_string( btnindex ) ];
 
-	std::vector<int>& vtx 
+	std::vector<int> &vtx 
 		= (*btnptr).actorVertices[0];
 
 	if (vtx[1] > mpos[1])
@@ -102,7 +102,7 @@ UIButton* FindButton( std::vector<int> mpos,
 * Mouseclick on button state change
 * accepts string with button key in map
 */
-void ButtonEvent_MouseClick_Left( UIButton& Button )
+void ButtonEvent_MouseClick_Left( UIButton &Button )
 {	
 	if (Button.State.Pushed == false)
 		Button.State.Pushed = true;
@@ -114,9 +114,9 @@ void ButtonEvent_MouseClick_Left( UIButton& Button )
 * Mouse motion on button state change
 * accepts string with button key in map
 */
-void ButtonEvent_MouseMotion( UIButton& Button )
+void ButtonEvent_MouseMotion( UIButton &Button )
 {
-	UIButton*& LastButton = MainMenu.LastButton;
+	UIButton *&LastButton = MainMenu.LastButton;
 	
 	if (LastButton)
 		(*LastButton).State.Hover = false;
@@ -130,9 +130,9 @@ void ButtonEvent_MouseMotion( UIButton& Button )
 * handles mouse events on
 * accepts mouse position and event to handle
 */
-int MainMenu_ButtonEventHandler_Mouse( const int& mx, 
-									   const int& my, 
-									   const MouseEvent& event )
+int MainMenu_ButtonEventHandler_Mouse( const int &mx, 
+									   const int &my, 
+									   const MouseEvent &event )
 {
     std::vector<int> vec(2);
 	
@@ -145,13 +145,13 @@ int MainMenu_ButtonEventHandler_Mouse( const int& mx,
     if (!VectorInQuad(vec, MainMenu.Container.vertices))
 		return 1;
 	
-	UIButton* btnptr 
+	UIButton *btnptr 
 		= FindButton( vec, 0, (MainMenu.Buttons.size() - 1) );
 	
 	if (btnptr == nullptr) 
 		return 2;
 	
-	UIButton& Button 
+	UIButton &Button 
 		= *btnptr;
 
 	switch (event) 
@@ -182,7 +182,7 @@ void MainMenu_Draw()
 
 	for (i = MainMenu.Buttons.begin(); i != MainMenu.Buttons.end(); i++)
 	{
-		UIButton& Button = i->second;
+		UIButton &Button = i->second;
 
 		if (Button.State.Hover)
 			Button.Draw_Hover();
