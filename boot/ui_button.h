@@ -1,10 +1,9 @@
 #ifndef UI_BUTTON_H
 #define UI_BUTTON_H
 
-#include <vector>
-#include <SDL_ttf.h>
-
 #include "polygon.h"
+
+#include <vector>
 
 class UIButton: public Polygon
 {

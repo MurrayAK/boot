@@ -1,12 +1,6 @@
 #ifndef MAIN_MENU_H
 #define MAIN_MENU_H
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <map>
-#include <typeinfo>
-
 #include "render.h"
 #include "ui_button.h"
 
@@ -18,5 +12,6 @@ void MainMenu_Draw();
 int MainMenu_ButtonEventHandler_Mouse( const int &mx, 
 									   const int &my, 
 									   const MouseEvent &event );
+
 
 #endif

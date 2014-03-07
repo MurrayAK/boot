@@ -4,9 +4,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <regex>
-#include <fstream>
-#include <iostream>
 
 class SettingsMap {
 

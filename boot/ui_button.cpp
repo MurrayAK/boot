@@ -1,5 +1,7 @@
 #include "ui_button.h"
 
+#include <SDL_ttf.h>
+
 UIButton::UIButton() {}
 
 UIButton::~UIButton() {}

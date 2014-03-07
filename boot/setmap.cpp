@@ -1,5 +1,9 @@
 #include "setmap.h"
 
+#include <regex>
+#include <fstream>
+#include <iostream>
+
 /**
 * Constructors
 */
