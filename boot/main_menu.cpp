@@ -1,5 +1,9 @@
 #include "main_menu.h"
 
+struct DrawStyle {
+	enum Button { NORMAL, HOVER, PUSHED };
+} DrawStyle;
+
 /**
 * MainMenu
 * This is where the actual MainMenu elements and properties are stored
@@ -21,14 +25,14 @@ bool VectorInQuad( std::vector<int> vec,
 	bool vtxX;
 	bool vtxY;
 	int vtxpc = 0;
-
+	
 	std::vector< std::vector<int> >::iterator i;
 	std::vector<int> vtx(2);
 	
 	for (i = vtcs.begin(); i != vtcs.end(); i++)
 	{
 		vtx = *i;
-
+		
 		vtxX = false;
 		vtxY = false;
 
