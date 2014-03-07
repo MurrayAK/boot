@@ -1,9 +1,5 @@
 #include "main_menu.h"
 
-struct DrawStyle {
-	enum Button { NORMAL, HOVER, PUSHED };
-} DrawStyle;
-
 /**
 * MainMenu
 * This is where the actual MainMenu elements and properties are stored
