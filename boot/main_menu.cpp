@@ -81,7 +81,7 @@ UIButton* FindButton( std::vector<int> mpos,
 		= (imin + ((imax - imin) / 2));
 
 	UIButton* btnptr 
-		= &MainMenu.Buttons["BTN_ID_" + std::to_string( btnindex )];
+		= &MainMenu.Buttons[ "BTN_ID_" + std::to_string( btnindex ) ];
 
 	std::vector<int>& vtx 
 		= (*btnptr).actorVertices[0];
@@ -98,7 +98,7 @@ UIButton* FindButton( std::vector<int> mpos,
 		return FindButton( mpos, (btnindex + 1), imax );
 	}
 		
-	return nullptr;
+	return btnptr;
 }
 
 /**
@@ -126,7 +126,6 @@ void ButtonEvent_MouseMotion( UIButton& Button )
 		(*LastButton).State.Hover = false;
 
 	Button.State.Hover = true;
-
 
 	LastButton = &Button;
 }
