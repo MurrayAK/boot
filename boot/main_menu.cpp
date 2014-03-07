@@ -93,8 +93,9 @@ UIButton* FindButton( std::vector<int> mpos,
 
 		return FindButton( mpos, (btnindex + 1), imax );
 	}
-		
-	return nullptr;
+	else{
+		return btnptr;
+		}
 }
 
 /**
