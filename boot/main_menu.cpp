@@ -6,15 +6,46 @@
 #include <map>
 #include <typeinfo>
 
+/**
+* Performs desired functionality for a Main Menu Button, Mouse Left Click Event
+* @param button The button that triggered the event
+*/
 void ButtonEvent_MouseClick_Left( UIButton &Button );
+
+/**
+* Performs desired functionality for a Main Menu Button, Mouse Move Event
+* @param button The button that triggered the event
+*/
 void ButtonEvent_MouseMotion( UIButton &Button );
 
+/**
+* Finds a Button that triggered an event, by searching Buttons close to the Mouse Cursor
+* @param mpos The position of the mouse when a Button Event was triggered
+* @param imin The lower bounds of the button index to check
+* @param imax The upper bounds of the button index to check
+* @return button* A Pointer to the found Button
+*/
 UIButton* FindButton( std::vector<int> mpos, 
 				      int imin, int imax );
 
+/**
+* Checks if a Vector is within the Vertices of Quad
+* @param vec The vector to check is within the vertices
+* @param vtcs The vertices to check vector is within
+* @return True or False if the vector is within the vertices
+*/
 bool VectorInQuad( std::vector<int> vec, 
 				   std::vector< std::vector<int> > vtcs );
 
+/**
+* Calculates the vector of a Quads' vertex
+* @param x The X position to calc from
+* @param y The Y position to calc from
+* @param w The W to calc from X;
+* @param h The H to calc from Y;
+* @param vtxnum The number of vertices of the poly (Max 4)
+* @return The resulting vertex Vector position to draw at
+*/
 std::vector<int> CalculateQuadVertex( int x, int y, 
 									  int w, int h, 
 									  int vtxnum );
@@ -115,9 +146,9 @@ void MainMenu_Draw()
 * handles mouse events on
 * accepts mouse position and event to handle
 */
-int MainMenu_ButtonEventHandler_Mouse( const int &mx, 
-									   const int &my, 
-									   const MouseEvent &event )
+void MainMenu_ButtonEventHandler_Mouse( const int &mx, 
+									    const int &my, 
+									    const MouseEvent &event )
 {
     std::vector<int> vec(2);
 	
@@ -128,13 +159,13 @@ int MainMenu_ButtonEventHandler_Mouse( const int &mx,
 		(*MainMenu.LastButton).State.Hover = false;
 
     if (!VectorInQuad(vec, MainMenu.Container.vertices))
-		return 1;
+		return;
 	
 	UIButton *btnptr 
 		= FindButton( vec, 0, (MainMenu.Buttons.size() - 1) );
 	
 	if (btnptr == nullptr) 
-		return 2;
+		return;
 	
 	UIButton &Button 
 		= *btnptr;
@@ -152,8 +183,6 @@ int MainMenu_ButtonEventHandler_Mouse( const int &mx,
 		default:
 			break;
 	}
-	
-	return 0;
 }
 
 /**

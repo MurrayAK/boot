@@ -6,12 +6,21 @@
 
 enum MouseEvent { MOUSE_CLICK_LEFT, MOUSE_MOTION };
 
+/** Creates the Main Menu and associated Objects, such as Buttons */
 int MainMenu_Init();
+
+/** Draws the current state of the Main Menu */
 void MainMenu_Draw();
 
-int MainMenu_ButtonEventHandler_Mouse( const int &mx, 
-									   const int &my, 
-									   const MouseEvent &event );
+/**
+* Handles all Mouse Events that occur on a Button within the Main Menu
+* @param mx The current X position of the Mouse cursor
+* @param my The current Y position of the Mouse cursor
+* @param event The current Mouse Event that occured, suchas Click, Move, etc.
+*/
+void MainMenu_ButtonEventHandler_Mouse( const int &mx, 
+									    const int &my, 
+									    const MouseEvent &event );
 
 
 #endif
