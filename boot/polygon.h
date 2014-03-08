@@ -21,11 +21,13 @@ public:
 
 	Polygon();
 	~Polygon();
-
+	
 	int Draw();
 
 protected:
-	
+	int _Draw();
+	int _Draw( SDL_Color Line );
+
 };
 
 #endif

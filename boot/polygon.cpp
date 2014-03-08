@@ -1,10 +1,23 @@
 #include "polygon.h"
 
-Polygon::Polygon() {}
+Polygon::Polygon() 
+{
+	Colors.Line.r = 255;
+	Colors.Line.g = 255; 
+	Colors.Line.b = 255;
+	Colors.Line.a = 255;
+}
 
 Polygon::~Polygon() {}
 
 int Polygon::Draw()
+{
+	_Draw();
+
+	return 0;
+}
+
+int Polygon::_Draw()
 {
 	Uint8 oldR, oldG, oldB, oldA;
 
@@ -14,10 +27,10 @@ int Polygon::Draw()
 
 	// Draw polygon
 	SDL_SetRenderDrawColor( this->renderer, 
-							Colors.Line.r = 255, 
-							Colors.Line.g = 255, 
-							Colors.Line.b = 255, 
-							Colors.Line.a = 255 );
+							Colors.Line.r, 
+							Colors.Line.g, 
+							Colors.Line.b, 
+							Colors.Line.a );
 	
 	std::vector< std::vector<int> >::iterator i;
 	std::vector<int> svtx(2), dvtx(2);
@@ -47,4 +60,11 @@ int Polygon::Draw()
 	return 0;
 }
 
+int Polygon::_Draw( SDL_Color Line )
+{
+	Colors.Line = Line;
 
+	_Draw();
+
+	return 0;
+}

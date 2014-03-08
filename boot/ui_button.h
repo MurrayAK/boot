@@ -21,6 +21,7 @@ public:
 	UIButton();
 	~UIButton();
 	
+	int Draw();
 	int Draw_Pushed();
 	int Draw_Hover();
 

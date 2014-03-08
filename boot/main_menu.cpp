@@ -19,6 +19,20 @@ void ButtonEvent_MouseClick_Left( UIButton &Button );
 void ButtonEvent_MouseMotion( UIButton &Button );
 
 /**
+* Creates the Main Menu Buttons
+* @param x The x to draw relative to
+* @param y The y to draw relative to
+*/
+void CreateButtons( int &x, int &y, int &yspacing );
+
+/**
+* Creates the Container to hold the Buttons
+* @param x The x to draw relative to
+* @param y The y to draw relative to
+*/
+void CreateContainer( int &x, int &y, int &yspacing );
+
+/**
 * Finds a Button that triggered an event, by searching Buttons close to the Mouse Cursor
 * @param mpos The position of the mouse when a Button Event was triggered
 * @param imin The lower bounds of the button index to check
@@ -46,85 +60,42 @@ bool VectorInQuad( std::vector<int> vec,
 * @param vtxnum The number of vertices of the poly (Max 4)
 * @return The resulting vertex Vector position to draw at
 */
-std::vector<int> CalculateQuadVertex( int x, int y, 
-									  int w, int h, 
-									  int vtxnum );
+std::vector<int> CalculateQuadVertex( const int &x, const int &y, 
+									  const int &w, const int &h, 
+									  const int &vtxnum );
 
-/**
-* MainMenu
-* This is where the actual MainMenu elements and properties are stored
-*/
+/** The MainMenu and all it's elements and properties */
 struct MainMenu {
 	Polygon Container;
     std::map< std::string, UIButton > Buttons;
     UIButton* LastButton;
 } MainMenu;
 
-/**
-* Initiates MainMenu objects
-* accepts integers starting button x,y coordinates
-* returns 0
-*/
-int MainMenu_Init()
+/** Creates MainMenu objects, Buttons, etc */
+void MainMenu_Init()
 {	
-	UIButton Button;
-	std::vector<int> vtx(2);
-
 	int x = 110; 
 	int y = 85;
+	int yspacing = 15;
 
-	MainMenu.Container.renderer = renderer;
-	
-	for (int vc = 1; vc <= 4; vc++)
-	{
-		vtx = CalculateQuadVertex( 54, 54, 
-			                       330, (9 * 80), 
-								   vc );
+	CreateButtons(x, y, yspacing);
+	CreateContainer(x, y, yspacing);
 
-		MainMenu.Container.vertices.push_back( vtx );
-	}
-	
 	MainMenu.LastButton = nullptr;
-
-	Button.w = 235;
-	Button.h = 43;
-	Button.State.Hover = false;
-	Button.State.Pushed = false;
-	Button.renderer = renderer;
-
-	for (int i = 0; i <= 9; i++)
-	{
-		Button.x = x;
-		Button.y = y;
-
-		Button.vertices.clear();
-
-		for(int vc = 1; vc <= 4; vc++)
-		{
-			vtx = CalculateQuadVertex( Button.x, Button.y,
-			                           Button.w, Button.h, 
-									   vc );
-
-			Button.vertices.push_back( vtx );
-		}
-
-		Button.actorVertices = Button.vertices;
-		
-		MainMenu.Buttons[ "BTN_ID_" + std::to_string(i) ] = Button;
-		
-		y += (Button.h + 15);
-	}
-
-	return 0;
 }
 
-/**
-* Draws buttons and containers
-*/
+/** Draws the MainMenu and all its elements to the screen */
 void MainMenu_Draw()
 {
+	// ///////////////////////////////////////////////////
+	MainMenu.Container.renderer = renderer;
+	MainMenu.Container.Colors.Line.r = 168;
+	MainMenu.Container.Colors.Line.g = 168;
+	MainMenu.Container.Colors.Line.b = 168;
+	MainMenu.Container.Colors.Line.a = 255;
 	MainMenu.Container.Draw();
-	
+	// ///////////////////////////////////////////////////
+
 	std::map< std::string, UIButton >::iterator i;
 
 	for (i = MainMenu.Buttons.begin(); i != MainMenu.Buttons.end(); i++)
@@ -142,10 +113,7 @@ void MainMenu_Draw()
 	}
 }
 
-/**
-* handles mouse events on
-* accepts mouse position and event to handle
-*/
+/** Handles all events that occur on a MainMenu Button */
 void MainMenu_ButtonEventHandler_Mouse( const int &mx, 
 									    const int &my, 
 									    const MouseEvent &event )
@@ -185,11 +153,7 @@ void MainMenu_ButtonEventHandler_Mouse( const int &mx,
 	}
 }
 
-/**
-* 
-* Mouseclick on button state change
-* accepts string with button key in map
-*/
+/** Performs desired functionality for a Main Menu Button, Mouse Left Click Event */
 void ButtonEvent_MouseClick_Left( UIButton &Button )
 {	
 	if (Button.State.Pushed == false)
@@ -198,10 +162,7 @@ void ButtonEvent_MouseClick_Left( UIButton &Button )
 		Button.State.Pushed = false;
 }
 
-/**
-* Mouse motion on button state change
-* accepts string with button key in map
-*/
+/** Performs desired functionality for a Main Menu Button, Mouse Move Event */
 void ButtonEvent_MouseMotion( UIButton &Button )
 {
 	UIButton *&LastButton = MainMenu.LastButton;
@@ -212,6 +173,62 @@ void ButtonEvent_MouseMotion( UIButton &Button )
 	Button.State.Hover = true;
 
 	LastButton = &Button;
+}
+
+/** Creates the Buttons for the MainMenu */
+void CreateButtons( int &x, int &y, int &yspacing )
+{	
+	UIButton Button;
+	std::vector<int> vtx(2);
+	
+	Button.x = x;
+	Button.y = y;
+	Button.w = 235;
+	Button.h = 43;
+	Button.State.Hover = false;
+	Button.State.Pushed = false;
+	Button.renderer = renderer;
+
+	for (int i = 0; i <= 9; i++)
+	{
+		Button.vertices.clear();
+
+		for (int vc = 1; vc <= 4; vc++)
+		{
+			vtx = CalculateQuadVertex( Button.x, Button.y,
+			                           Button.w, Button.h, 
+									   vc );
+
+			Button.vertices.push_back( vtx );
+		}
+
+		Button.actorVertices = Button.vertices;
+		
+		MainMenu.Buttons[ "BTN_ID_" + std::to_string(i) ] = Button;
+		
+		Button.y += (Button.h + yspacing);
+	}
+}
+
+/** Creates the Container for the MainMenu elements */
+void CreateContainer( int &x, int &y, int &yspacing )
+{	
+	std::map< std::string, UIButton >::iterator &i = MainMenu.Buttons.begin();
+
+	UIButton &Button = i->second;
+
+	const int &w = Button.w;
+	const int &h = ( (MainMenu.Buttons.size() * 
+		             (Button.h + yspacing)) - yspacing );
+	
+	std::vector<int> vtx(2);
+
+	for (int vc = 1; vc <= 4; vc++)
+	{
+		vtx = CalculateQuadVertex( x, y, w, h, vc );
+
+		MainMenu.Container.vertices.push_back( vtx );
+	}
 }
 
 /**
@@ -236,8 +253,7 @@ UIButton* FindButton( std::vector<int> mpos,
 		= (*btnptr).actorVertices[0];
 
 	if (vtx[1] > mpos[1])
-		return FindButton( mpos, imin, 
-		                         (btnindex - 1) );
+		return FindButton( mpos, imin, (btnindex - 1) );
 
 	else if (vtx[1] < mpos[1])
 	{
@@ -306,9 +322,9 @@ bool VectorInQuad( std::vector<int> vec,
 * accepts integer coordinates of first vextex(x,y), integer width, integer height, integer vertice number
 * returns int vect for each vertice of actor
 */
-std::vector<int> CalculateQuadVertex( int x, int y, 
-									  int w, int h, 
-									  int vtxnum )
+std::vector<int> CalculateQuadVertex( const int &x, const int &y, 
+									  const int &w, const int &h, 
+									  const int &vtxnum )
 {
 	std::vector<int> vtx(2);
 	

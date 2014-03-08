@@ -13,48 +13,66 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\User Interface">
+      <UniqueIdentifier>{e577e2c1-b70d-4b88-9d1d-f3a9747b8f21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\User Interface">
+      <UniqueIdentifier>{becb86ec-d5fe-48d8-93c7-89b1fa414e4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{45a0b096-6add-4933-84f0-2318b0b571a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System\Engine">
+      <UniqueIdentifier>{148102c8-2a54-40ce-9837-359def76a95c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{d3a59d15-ee64-4b3c-a3e8-327ff9172704}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System\Engine">
+      <UniqueIdentifier>{ab9264fb-ed78-48b5-b19e-f0edd37b150c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="render.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="main_menu.h">
+      <Filter>Header Files\User Interface</Filter>
     </ClInclude>
     <ClInclude Include="ui_button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="main_menu.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\User Interface</Filter>
     </ClInclude>
     <ClInclude Include="setmap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="polygon.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="render_opengl.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\System\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="render.h">
+      <Filter>Header Files\System\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon.h">
+      <Filter>Header Files\System\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main_menu.cpp">
+      <Filter>Source Files\User Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_button.cpp">
+      <Filter>Source Files\User Interface</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ui_button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main_menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="render.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="setmap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="polygon.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="render_opengl.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\System\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>Source Files\System\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>Source Files\System\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

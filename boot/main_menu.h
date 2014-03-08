@@ -7,7 +7,7 @@
 enum MouseEvent { MOUSE_CLICK_LEFT, MOUSE_MOTION };
 
 /** Creates the Main Menu and associated Objects, such as Buttons */
-int MainMenu_Init();
+void MainMenu_Init();
 
 /** Draws the current state of the Main Menu */
 void MainMenu_Draw();
