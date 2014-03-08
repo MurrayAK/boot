@@ -10,12 +10,7 @@ Polygon::Polygon()
 
 Polygon::~Polygon() {}
 
-int Polygon::Draw()
-{
-	_Draw();
-
-	return 0;
-}
+void Polygon::Draw() { _Draw(); }
 
 int Polygon::_Draw()
 {

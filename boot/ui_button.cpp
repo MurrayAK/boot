@@ -2,8 +2,6 @@
 
 #include <SDL_ttf.h>
 
-// TODO: COLORS FOR STATES
-
 UIButton::UIButton() {}
 
 UIButton::~UIButton() {}

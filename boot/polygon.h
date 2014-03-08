@@ -22,7 +22,7 @@ public:
 	Polygon();
 	~Polygon();
 	
-	int Draw();
+	void Draw();
 
 protected:
 	int _Draw();
