@@ -60,7 +60,7 @@ int Polygon::_Draw()
 	return 0;
 }
 
-int Polygon::_Draw( SDL_Color Line )
+int Polygon::_Draw( SDL_Color &Line )
 {
 	Colors.Line = Line;
 

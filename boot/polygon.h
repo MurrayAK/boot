@@ -26,7 +26,7 @@ public:
 
 protected:
 	int _Draw();
-	int _Draw( SDL_Color Line );
+	int _Draw( SDL_Color &Line );
 
 };
 

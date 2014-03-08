@@ -185,9 +185,23 @@ void CreateButtons( int &x, int &y, int &yspacing )
 	Button.y = y;
 	Button.w = 235;
 	Button.h = 43;
+
 	Button.State.Hover = false;
 	Button.State.Pushed = false;
+	
 	Button.renderer = renderer;
+
+	SDL_Color &Normal = Button.Colors.Normal;
+	Normal.r = 255; Normal.g = 255; 
+	Normal.b = 255; Normal.a = 255;
+
+	SDL_Color &Pushed = Button.Colors.Pushed;
+	Pushed.r = 0; Pushed.g = 255; 
+	Pushed.b = 0; Pushed.a = 255;
+
+	SDL_Color &Hover = Button.Colors.Hover;
+	Hover.r = 0; Hover.g = 0; 
+	Hover.b = 255; Hover.a = 255;
 
 	for (int i = 0; i <= 9; i++)
 	{

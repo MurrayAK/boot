@@ -18,6 +18,12 @@ public:
 		bool Hover;
 	} State;
 
+	struct Colors {
+		SDL_Color Normal;
+		SDL_Color Pushed;
+		SDL_Color Hover;
+	} Colors;
+
 	UIButton();
 	~UIButton();
 	
