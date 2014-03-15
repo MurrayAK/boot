@@ -1,6 +1,8 @@
 #include "setmap.h"
 #include "render.h"
-#include "main_menu.h"
+#include "render_startup.h"
+
+/** ************************************************************************************* */
 
 int main( int argc, 
 		  char **argv );
@@ -15,10 +17,14 @@ int renderGameState();
 int engineInit();
 int engineShutdown();
 
+/** ************************************************************************************* */
+
 SettingsMap Settings;
 
+/** ************************************************************************************* */
+
 int main( int argc, 
-		  char **argv ) 
+		  char* *argv ) 
 {
 	engineInit();
 
@@ -28,12 +34,12 @@ int main( int argc,
 	Settings.LoadIni("config/settings.ini");
 	
 	std::string str = Settings.GetValue("App.Title");
-	char *cstr = new char [str.length()+1];
+	char* cstr = new char [str.length()+1];
 	std::strcpy (cstr, str.c_str());
 	const char *APP_NAME = cstr;
 	
-	int ResW = std::stoi(Settings.GetValue("Engine.Screen.Width"));
-	int ResH = std::stoi(Settings.GetValue("Engine.Screen.Height"));
+	int ResW = std::stoi( Settings.GetValue("Engine.Screen.Width") );
+	int ResH = std::stoi( Settings.GetValue("Engine.Screen.Height") );
 
 	window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ResW, ResH, SDL_WINDOW_SHOWN);
 	if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
@@ -41,7 +47,7 @@ int main( int argc,
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
 
-	MainMenu_Init();
+	StartupScreen_Init();
 
 	gameLoop();
 
@@ -109,9 +115,9 @@ int processEvents( SDL_Event *eventsptr,
 			switch (events.button.button) 
 			{
 				case SDL_BUTTON_LEFT:
-					MainMenu_ButtonEventHandler_Mouse( events.button.x, 
-													   events.button.y, 
-													   MOUSE_CLICK_LEFT );
+					StartupScreen_ButtonEventHandler_Mouse( events.button.x, 
+													        events.button.y, 
+													        MOUSE_CLICK_LEFT );
 					break;
 				
 				case SDL_BUTTON_RIGHT:
@@ -126,9 +132,9 @@ int processEvents( SDL_Event *eventsptr,
 
 		case SDL_MOUSEMOTION:
 		{
-			MainMenu_ButtonEventHandler_Mouse( events.button.x, 
-											   events.button.y, 
-											   MOUSE_MOTION );
+			StartupScreen_ButtonEventHandler_Mouse( events.button.x, 
+											        events.button.y, 
+											        MOUSE_MOTION );
 			break;
 		}
 
@@ -141,7 +147,7 @@ int processEvents( SDL_Event *eventsptr,
 
 int renderGameState() 
 {
-	MainMenu_Draw();
+	StartupScreen_Draw();
 
 	return 0;
 }

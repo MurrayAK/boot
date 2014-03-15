@@ -1,0 +1,1 @@
+enum MouseEvent { MOUSE_CLICK_LEFT, MOUSE_MOTION };

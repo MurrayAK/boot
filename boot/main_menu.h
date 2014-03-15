@@ -1,10 +1,7 @@
 #ifndef MAIN_MENU_H
 #define MAIN_MENU_H
 
-#include "render.h"
-#include "ui_button.h"
-
-enum MouseEvent { MOUSE_CLICK_LEFT, MOUSE_MOTION };
+#include "main.h"
 
 /** Creates the Main Menu and associated Objects, such as Buttons */
 void MainMenu_Init();

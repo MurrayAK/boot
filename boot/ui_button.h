@@ -11,7 +11,7 @@ class UIButton: public Polygon
 private:
 
 public:
-	std::vector< std::vector<int> > actorVertices;
+	std::vector< std::vector<int> > actorVtcs;
 
 	struct State {
 		bool Pushed;

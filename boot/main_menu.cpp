@@ -6,6 +6,9 @@
 #include <map>
 #include <typeinfo>
 
+#include "render.h"
+#include "ui_button.h"
+
 /**
 * Performs desired functionality for a Main Menu Button, Mouse Left Click Event
 * @param button The button that triggered the event
@@ -64,12 +67,16 @@ std::vector<int> CalculateQuadVertex( const int &x, const int &y,
 									  const int &w, const int &h, 
 									  const int &vtxnum );
 
+/** ************************************************************************************* */
+
 /** The MainMenu and all it's elements and properties */
 struct MainMenu {
 	Polygon Container;
     std::map< std::string, UIButton > Buttons;
     UIButton* LastButton;
 } MainMenu;
+
+/** ************************************************************************************* */
 
 /** Creates MainMenu objects, Buttons, etc */
 void MainMenu_Init()
@@ -88,12 +95,12 @@ void MainMenu_Init()
 void MainMenu_Draw()
 {
 	// ///////////////////////////////////////////////////
-	MainMenu.Container.renderer = renderer;
-	MainMenu.Container.Colors.Line.r = 168;
-	MainMenu.Container.Colors.Line.g = 168;
-	MainMenu.Container.Colors.Line.b = 168;
-	MainMenu.Container.Colors.Line.a = 255;
-	MainMenu.Container.Draw();
+	//MainMenu.Container.renderer = renderer;
+	//MainMenu.Container.Colors.Line.r = 168;
+	//MainMenu.Container.Colors.Line.g = 168;
+	//MainMenu.Container.Colors.Line.b = 168;
+	//MainMenu.Container.Colors.Line.a = 255;
+	//MainMenu.Container.Draw();
 	// ///////////////////////////////////////////////////
 
 	std::map< std::string, UIButton >::iterator i;
@@ -216,7 +223,7 @@ void CreateButtons( int &x, int &y, int &yspacing )
 			Button.vertices.push_back( vtx );
 		}
 
-		Button.actorVertices = Button.vertices;
+		Button.actorVtcs = Button.vertices;
 		
 		MainMenu.Buttons[ "BTN_ID_" + std::to_string(i) ] = Button;
 		
@@ -264,14 +271,14 @@ UIButton* FindButton( std::vector<int> mpos,
 		= &MainMenu.Buttons[ "BTN_ID_" + std::to_string( btnindex ) ];
 
 	std::vector<int> &vtx 
-		= (*btnptr).actorVertices[0];
+		= (*btnptr).actorVtcs[0];
 
 	if (vtx[1] > mpos[1])
 		return FindButton( mpos, imin, (btnindex - 1) );
 
 	else if (vtx[1] < mpos[1])
 	{
-		if (VectorInQuad(mpos, (*btnptr).actorVertices ))
+		if (VectorInQuad(mpos, (*btnptr).actorVtcs ))
 			return btnptr;
 
 		return FindButton( mpos, (btnindex + 1), imax );
