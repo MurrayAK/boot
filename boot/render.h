@@ -7,8 +7,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-extern SDL_Window *window;
-extern SDL_Renderer *renderer;
+/** ------------------------------------------------------------------------------------- */
 
 /**
 * Log an SDL error with some error message to the output stream of our choice

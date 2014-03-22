@@ -1,15 +1,17 @@
+#include "main.h"
+
 #include "setmap.h"
 #include "render.h"
 #include "render_startup.h"
 
-/** ************************************************************************************* */
+/** ------------------------------------------------------------------------------------- */
 
 int main( int argc, 
-		  char **argv );
+		  char* *argv );
 
 int gameLoop();
 
-int processEvents( SDL_Event *eventsptr, 
+int processEvents( SDL_Event *eventsptr,
 				   bool *quitptr );
 
 int renderGameState();
@@ -17,14 +19,17 @@ int renderGameState();
 int engineInit();
 int engineShutdown();
 
-/** ************************************************************************************* */
+/** ------------------------------------------------------------------------------------- */
+
+SDL_Window *window;
+SDL_Renderer *renderer;
 
 SettingsMap Settings;
 
-/** ************************************************************************************* */
+/** ------------------------------------------------------------------------------------- */
 
 int main( int argc, 
-		  char* *argv ) 
+		  char **argv ) 
 {
 	engineInit();
 

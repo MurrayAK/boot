@@ -1,7 +1,6 @@
 #include "render.h"
 
-SDL_Window *window;
-SDL_Renderer *renderer;
+/** ------------------------------------------------------------------------------------- */
 
 void logSDLError( std::ostream &os, 
 				  const std::string &msg ) 
@@ -14,7 +13,8 @@ SDL_Texture* loadTexture( const std::string &file,
 {
     SDL_Texture *texture = IMG_LoadTexture(renderer, file.c_str());
 
-    if (texture == nullptr) logSDLError(std::cout, "LoadTexture");
+    if (texture == nullptr)
+		logSDLError(std::cout, "LoadTexture");
 
     return texture;
 }
@@ -33,6 +33,7 @@ void renderTexture( SDL_Texture *tex,
 				    SDL_Rect *clip = nullptr )
 {
     SDL_Rect dst;
+
     dst.x = x;
     dst.y = y;
 
@@ -53,24 +54,29 @@ SDL_Texture* renderText( const std::string &message,
 {
     //Open the font
     TTF_Font *font = TTF_OpenFont(fontFile.c_str(), fontSize);
-    if (font == nullptr){
+
+    if (font == nullptr) {
         logSDLError(std::cout, "TTF_OpenFont");
+
         return nullptr;
     }
 
     //We need to first render to a surface as that's what TTF_RenderText
     //returns, then load that surface into a texture
-    SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);
+    SDL_Surface *surf = TTF_RenderText_Blended( font, message.c_str(), color );
+
     if (surf == nullptr) {
         TTF_CloseFont(font);
+
         logSDLError(std::cout, "TTF_RenderText");
+
         return nullptr;
     }
 
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
-    if (texture == nullptr) {
-        logSDLError(std::cout, "CreateTexture");
-    }
+
+    if (texture == nullptr)
+		logSDLError(std::cout, "CreateTexture");
 
     //Clean up the surface and font
     SDL_FreeSurface(surf);

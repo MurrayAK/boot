@@ -4,14 +4,12 @@
 #include <fstream>
 #include <iostream>
 
-/**
-* Constructors
-*/
+/** ------------------------------------------------------------------------------------- */
+
+/** Constructor */
 SettingsMap::SettingsMap() {  }
 
-/**
-* Destructor
-*/
+/** Destructor */
 SettingsMap::~SettingsMap() { /*FREE MEMORY?*/ }
 
 /**

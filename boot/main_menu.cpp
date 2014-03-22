@@ -9,6 +9,8 @@
 #include "render.h"
 #include "ui_button.h"
 
+/** ------------------------------------------------------------------------------------- */
+
 /**
 * Performs desired functionality for a Main Menu Button, Mouse Left Click Event
 * @param button The button that triggered the event
@@ -67,7 +69,7 @@ std::vector<int> CalculateQuadVertex( const int &x, const int &y,
 									  const int &w, const int &h, 
 									  const int &vtxnum );
 
-/** ************************************************************************************* */
+/** ------------------------------------------------------------------------------------- */
 
 /** The MainMenu and all it's elements and properties */
 struct MainMenu {
@@ -76,7 +78,7 @@ struct MainMenu {
     UIButton* LastButton;
 } MainMenu;
 
-/** ************************************************************************************* */
+/** ------------------------------------------------------------------------------------- */
 
 /** Creates MainMenu objects, Buttons, etc */
 void MainMenu_Init()
