@@ -1,13 +1,15 @@
 #include "setmap.h"
 
-/**
-* Constructors
-*/
+#include <regex>
+#include <fstream>
+#include <iostream>
+
+/** ------------------------------------------------------------------------------------- */
+
+/** Constructor */
 SettingsMap::SettingsMap() {  }
 
-/**
-* Destructor
-*/
+/** Destructor */
 SettingsMap::~SettingsMap() { /*FREE MEMORY?*/ }
 
 /**

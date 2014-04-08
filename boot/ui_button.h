@@ -1,27 +1,37 @@
 #ifndef UI_BUTTON_H
 #define UI_BUTTON_H
 
-#include <vector>
-#include <SDL.h>
-#include <SDL_ttf.h>
+#include "polygon.h"
 
-class UIButton
+#include <vector>
+
+/** ------------------------------------------------------------------------------------- */
+
+class UIButton: public Polygon
 {
 
 private:
 
 public:
-	int x, y, w, h;
-	SDL_Renderer *renderer;
-	SDL_Color bColorFill;
-	std::vector< std::vector<int> > actorVertices;
-	bool pushed;
-	bool hover;
+	std::vector< std::vector<int> > actorVtcs;
+
+	struct State {
+		bool Pushed;
+		bool Hover;
+	} State;
+
+	struct Colors {
+		SDL_Color Normal;
+		SDL_Color Pushed;
+		SDL_Color Hover;
+	} Colors;
 
 	UIButton();
 	~UIButton();
-
+	
 	int Draw();
+	int Draw_Pushed();
+	int Draw_Hover();
 
 protected:
 	

@@ -11,14 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="main.h" />
     <ClInclude Include="main_menu.h" />
+    <ClInclude Include="polygon.h" />
+    <ClInclude Include="render_startup.h" />
     <ClInclude Include="setmap.h" />
     <ClInclude Include="render.h" />
     <ClInclude Include="ui_button.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main_menu.cpp" />
+    <ClCompile Include="polygon.cpp" />
     <ClCompile Include="render.cpp" />
+    <ClCompile Include="render_startup.cpp" />
     <ClCompile Include="setmap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ui_button.cpp" />
