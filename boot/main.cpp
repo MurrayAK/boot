@@ -4,8 +4,6 @@
 #include "render.h"
 #include "render_startup.h"
 
-/** ------------------------------------------------------------------------------------- */
-
 int main( int argc, 
 		  char* *argv );
 
@@ -19,14 +17,10 @@ int renderGameState();
 int engineInit();
 int engineShutdown();
 
-/** ------------------------------------------------------------------------------------- */
-
 SDL_Window *window;
 SDL_Renderer *renderer;
 
 SettingsMap Settings;
-
-/** ------------------------------------------------------------------------------------- */
 
 int main( int argc, 
 		  char **argv ) 

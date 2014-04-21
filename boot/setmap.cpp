@@ -4,8 +4,6 @@
 #include <fstream>
 #include <iostream>
 
-/** ------------------------------------------------------------------------------------- */
-
 /** Constructor */
 SettingsMap::SettingsMap() {  }
 
