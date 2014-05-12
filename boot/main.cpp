@@ -33,17 +33,24 @@ int main( int argc,
 	Settings.LoadIni("config/settings.ini");
 	
 	std::string str = Settings.GetValue("App.Title");
-	char* cstr = new char [str.length()+1];
+	char* cstr = new char [ str.length() + 1 ];
 	std::strcpy (cstr, str.c_str());
-	const char *APP_NAME = cstr;
+	const char* APP_NAME = cstr;
 	
 	int ResW = std::stoi( Settings.GetValue("Engine.Screen.Width") );
 	int ResH = std::stoi( Settings.GetValue("Engine.Screen.Height") );
 
-	window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ResW, ResH, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow( APP_NAME, 
+		                       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
+							   ResW, ResH, 
+							   SDL_WINDOW_SHOWN );
+
 	if (window == nullptr) { logSDLError(std::cout, "CreateWindow"); return 2; }
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = SDL_CreateRenderer( window, -1, 
+		                           SDL_RENDERER_ACCELERATED | 
+								   SDL_RENDERER_PRESENTVSYNC );
+
 	if (renderer == nullptr) { logSDLError(std::cout, "CreateRenderer"); return 3; }
 
 	StartupScreen_Init();

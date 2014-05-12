@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
+    <ProjectConfiguration Include="_debug|Win32">
+      <Configuration>_debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
+    <ProjectConfiguration Include="_release|Win32">
+      <Configuration>_release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -35,13 +35,13 @@
     <ProjectName>boot</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
@@ -51,22 +51,22 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='_debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='_release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Users\pedro\Documents\Visual Studio 2012\Projects\GITHUB\SLD_resources\SDL2-2.0.1\include;C:\Users\pedro\Documents\Visual Studio 2012\Projects\GITHUB\SLD_resources\SDL2_ttf-2.0.12\include;C:\Users\pedro\Documents\Visual Studio 2012\Projects\GITHUB\SLD_resources\SDL2_image-2.0.0\include;C:\Users\ziebenz\Documents\Visual Studio 2012\Projects\DecvedNbiznz\SDL\SDL2_image-2.0.0\include;C:\Users\ziebenz\Documents\Visual Studio 2012\Projects\DecvedNbiznz\SDL\SDL2_ttf-2.0.12\include;C:\Users\ziebenz\Documents\Visual Studio 2012\Projects\DecvedNbiznz\SDL\SDL2-2.0.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\pedro\Documents\Visual Studio 2012\Projects\GITHUB\SLD_resources\SDL2_image-2.0.0\lib\x86;C:\Users\pedro\Documents\Visual Studio 2012\Projects\GITHUB\SLD_resources\SDL2_ttf-2.0.12\lib\x86;C:\Users\pedro\Documents\Visual Studio 2012\Projects\GITHUB\SLD_resources\SDL2-2.0.1\lib\x86;C:\Users\ziebenz\Documents\Visual Studio 2012\Projects\DecvedNbiznz\SDL\SDL2_image-2.0.0\lib\x86;C:\Users\ziebenz\Documents\Visual Studio 2012\Projects\DecvedNbiznz\SDL\SDL2_ttf-2.0.12\lib\x86;C:\Users\ziebenz\Documents\Visual Studio 2012\Projects\DecvedNbiznz\SDL\SDL2-2.0.1\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='_debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -75,35 +75,35 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\Development\Languages\C++\SDL2-2.0.1\include;D:\Development\Languages\C++\GL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>$(SolutionDir)Debug\$(ProjectName)\</AssemblerListingLocation>
-      <ObjectFileName>$(SolutionDir)Debug\$(ProjectName)\</ObjectFileName>
-      <XMLDocumentationFileName>$(SolutionDir)Debug\$(ProjectName)\</XMLDocumentationFileName>
-      <ProgramDataBaseFileName>$(SolutionDir)Debug\$(ProjectName)\vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <BrowseInformationFile>$(SolutionDir)Debug\$(ProjectName)\</BrowseInformationFile>
-      <PrecompiledHeaderOutputFile>$(SolutionDir)Debug\$(ProjectName)\$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(SolutionDir)_debug\$(ProjectName)\</AssemblerListingLocation>
+      <ObjectFileName>$(SolutionDir)_debug\$(ProjectName)\</ObjectFileName>
+      <XMLDocumentationFileName>$(SolutionDir)_debug\$(ProjectName)\</XMLDocumentationFileName>
+      <ProgramDataBaseFileName>$(SolutionDir)_debug\$(ProjectName)\vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <BrowseInformationFile>$(SolutionDir)_debug\$(ProjectName)\</BrowseInformationFile>
+      <PrecompiledHeaderOutputFile>$(SolutionDir)_debug\$(ProjectName)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\Development\Languages\C++\SDL2-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ManifestFile>$(SolutionDir)Debug\$(ProjectName)\$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
+      <ManifestFile>$(SolutionDir)_debug\$(ProjectName)\$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
       <Profile>true</Profile>
     </Link>
     <BuildLog>
-      <Path>$(SolutionDir)Debug\$(ProjectName)\$(MSBuildProjectName).log</Path>
+      <Path>$(SolutionDir)_debug\$(ProjectName)\$(MSBuildProjectName).log</Path>
     </BuildLog>
     <Manifest>
-      <OutputManifestFile>$(SolutionDir)Debug\$(ProjectName)\$(TargetName)$(TargetExt).embed.manifest</OutputManifestFile>
+      <OutputManifestFile>$(SolutionDir)_debug\$(ProjectName)\$(TargetName)$(TargetExt).embed.manifest</OutputManifestFile>
     </Manifest>
     <ManifestResourceCompile>
-      <ResourceOutputFileName>$(SolutionDir)Debug\$(ProjectName)\$(TargetName)$(TargetExt).embed.manifest.res</ResourceOutputFileName>
+      <ResourceOutputFileName>$(SolutionDir)_debug\$(ProjectName)\$(TargetName)$(TargetExt).embed.manifest.res</ResourceOutputFileName>
     </ManifestResourceCompile>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)dlls\*.dll" "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='_release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
