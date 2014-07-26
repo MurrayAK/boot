@@ -1,0 +1,11 @@
+#ifndef MOUSE_H
+#define MOUSE_H
+
+enum MouseEvent { 
+	MOUSE_CLICK_LEFT,
+	MOUSE_CLICK_MIDDLE,
+	MOUSE_CLICK_RIGHT,
+	MOUSE_MOTION
+};
+
+#endif
